@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 
 
-class Home extends Component {
+class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      welcomeTxt: 'Hello!'
+      welcomeTxt: 'Login!'
     }
     
   }
@@ -20,4 +20,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default LoginPage;

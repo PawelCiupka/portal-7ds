@@ -6,19 +6,31 @@ import {
 } from 'react-router-dom';
 
 // Pages
-import Home from './Home';
+import HomePage from './HomePage';
+import LoginPage from './LoginPage';
 
+// Styles
+import './styles/app.css';
 
 // Routing class
 class App extends Component {
   render() {
     return (
-      <Router>
-        <>
-          <Route exact path="/" component={Home} />
-          
-        </>
-      </Router>
+      <>
+        <ul className="app-menu">
+          <li><a href='/'>Home</a></li>
+          <li><a href='/login'>Login</a></li>
+        </ul>
+
+        <Router>
+          <>
+            <Route exact path="/" component={HomePage} />
+            <Route exact path="/login" component={LoginPage} />
+            
+          </>
+        </Router>
+       
+      </>
     );
   }
 }
