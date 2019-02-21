@@ -13,10 +13,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); 
 app.use(logger("dev"));
 
-const routes = require('./api/routes');
-app.use('/api', routes);
+app.use('/api/user', require('./api/users/users.controller'));
 
-const dbRoute = "";
+const dbRoute = "mongodb://administrator:10qwpoeriuty@ds147225.mlab.com:47225/portal-7ds";
 
 // connects our back end code with the database
 mongoose.connect(
