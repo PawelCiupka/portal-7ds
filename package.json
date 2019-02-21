@@ -1,0 +1,25 @@
+{
+  "name": "portal-7ds",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.x"
+  },
+  "scripts": {
+    "start": "node server",
+    "heroku-postbuild": "cd react-ui/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "react-ui/node_modules"
+  ],
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-recaptcha": "^4.1.1",
+    "mongoose": "^5.4.1",
+    "morgan": "^1.9.1",
+    "nodemailer": "^5.0.0",
+    "package-name": "^0.1.0",
+    "react-router-dom": "^4.3.1"
+  }
+}
