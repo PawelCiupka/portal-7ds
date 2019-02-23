@@ -5,16 +5,21 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      welcomeTxt: 'Login!'
+      welcomeTxt: 'Login!',
+
     }
-    
+
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleTextChange(e) {
+
   }
 
   handleSubmit() {
     axios.get(`/api/user/getUsername/${this.state.welcomeTxt}`
     ).then(res => {
-      this.setState({ welcomeTxt: res.data})
+      this.setState({ welcomeTxt: res.data })
     });
   }
 
@@ -22,8 +27,20 @@ class LoginPage extends React.Component {
     return (
       <>
         {this.state.welcomeTxt}
-        <br/>
+        <br />
         <button onClick={this.handleSubmit}>Dodaj !</button>
+
+        <div>
+          <form>
+            <label>
+              <input></input>
+            </label>
+            <label>
+
+            </label>
+          </form>
+        </div>
+
       </>
     )
   }
