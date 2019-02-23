@@ -55,7 +55,7 @@ class RegisterPage extends React.Component {
             email: '',
             password: '',
             password2: '',
-            errorMessage: '',
+            errorMessage: [],
             isValid: true
         }
 
@@ -111,7 +111,80 @@ class RegisterPage extends React.Component {
     handleTextRoomNmbChange = (e, { value }) => this.setState({ roomNmb: value })
 
     validateInputs() {
-        // DO VALIDATIONS
+        const username = this.state.username;
+        const firstname = this.state.firstname;
+        const lastname = this.state.lastname;
+        const floor = this.state.floor;
+        const roomNmb = this.state.roomNmb;
+        const email = this.state.email;
+        const password = this.state.password;
+        const password2 = this.state.password2;
+
+        this.state.errorMessage.length = 0;
+
+        // username       
+        if (username.length < 3) {
+            if (username.length === 0) {
+                this.state.errorMessage.push(`Nazwa użytkownika nie może być pusta.`);
+            } else {
+                this.state.errorMessage.push(`Nazwa użytkownika musi być dłuższa niż 3.`);
+            }
+        }
+        if (username.length >= 20) {
+            this.state.errorMessage.push(`Nazwa użytkownika musi być krótsza niż 20.`);
+        }
+
+        // firstname
+        if (firstname.length === 0) {
+            this.state.errorMessage.push(`Imię nie może być puste.`);
+        }
+        if (firstname.length >= 20) {
+            this.state.errorMessage.push(`Imię musi być krótsza niż 20.`);
+        }
+
+        // lastname        
+        if (lastname.length === 0) {
+            this.state.errorMessage.push(`Nazwisko nie może być puste.`);
+        }
+        if (lastname.length >= 30) {
+            this.state.errorMessage.push(`Nazwisko musi być krótsza niż 30.`);
+        }
+
+        // room
+        if (floor.length === 0) {
+            this.state.errorMessage.push(`Piętro nie może być puste.`)
+        }
+        if (roomNmb.length === 0) {
+            this.state.errorMessage.push(`Numer pokoju nie może być puste.`)
+        }
+
+        // email
+        if (!email.includes("@") || !email.includes(".")) {
+            this.state.errorMessage.push(`Nieprawidłowy mail.`);
+        }
+
+        // passwords
+        if (password != password2) {
+            this.state.errorMessage.push(`Hasła nie są identyczne.`);
+        } else {
+            if (password.length < 4) {
+                if (password.length === 0 || password2.length === 0) {
+                    this.state.errorMessage.push(`Hasło nie może być puste.`);
+                } else {
+                    this.state.errorMessage.push(`Hasło musi być dłuższe niż 3.`);
+                }
+            }
+            if (password.length >= 20) {
+                this.state.errorMessage.push(`Hasło musi być krótsze niż 20.`);
+            }
+        }
+
+
+        if (this.state.errorMessage.length != 0) {
+            this.setState({ isValid: false });
+        } else {
+            this.setState({ isValid: true });
+        }
     }
 
     registerUser() {
@@ -119,18 +192,7 @@ class RegisterPage extends React.Component {
     }
 
     handleSubmit(e) {
-
-        var userData = `
-        Nazwa użytkownika: ${this.state.username}
-        Imię i nazwisko: ${this.state.firstname} ${this.state.lastname}
-        Pokój: ${this.state.floor}${this.state.roomNmb}
-        E-mail: ${this.state.email}
-        Hasło: ${this.state.password}`
-
-        alert(userData);
-
-        this.setState({ errorMessage: userData});
-        this.setState({ isValid: false });
+        this.validateInputs();
     }
 
     // RENDER
@@ -142,7 +204,11 @@ class RegisterPage extends React.Component {
                     <div>
                         <Message error>
                             <Message.Header>Nieprawidłowe dane</Message.Header>
-                            <p>{this.state.errorMessage}</p>
+                            <Message.List>
+                                {this.state.errorMessage.map(mess => (
+                                    <Message.Item>{mess}</Message.Item>
+                                ))}
+                            </Message.List>
                         </Message>
                     </div>
                     : <></>
