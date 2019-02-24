@@ -116,6 +116,7 @@ class RegisterPage extends React.Component {
         const lastname = this.state.lastname;
         const floor = this.state.floor;
         const roomNmb = this.state.roomNmb;
+        const room = floor + roomNmb;
         const email = this.state.email;
         const password = this.state.password;
         const password2 = this.state.password2;
@@ -158,6 +159,8 @@ class RegisterPage extends React.Component {
             this.state.errorMessage.push(`Numer pokoju nie może być puste.`)
         }
 
+        this.setState({ room: room });
+
         // email
         if (!email.includes("@") || !email.includes(".")) {
             this.state.errorMessage.push(`Nieprawidłowy mail.`);
@@ -187,12 +190,23 @@ class RegisterPage extends React.Component {
         }
     }
 
-    registerUser() {
-        // DO AXIOS POST METHOD + ( FUNCTION + ROUTER IN API )
+    registerUser = () => {
+        axios.post('/api/user/create', {
+            username: this.state.username,
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
+            room: this.state.room,
+            email: this.state.email,
+            password: this.state.password
+        });
     }
 
     handleSubmit(e) {
         this.validateInputs();
+        if (this.state.isValid === true) {
+            this.registerUser();
+            this.handleOpen();
+        }
     }
 
     // RENDER
@@ -293,8 +307,9 @@ class RegisterPage extends React.Component {
                                 onChange={this.handleTextChange} />
                         </Form.Group>
 
-                        <button type="submit">Go</button>
+                        <button type="submit">Zarejestruj</button>
                     </Form>
+                   
 
                 </div>
             </>

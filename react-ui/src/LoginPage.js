@@ -5,15 +5,10 @@ class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      welcomeTxt: 'Login!',
-
+      welcomeTxt: 'XD',
     }
 
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleTextChange(e) {
-
   }
 
   handleSubmit() {
@@ -28,19 +23,7 @@ class LoginPage extends React.Component {
       <>
         {this.state.welcomeTxt}
         <br />
-        <button onClick={this.handleSubmit}>Dodaj !</button>
-
-        <div>
-          <form>
-            <label>
-              <input></input>
-            </label>
-            <label>
-
-            </label>
-          </form>
-        </div>
-
+        <button onClick={this.handleSubmit}>XD</button>
       </>
     )
   }
