@@ -5,6 +5,7 @@ const User = require('./users.model');
 // Routers
 router.get('/getUsername/:id', getUsername);
 router.post('/create', create);
+router.get('/checkIfUserExist/:username', checkIfUserExist);
 
 
 module.exports = router;
@@ -35,4 +36,15 @@ function create(req, res, next) {
                 message: err.message || "[User.create] error."
             });
         });
+}
+
+function checkIfUserExist(req, res, next) {
+    // User.count({username: req.params.username}, function(err, count) {
+    //     if(count>0) {
+    //         res.send(true);
+    //     } else {
+    //         res.send(false);
+    //     }
+    // });
+    res.send(true);
 }

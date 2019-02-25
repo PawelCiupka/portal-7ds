@@ -17,7 +17,11 @@ const UserSchema = new Schema({
     },
     role: {
         type: String,
-        default: 'NormalUser'
+        default: 'normal'
+    },
+    status: {
+        type: String,
+        default: 'unverified'
     }
 }, {
         timestamps: true
@@ -28,11 +32,9 @@ function hashPassword(password) {
 }
 
 UserSchema.methods.verifyPassword = function (password) {
-    bcrypt.hash(password, 10, function (err, hash) {
-        let passwordHash = hash;
-    });
+    let hashedPassword = bcrypt.hashSync(password, 10);
 
-    return this.password === passwordHash;
+    return this.password === hashedPassword;
 }
 
 module.exports = mongoose.model('User', UserSchema);

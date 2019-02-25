@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Form, Message } from 'semantic-ui-react';
+import { Form, Message, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
 const floorsOptions = [
@@ -56,7 +56,7 @@ class RegisterPage extends React.Component {
             password: '',
             password2: '',
             errorMessage: [],
-            isValid: true
+            isValid: Boolean
         }
 
         this.handleTextChange = this.handleTextChange.bind(this);
@@ -112,6 +112,7 @@ class RegisterPage extends React.Component {
 
     validateInputs() {
         const username = this.state.username;
+        let doExist;
         const firstname = this.state.firstname;
         const lastname = this.state.lastname;
         const floor = this.state.floor;
@@ -123,16 +124,23 @@ class RegisterPage extends React.Component {
 
         this.state.errorMessage.length = 0;
 
-        // username       
-        if (username.length < 3) {
-            if (username.length === 0) {
-                this.state.errorMessage.push(`Nazwa użytkownika nie może być pusta.`);
+        // solve problem with async axios get
+        // i get DoExist after if in 134 line
+        
+
+        // username
+        if (username.length === 0) {
+            this.state.errorMessage.push(`Nazwa użytkownika nie może być pusta.`);
+        } else {
+            if(doExist === true) {    
+                this.state.errorMessage.push(`Podana nazwa użytkownika już istnieje.`);
             } else {
-                this.state.errorMessage.push(`Nazwa użytkownika musi być dłuższa niż 3.`);
+                if (username.length < 3) {
+                    this.state.errorMessage.push(`Nazwa użytkownika musi być dłuższa niż 3.`);
+                } else if(username.length >= 20) {
+                    this.state.errorMessage.push(`Nazwa użytkownika musi być krótsza niż 20.`);
+                }
             }
-        }
-        if (username.length >= 20) {
-            this.state.errorMessage.push(`Nazwa użytkownika musi być krótsza niż 20.`);
         }
 
         // firstname
@@ -156,7 +164,7 @@ class RegisterPage extends React.Component {
             this.state.errorMessage.push(`Piętro nie może być puste.`)
         }
         if (roomNmb.length === 0) {
-            this.state.errorMessage.push(`Numer pokoju nie może być puste.`)
+            this.state.errorMessage.push(`Numer pokoju nie może być pusty.`)
         }
 
         this.setState({ room: room });
@@ -167,7 +175,7 @@ class RegisterPage extends React.Component {
         }
 
         // passwords
-        if (password != password2) {
+        if (password !== password2) {
             this.state.errorMessage.push(`Hasła nie są identyczne.`);
         } else {
             if (password.length < 4) {
@@ -182,12 +190,27 @@ class RegisterPage extends React.Component {
             }
         }
 
-
-        if (this.state.errorMessage.length != 0) {
-            this.setState({ isValid: false });
+        if (this.state.errorMessage.length !== 0) {
+            return false;
         } else {
-            this.setState({ isValid: true });
+            return true;
         }
+    }
+
+    // checkIfUserExistInDb2() {
+    //     return new Promise((resolve, reject) => {
+    //         axios.get(`/api/user/checkIfUserExist/${this.state.username}`
+    //         ).then(res => {
+    //             resolve(res.data);
+    //         });
+    //     });        
+    // }
+
+    checkIfUserExistInDb() {
+        axios.get(`/api/user/checkIfUserExist/${this.state.username}`)
+        .then(res => {
+            return res.data;
+        });
     }
 
     registerUser = () => {
@@ -202,10 +225,11 @@ class RegisterPage extends React.Component {
     }
 
     handleSubmit(e) {
-        this.validateInputs();
-        if (this.state.isValid === true) {
+        if (this.validateInputs() === true) {
+            this.setState({ isValid: true });
             this.registerUser();
-            this.handleOpen();
+        } else {
+            this.setState({ isValid: false });
         }
     }
 
@@ -213,14 +237,14 @@ class RegisterPage extends React.Component {
     render() {
         return (
             <>
-                {this.state.isValid == false
+                {this.state.isValid === false
                     ?
                     <div>
                         <Message error>
                             <Message.Header>Nieprawidłowe dane</Message.Header>
                             <Message.List>
                                 {this.state.errorMessage.map(mess => (
-                                    <Message.Item>{mess}</Message.Item>
+                                    <Message.Item key={mess}>{mess}</Message.Item>
                                 ))}
                             </Message.List>
                         </Message>
@@ -307,7 +331,7 @@ class RegisterPage extends React.Component {
                                 onChange={this.handleTextChange} />
                         </Form.Group>
 
-                        <button type="submit">Zarejestruj</button>
+                        <Button type="submit">Zarejestruj</Button>
                     </Form>
                    
 
