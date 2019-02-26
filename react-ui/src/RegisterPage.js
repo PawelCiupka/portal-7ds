@@ -124,23 +124,16 @@ class RegisterPage extends React.Component {
 
         this.state.errorMessage.length = 0;
 
-        // solve problem with async axios get
-        // i get DoExist after if in 134 line
-        
-
-        // username
-        if (username.length === 0) {
-            this.state.errorMessage.push(`Nazwa użytkownika nie może być pusta.`);
-        } else {
-            if(doExist === true) {    
-                this.state.errorMessage.push(`Podana nazwa użytkownika już istnieje.`);
-            } else {
-                if (username.length < 3) {
-                    this.state.errorMessage.push(`Nazwa użytkownika musi być dłuższa niż 3.`);
-                } else if(username.length >= 20) {
-                    this.state.errorMessage.push(`Nazwa użytkownika musi być krótsza niż 20.`);
+        if(username.length >= 3 && username.length < 20) {
+            this.checkIfUserExist()
+            .then(doExist => {
+                if(this.state.doExist == true) {
+                    this.state.errorMessage.push(`Podana nazwa użytkownika już istnieje.`);
+                    this.forceUpdate();
                 }
-            }
+            });
+        } else {
+            this.state.errorMessage.push(`Nazwa użytkownika powinna być dłuższa niż 3 znaki oraz krótsza niż 20 znaków.`);
         }
 
         // firstname
@@ -205,6 +198,14 @@ class RegisterPage extends React.Component {
     //         });
     //     });        
     // }
+
+    async checkIfUserExist() {
+        const doExist = await fetch(`/api/user/checkIfUserExist/${this.state.username}`)
+        .then(res => res.json());
+        console.log(`0. ${doExist}`);
+        this.setState({ doExist: doExist});
+        return doExist;
+    }
 
     checkIfUserExistInDb() {
         axios.get(`/api/user/checkIfUserExist/${this.state.username}`)

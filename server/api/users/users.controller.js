@@ -39,12 +39,11 @@ function create(req, res, next) {
 }
 
 function checkIfUserExist(req, res, next) {
-    // User.count({username: req.params.username}, function(err, count) {
-    //     if(count>0) {
-    //         res.send(true);
-    //     } else {
-    //         res.send(false);
-    //     }
-    // });
-    res.send(true);
+    User.count({username: req.params.username}, function(err, count) {
+        if(count>0) {
+            res.send(true);
+        } else {
+            res.send(false);
+        }
+    });
 }

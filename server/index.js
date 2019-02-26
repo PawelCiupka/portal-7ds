@@ -17,17 +17,17 @@ app.use('/api/user', require('./api/users/users.controller'));
 
 const dbRoute = "mongodb://administrator:10qwpoeriuty@ds147225.mlab.com:47225/portal-7ds";
 
-// connects our back end code with the database
-// mongoose.connect(
-//   dbRoute,
-//   { useNewUrlParser: true }
-// );
+// connects our backend code with the database
+mongoose.connect(
+  dbRoute,
+  { useNewUrlParser: true }
+);
 
-// let db = mongoose.connection;
+let db = mongoose.connection;
 
-// db.once("open", () => console.log("Successful connection to the database"));
+db.once("open", () => console.log("Successful connection to the database"));
 
-// db.on("error", console.error.bind(console, "MongoDB connection error:"));
+db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
 
 // Priority serve any static files.
