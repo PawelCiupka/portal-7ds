@@ -197,6 +197,7 @@ class RegisterPage extends React.Component {
     }
 
     handleSubmit(e) {
+        this.setState({ isValid: true});
         this.validateInputs();
         if(this.state.isValid === true) {
             this.registerUser();
