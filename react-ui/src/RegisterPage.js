@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import { Form, Message, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
+import { resolve } from 'path';
+import { rejects } from 'assert';
 
 const floorsOptions = [
     { key: "1", text: "1", value: "1" },
@@ -125,96 +127,65 @@ class RegisterPage extends React.Component {
         this.state.errorMessage.length = 0;
 
         if(username.length >= 3 && username.length < 20) {
-            this.checkIfUserExist()
-            .then(doExist => {
-                if(this.state.doExist == true) {
-                    this.state.errorMessage.push(`Podana nazwa użytkownika już istnieje.`);
-                    this.forceUpdate();
+            this.checkIfUserExistInDb()
+            .then((response) => {                
+                console.log(`body-> ${response}`);
+                if(response == true) {
+                    this.state.errorMessage.push(`Użytkownik o podanej nazwie już istnieje.`);
+                    this.setState({ isValid: false });
                 }
-            });
+            })
+            .catch((error) => {alert(error.message)});
         } else {
-            this.state.errorMessage.push(`Nazwa użytkownika powinna być dłuższa niż 3 znaki oraz krótsza niż 20 znaków.`);
+            this.state.errorMessage.push(`Nieprawidłowa długość nazwy użytkownika.`);
+            this.setState({ isValid: false });
         }
 
-        // firstname
-        if (firstname.length === 0) {
-            this.state.errorMessage.push(`Imię nie może być puste.`);
-        }
+
+        //firstname
         if (firstname.length >= 20) {
-            this.state.errorMessage.push(`Imię musi być krótsza niż 20.`);
+            this.state.errorMessage.push(`Imię nie może przekraczać 20 znaków.`);
+            this.setState({ isValid: false });
         }
 
-        // lastname        
-        if (lastname.length === 0) {
-            this.state.errorMessage.push(`Nazwisko nie może być puste.`);
-        }
+        // lastname   
         if (lastname.length >= 30) {
-            this.state.errorMessage.push(`Nazwisko musi być krótsza niż 30.`);
+            this.state.errorMessage.push(`Nazwisko mie może przekraczać 30 znaków.`);
+            this.setState({ isValid: false });
         }
 
         // room
-        if (floor.length === 0) {
-            this.state.errorMessage.push(`Piętro nie może być puste.`)
-        }
-        if (roomNmb.length === 0) {
-            this.state.errorMessage.push(`Numer pokoju nie może być pusty.`)
-        }
-
         this.setState({ room: room });
 
         // email
         if (!email.includes("@") || !email.includes(".")) {
-            this.state.errorMessage.push(`Nieprawidłowy mail.`);
+            this.state.errorMessage.push(`Nieprawidłowy format  e-mail'u.`);
+            this.setState({ isValid: false });
         }
 
         // passwords
         if (password !== password2) {
             this.state.errorMessage.push(`Hasła nie są identyczne.`);
+            this.setState({ isValid: false });
         } else {
             if (password.length < 4) {
-                if (password.length === 0 || password2.length === 0) {
-                    this.state.errorMessage.push(`Hasło nie może być puste.`);
-                } else {
-                    this.state.errorMessage.push(`Hasło musi być dłuższe niż 3.`);
-                }
+                this.state.errorMessage.push(`Hasło musi być dłuższe niż 3 znaki.`);
+                this.setState({ isValid: false });
             }
-            if (password.length >= 20) {
-                this.state.errorMessage.push(`Hasło musi być krótsze niż 20.`);
-            }
-        }
-
-        if (this.state.errorMessage.length !== 0) {
-            return false;
-        } else {
-            return true;
         }
     }
 
-    // checkIfUserExistInDb2() {
-    //     return new Promise((resolve, reject) => {
-    //         axios.get(`/api/user/checkIfUserExist/${this.state.username}`
-    //         ).then(res => {
-    //             resolve(res.data);
-    //         });
-    //     });        
-    // }
-
-    async checkIfUserExist() {
-        const doExist = await fetch(`/api/user/checkIfUserExist/${this.state.username}`)
-        .then(res => res.json());
-        console.log(`0. ${doExist}`);
-        this.setState({ doExist: doExist});
-        return doExist;
-    }
-
-    checkIfUserExistInDb() {
-        axios.get(`/api/user/checkIfUserExist/${this.state.username}`)
-        .then(res => {
-            return res.data;
-        });
+    checkIfUserExistInDb = () => {
+        return new Promise((resolve, rejects) => {
+            const doExist = fetch(`/api/user/checkIfUserExist/${this.state.username}`)
+            .then(res => res.json());
+            console.log(`fn-> ${doExist}`);
+            resolve(doExist);
+        })
     }
 
     registerUser = () => {
+        console.log('Rejestracja');
         axios.post('/api/user/create', {
             username: this.state.username,
             firstname: this.state.firstname,
@@ -226,11 +197,9 @@ class RegisterPage extends React.Component {
     }
 
     handleSubmit(e) {
-        if (this.validateInputs() === true) {
-            this.setState({ isValid: true });
+        this.validateInputs();
+        if(this.state.isValid === true) {
             this.registerUser();
-        } else {
-            this.setState({ isValid: false });
         }
     }
 
@@ -266,8 +235,8 @@ class RegisterPage extends React.Component {
                         <Form.Group
                             widths='equal'>
                             <Form.Input
-                                fluid label="Imie"
-                                placeholder="Imie"
+                                fluid label="Imię"
+                                placeholder="Imię"
                                 name="firstname"
                                 value={this.state.firstname}
                                 onChange={this.handleTextChange} />
@@ -333,6 +302,20 @@ class RegisterPage extends React.Component {
                         </Form.Group>
 
                         <Button type="submit">Zarejestruj</Button>
+
+                        {/* <Button 
+                        type="submit"
+                        disabled={ 
+                            !this.state.username ||
+                            !this.state.firstname ||
+                            !this.state.lastname ||
+                            !this.state.floor ||
+                            !this.state.roomNmb ||
+                            !this.state.email ||
+                            !this.state.password ||
+                            !this.state.password2
+                        }
+                        >Zarejestruj</Button> */}
                     </Form>
                    
 
