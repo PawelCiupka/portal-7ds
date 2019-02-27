@@ -159,7 +159,7 @@ class RegisterPage extends React.Component {
 
         // email
         if (!email.includes("@") || !email.includes(".")) {
-            this.state.errorMessage.push(`Nieprawidłowy format  e-mail'u.`);
+            this.state.errorMessage.push(`Nieprawidłowy format  e-mail'a.`);
             this.setState({ isValid: false });
         }
 
@@ -301,9 +301,9 @@ class RegisterPage extends React.Component {
                                 onChange={this.handleTextChange} />
                         </Form.Group>
 
-                        <Button type="submit">Zarejestruj</Button>
+                        {/* <Button type="submit">Zarejestruj</Button> */}
 
-                        {/* <Button 
+                        <Button 
                         type="submit"
                         disabled={ 
                             !this.state.username ||
@@ -315,7 +315,7 @@ class RegisterPage extends React.Component {
                             !this.state.password ||
                             !this.state.password2
                         }
-                        >Zarejestruj</Button> */}
+                        >Zarejestruj</Button>
                     </Form>
                    
 
