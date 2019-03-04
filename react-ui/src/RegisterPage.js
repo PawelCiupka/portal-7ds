@@ -1,9 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { Form, Message, Button } from 'semantic-ui-react';
+import { Form, Message, Button, Modal } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import { resolve } from 'path';
-import { rejects } from 'assert';
 
 const floorsOptions = [
     { key: "1", text: "1", value: "1" },
@@ -42,7 +40,6 @@ const roomNmbOptions = [
 ];
 
 
-
 class RegisterPage extends React.Component {
     constructor(props) {
         super(props);
@@ -58,7 +55,8 @@ class RegisterPage extends React.Component {
             password: '',
             password2: '',
             errorMessage: [],
-            isValid: Boolean
+            isValid: Boolean,
+            confirmModalOpen: false
         }
 
         this.handleTextChange = this.handleTextChange.bind(this);
@@ -114,7 +112,6 @@ class RegisterPage extends React.Component {
 
     validateInputs() {
         const username = this.state.username;
-        let doExist;
         const firstname = this.state.firstname;
         const lastname = this.state.lastname;
         const floor = this.state.floor;
@@ -185,7 +182,6 @@ class RegisterPage extends React.Component {
     }
 
     registerUser = () => {
-        console.log('Rejestracja');
         axios.post('/api/user/create', {
             username: this.state.username,
             firstname: this.state.firstname,
@@ -196,11 +192,48 @@ class RegisterPage extends React.Component {
         });
     }
 
+
+    // Confirmation Modal - START
+    openModal = () => this.setState({ confirmModalOpen: true })
+    closeModal = () => this.setState({ confirmModalOpen: false })
+
+    renderConfirmationModal() {    
+        return (
+          <div>
+    
+            <Modal
+              open={this.state.confirmModalOpen}
+              closeOnEscape={true}
+              closeOnDimmerClick={false}
+              onOpen={this.openModal}
+              onClose={this.closeModal}
+            >
+              <Modal.Header>Pomyślna rejestracja</Modal.Header>
+              <Modal.Content>
+                <p>Cześć! Rejestracja dobiegła końca. Zaloguj się by przejść do portalu.</p>
+              </Modal.Content>
+              <Modal.Actions>
+                <Button 
+                    onClick={this.closeModal}>
+                    <a href='/login'>Zaloguj się</a>
+                </Button>
+                <Button
+                    onClick={this.closeModal}>
+                    <a href='/'>Strona główna</a>
+                </Button>
+              </Modal.Actions>
+            </Modal>
+          </div>
+        )
+      }
+    // Confirmation Modal - END
+
     handleSubmit(e) {
         this.setState({ isValid: true});
         this.validateInputs();
         if(this.state.isValid === true) {
             this.registerUser();
+            this.openModal();
         }
     }
 
@@ -208,6 +241,7 @@ class RegisterPage extends React.Component {
     render() {
         return (
             <>
+            {this.renderConfirmationModal()}
                 {this.state.isValid === false
                     ?
                     <div>
@@ -317,6 +351,7 @@ class RegisterPage extends React.Component {
                             !this.state.password2
                         }
                         >Zarejestruj</Button>
+
                     </Form>
                    
 
