@@ -1,17 +1,13 @@
-import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom';
+import React, { Component } from "react";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 // Pages
-import HomePage from './HomePage';
-import LoginPage from './LoginPage';
-import RegisterPage from './RegisterPage';
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 
 // Styles
-import './styles/app.css';
+import "./styles/app.css";
 
 // Routing class
 class App extends Component {
@@ -19,9 +15,15 @@ class App extends Component {
     return (
       <>
         <ul className="app-menu">
-          <li><a href='/'>Home</a></li>
-          <li><a href='/register'>Register</a></li>
-          <li><a href='/login'>Login</a></li>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/register">Register</a>
+          </li>
+          <li>
+            <a href="/login">Login</a>
+          </li>
         </ul>
 
         <Router>
@@ -29,10 +31,8 @@ class App extends Component {
             <Route exact path="/" component={HomePage} />
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
-
           </>
         </Router>
-
       </>
     );
   }

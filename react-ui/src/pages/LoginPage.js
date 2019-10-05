@@ -1,20 +1,19 @@
-import React from 'react';
+import React from "react";
 import axios from "axios";
 
 class LoginPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      welcomeTxt: 'XD',
-    }
+      welcomeTxt: "XD"
+    };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit() {
-    axios.get(`/api/user/getUsername/${this.state.welcomeTxt}`
-    ).then(res => {
-      this.setState({ welcomeTxt: res.data })
+    axios.get(`/api/user/getUsername/${this.state.welcomeTxt}`).then(res => {
+      this.setState({ welcomeTxt: res.data });
     });
   }
 
@@ -25,7 +24,7 @@ class LoginPage extends React.Component {
         <br />
         <button onClick={this.handleSubmit}>XD</button>
       </>
-    )
+    );
   }
 }
 
