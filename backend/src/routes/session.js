@@ -9,10 +9,10 @@ const sessionRouter = express.Router();
 
 sessionRouter.post("", async (req, res) => {
   try {
-    const { email, password } = req.body;
-    await Joi.validate({ email, password }, signIn);
+    const { username, password } = req.body;
+    await Joi.validate({ username, password }, signIn);
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ username });
     if (user && user.comparePasswords(password)) {
       const sessionUser = sessionizeUser(user);
 

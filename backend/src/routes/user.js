@@ -7,10 +7,10 @@ import { parseError, sessionizeUser } from "../util/helpers";
 const userRouter = express.Router();
 userRouter.post("", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    await Joi.validate({ username, email, password }, signUp);
+    const { username, firstname, lastname, room, email, password } = req.body;
+    await Joi.validate({ firstname, lastname, username, email, password }, signUp);
 
-    const newUser = new User({ username, email, password });
+    const newUser = new User({ username, firstname, lastname, room, email, password });
     const sessionUser = sessionizeUser(newUser);
     await newUser.save();
 

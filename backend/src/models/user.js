@@ -9,6 +9,15 @@ const UserSchema = new mongoose.Schema({
       message: "Username already exists"
     }
   },
+  firstname: {
+    type: String
+  },
+  lastname: {
+    type: String
+  },
+  room: {
+    type: String
+  },
   email: {
     type: String,
     validate: {
@@ -19,6 +28,17 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  role: {
+    type: String,
+    default: "user"
+  },
+  roomAccess: {
+    type: String
+  },
+  status: {
+    type: String,
+    default: "unverified"
   }
 }, { timestamps: true });
 
