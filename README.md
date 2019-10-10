@@ -7,13 +7,15 @@ This is prototype of portal which could be used by inhabitant of dormitory.
 * [Status](#status)
 
 ## Technologies
-* JavaScript
-* Node.js
+* MongoDB (Atlas)
+* Express
 * React
-* Semantic UI React
-* MongoDB
-* HTML5
-* CSS
+* Node.js
+* Redux
+* Mongoose
+* Joi
+* BCrypt
+* ES6+
 * Bootstrap
 
 ## Setup
