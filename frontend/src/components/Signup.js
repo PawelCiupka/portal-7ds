@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { signup } from "../actions/session";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
+import { floorsOptions, roomNmbOptions } from "../helpers/roomList";
 
 const mapStateToProps = ({ errors }) => ({
   errors
@@ -12,67 +13,27 @@ const mapDispatchToProps = dispatch => ({
   signup: user => dispatch(signup(user))
 });
 
-const floorsOptions = [
-  { key: "1", text: "1", value: "1" },
-  { key: "2", text: "2", value: "2" },
-  { key: "3", text: "3", value: "3" },
-  { key: "4", text: "4", value: "4" },
-  { key: "5", text: "5", value: "5" },
-  { key: "6", text: "6", value: "6" },
-  { key: "7", text: "7", value: "7" },
-  { key: "8", text: "8", value: "8" },
-  { key: "9", text: "9", value: "9" },
-  { key: "10", text: "10", value: "10" },
-  { key: "11", text: "11", value: "11" },
-  { key: "12", text: "12", value: "12" },
-  { key: "13", text: "13", value: "13" },
-  { key: "14", text: "14", value: "14" },
-  { key: "15", text: "15", value: "15" },
-  { key: "16", text: "16", value: "16" }
-];
-
-const roomNmbOptions = [
-  { key: "3", text: "3", value: "03" },
-  { key: "4", text: "4", value: "04" },
-  { key: "5", text: "5", value: "05" },
-  { key: "6", text: "6", value: "06" },
-  { key: "7", text: "7", value: "07" },
-  { key: "8", text: "8", value: "08" },
-  { key: "9", text: "9", value: "09" },
-  { key: "10", text: "10", value: "10" },
-  { key: "11", text: "11", value: "11" },
-  { key: "12", text: "12", value: "12" },
-  { key: "13", text: "13", value: "13" },
-  { key: "14", text: "14", value: "14" },
-  { key: "15", text: "15", value: "15" },
-  { key: "16", text: "16", value: "16" }
-];
-
 const Signup = ({ errors, signup }) => {
+  const [passError, setPassError] = useState("");
+
   const handleSubmit = e => {
     e.preventDefault();
+    setPassError("");
+
+    const room = e.target[3].value + e.target[4].value;
     const user = {
       username: e.target[0].value,
       firstname: e.target[1].value,
       lastname: e.target[2].value,
-      room: e.target[3].value,
-      email: e.target[4].value,
-      password: e.target[5].value
+      room: room,
+      email: e.target[5].value,
+      password: e.target[6].value
     };
 
-    console.log(e.target[0].value);
-    console.log(e.target[1].value);
-    console.log(e.target[2].value);
-    console.log(e.target[3].value);
-    console.log(e.target[4].value);
-    console.log(e.target[5].value);
-    console.log(e.target[6].value);
-    console.log(user);
-
-    if (e.target[5].value === e.target[6].value) {
+    if (e.target[6].value === e.target[7].value) {
       signup(user);
     } else {
-      console.log("xd");
+      setPassError("Hasła muszą być identyczne");
     }
   };
 
@@ -158,6 +119,7 @@ const Signup = ({ errors, signup }) => {
             Zarejestruj
           </Button>
         </Form>
+        <p>{passError}</p>
         <p>{errors}</p>
 
         <br />
