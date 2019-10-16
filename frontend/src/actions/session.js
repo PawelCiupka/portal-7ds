@@ -26,7 +26,7 @@ export const login = user => async dispatch => {
 export const signup = user => async dispatch => {
   const response = await apiUtil.signup(user);
   const data = await response.json();
-  
+
   if (response.ok) {
     return dispatch(receiveCurrentUser(data));
   }
