@@ -12,8 +12,6 @@ const Header = props => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Strona startowa</Nav.Link>
-            <Nav.Link href="/login">Zaloguj się</Nav.Link>
-            <Nav.Link href="/signup">Zarejestruj się</Nav.Link>
             <Nav.Link href="/dashboard">Dashboard</Nav.Link>
             <UserDropdown/>
           </Nav>
