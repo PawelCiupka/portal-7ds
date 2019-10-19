@@ -7,18 +7,28 @@ import {
   getRoomNmb,
   getFloor
 } from "../../helpers/roomList";
-import { signup } from "../../actions/session";
+import { updateInformation } from "../../util/user";
+import UserDataChangeForm from "../../components/userForms/userDataChangeForm";
+import UserRoomChangeForm from "../../components/userForms/userRoomChangeForm";
 
 const mapStateToProps = ({ session }) => ({
   session
 });
 
-const mapDispatchToProps = dispatch => ({
-  signup: user => dispatch(signup(user))
-});
-
 const UserCenter = ({ session }) => {
-  const handleSubmit = () => {};
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    const room = e.target[3].value + e.target[4].value;
+    const user = {
+      id: session.userId,
+      username: e.target[0].value,
+      room: room,
+      email: e.target[5].value
+    };
+
+    updateInformation(user);
+  };
 
   console.log(session);
 
@@ -26,86 +36,48 @@ const UserCenter = ({ session }) => {
     <>
       <h1>Cześć z centrum zarządzania użytkownikiem!</h1>
 
-      <Form onSubmit={handleSubmit}>
-        <Form.Group>
-          <Form.Label>Nazwa użytkownika:</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Nazwa użytkownika"
-            name="username"
-            defaultValue={session.username}
-          />
-        </Form.Group>
-        <Row>
-          <Col>
-            <Form.Group>
-              <Form.Label>Piętro:</Form.Label>
-              <Form.Control as="select" defaultValue={getFloor(session.room)}>
-                {floorsOptions.map(data => (
-                  <option key={data.id} value={data.value}>
-                    {data.text}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label>Pokój:</Form.Label>
-              <Form.Control as="select" defaultValue={getRoomNmb(session.room)}>
-                {roomNmbOptions.map(data => (
-                  <option key={data.id} value={data.value}>
-                    {data.text}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Form.Group>
-          <Form.Label>E-mail:</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="E-mail"
-            name="email"
-            defaultValue={session.email}
-          />
-        </Form.Group>
-        <Form.Group>
-          <Form.Label>Stare hasło:</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Stare hasło"
-            name="oldPassword"
-          />
-        </Form.Group>
-        <Row>
-          <Col>
-            <Form.Group>
-              <Form.Label>Nowe hasło:</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Nowe hasło"
-                name="password"
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label>Powtórz nowe hasło:</Form.Label>
-              <Form.Control type="password" placeholder="Powtórz nowe hasło" />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Button variant="primary" type="submit">
-          Zarejestruj
-        </Button>
-      </Form>
+      <UserDataChangeForm />
+      <UserRoomChangeForm />
+
+      <section>
+        <h2>Zmień dane dotyczące bezpieczeństwa</h2>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group>
+            <Form.Label>Stare hasło:</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Stare hasło"
+              name="oldPassword"
+            />
+          </Form.Group>
+          <Row>
+            <Col>
+              <Form.Group>
+                <Form.Label>Nowe hasło:</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Nowe hasło"
+                  name="password"
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group>
+                <Form.Label>Powtórz nowe hasło:</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Powtórz nowe hasło"
+                />
+              </Form.Group>
+            </Col>
+          </Row>
+          <Button variant="primary" type="submit">
+            Zmień
+          </Button>
+        </Form>
+      </section>
     </>
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserCenter);
+export default connect(mapStateToProps)(UserCenter);

@@ -47,3 +47,10 @@ export const signIn = Joi.object().keys({
   username,
   password
 });
+
+export const updateInformation = Joi.object().keys({
+  username,
+  firstname,
+  lastname,
+  email
+})
