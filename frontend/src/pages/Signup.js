@@ -110,8 +110,8 @@ const Signup = ({ errors, signup }) => {
             </Col>
             <Col>
               <Form.Group>
-                <Form.Label>Powtórz hasło:</Form.Label>
-                <Form.Control type="password" placeholder="Powtórz hasło" />
+                <Form.Label>Potwierdź hasło:</Form.Label>
+                <Form.Control type="password" placeholder="Potwierdź hasło" />
               </Form.Group>
             </Col>
           </Row>

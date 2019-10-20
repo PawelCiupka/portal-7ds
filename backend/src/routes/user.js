@@ -1,7 +1,8 @@
 import Joi from "joi";
 import express from "express";
+import { hashSync } from "bcryptjs";
 import User from "../models/user";
-import { signUp, updateInformation } from "../validations/user";
+import { signUp, updateInformation, updateSecurity } from "../validations/user";
 import { parseError, sessionizeUser } from "../util/helpers";
 
 const userRouter = express.Router();
@@ -61,10 +62,27 @@ userRouter.post("/update/information", async (req, res) => {
   }
 });
 
-userRouter.put("/update/security", async (req, res) => {
+userRouter.post("/update/security", async (req, res) => {
+  console.log("xd");
   try {
-    const { username, password } = req.body;
-  } catch (err) {}
+    const { id, oldPassword, password } = req.body;
+    await Joi.validate({ password }, updateSecurity);
+
+    const user = await User.findOne({ _id: id });
+    console.log(user);
+    if (user && user.comparePasswords(oldPassword)) {
+      await User.updateOne(
+        { _id: id },
+        { $set: { password: hashSync(password, 10) } }
+      );
+    } else {
+      throw new Error("Nieprawidłowe hasło");
+    }
+    res.send("ok");
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(parseError(err));
+  }
 });
 
 export default userRouter;

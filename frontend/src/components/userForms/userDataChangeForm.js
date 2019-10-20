@@ -3,16 +3,16 @@ import { connect } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { updateUserInfo } from "../../actions/session";
 
-const mapStateToProps = ({ session, error }) => ({
+const mapStateToProps = ({ session, errors }) => ({
   session,
-  error
+  errors
 });
 
 const mapDispatchToProps = dispatch => ({
   updateUserInfo: user => dispatch(updateUserInfo(user))
 });
 
-const UserDataChangeForm = ({ session, error, updateUserInfo }) => {
+const UserDataChangeForm = ({ session, errors, updateUserInfo }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -81,7 +81,7 @@ const UserDataChangeForm = ({ session, error, updateUserInfo }) => {
           </Button>
         </Form>
 
-        {error}
+        {errors}
       </section>
     </>
   );

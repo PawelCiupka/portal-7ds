@@ -49,7 +49,6 @@ export const updateUserInfo = user => async dispatch => {
   const data = await response.json();
 
   if (response.ok) {
-    alert("Zaktualizowano dane użytkownika");
     return dispatch(receiveCurrentUser(data));
   }
   return dispatch(receiveErrors(data));

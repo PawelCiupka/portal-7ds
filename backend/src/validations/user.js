@@ -54,3 +54,7 @@ export const updateInformation = Joi.object().keys({
   lastname,
   email
 })
+
+export const updateSecurity = Joi.object().keys({
+  password
+})
