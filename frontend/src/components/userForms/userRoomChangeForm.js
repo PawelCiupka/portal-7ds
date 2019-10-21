@@ -7,6 +7,7 @@ import {
   getRoomNmb,
   getFloor
 } from "../../helpers/roomList";
+import { sendChangeRoomTicket } from "../../util/ticket";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -16,13 +17,16 @@ const UserRoomChangeForm = ({ session }) => {
   const handleSubmit = e => {
     e.preventDefault();
 
-    const room = e.target[0].value + e.target[1].value;
-    const user = {
-      id: session.userId,
-      room: room
+    const ticket = {
+      userId: session.userId,
+      username: session.username,
+      firstname: session.firstname,
+      lastname: session.lastname,
+      oldRoom: session.room,
+      newRoom: e.target[0].value + e.target[1].value
     };
 
-    //updateInformation(user);
+    sendChangeRoomTicket(ticket);
   };
 
   return (
