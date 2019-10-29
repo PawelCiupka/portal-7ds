@@ -1,16 +1,15 @@
 {
-    "name": "portal-7ds",
-    "version": "1.0.0",
-    "engines": {
-      "node": "10.x"
-    },
-    "scripts": {
-      "start": "cd backend/ && npm run dev",
-      "heroku-postbuild": "cd frontend/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
-    },
-    "cacheDirectories": [
-      "backend/node_modules",
-      "frontend/node_modules"
-    ]
-  }
-  
+  "name": "portal-7ds",
+  "version": "1.0.0",
+  "engines": {
+    "node": "10.x"
+  },
+  "scripts": {
+    "start": "cd backend/ && npm run dev",
+    "heroku-postbuild": "cd frontend/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "cacheDirectories": [
+    "backend/node_modules",
+    "frontend/node_modules"
+  ]
+}

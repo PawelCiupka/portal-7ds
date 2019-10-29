@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import session from "express-session";
 import connectStore from "connect-mongo";
 const logger = require("morgan");
-import { userRoutes, sessionRoutes, ticketRoutes } from "./routes/index";
+import { userRoutes, sessionRoutes, ticketRoutes, managementRoutes } from "./routes/index";
 import {
   PORT,
   NODE_ENV,
@@ -15,7 +15,7 @@ import {
 
 (async () => {
   try {
-    await mongoose.connect(MONGO_URI, { useNewUrlParser: true });
+    await mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log("MongoDB connected");
 
     const app = express();
@@ -52,6 +52,7 @@ import {
     apiRouter.use("/users", userRoutes);
     apiRouter.use("/session", sessionRoutes);
     apiRouter.use("/ticket", ticketRoutes);
+    apiRouter.use("/management", managementRoutes);
 
     app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
   } catch (err) {
