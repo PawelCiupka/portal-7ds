@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 import { compareSync, hashSync } from 'bcryptjs';
 
+export const UNVERIFIED = "unverified";
+export const VERIFIED = "verified";
+export const REJECTED = "rejected";
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -38,7 +42,7 @@ const UserSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    default: "unverified"
+    default: UNVERIFIED
   }
 }, { timestamps: true });
 
@@ -59,3 +63,4 @@ UserSchema.methods.comparePasswords = function (password) {
 
 const User = mongoose.model('User', UserSchema);
 export default User;
+
