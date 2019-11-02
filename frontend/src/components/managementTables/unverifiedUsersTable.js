@@ -21,6 +21,7 @@ class UnverifiedUsersTable extends React.Component {
     this.decreaseSkipAmount = this.decreaseSkipAmount.bind(this);
     this.acceptUnverifiedUser = this.acceptUnverifiedUser.bind(this);
     this.rejectUnverifiedUser = this.rejectUnverifiedUser.bind(this);
+    this.updateUsers = this.updateUsers.bind(this);
   }
 
   componentWillMount = () => {
@@ -119,6 +120,7 @@ class UnverifiedUsersTable extends React.Component {
 
         <Button onClick={this.increaseSkipAmount}>+</Button>
         <Button onClick={this.decreaseSkipAmount}>-</Button>
+        <Button onClick={this.updateUsers}>Odśwież</Button>
       </>
     );
   }

@@ -7,12 +7,14 @@ ticketRouter.post("/new/change-room", async (req, res) => {
   try {
     const { userId, username, firstname, lastname, oldRoom, newRoom } = req.body;
 
-    const message = username + ' (' + firstname + ' ' + lastname + ', ' + oldRoom + ') Proszę o zmianę pokoju na ' + newRoom;
+    const userInfo = firstname + ' ' + lastname + ', ' + username + ', ' + oldRoom
+    const message = 'Proszę o zmianę pokoju na ' + newRoom;
     const type = CHANGE_ROOM
 
     const newTicket = new Ticket({
       message,
       userId,
+      userInfo,
       type
     });
     await newTicket.save();
