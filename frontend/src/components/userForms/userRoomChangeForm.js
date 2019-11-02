@@ -8,13 +8,18 @@ import {
   getFloor
 } from "../../helpers/roomList";
 import { sendChangeRoomTicket } from "../../util/ticket";
+import { showSuccessfulAlert } from "../../actions/alert";
 
 const mapStateToProps = ({ session }) => ({
   session
 });
 
-const UserRoomChangeForm = ({ session }) => {
-  const handleSubmit = e => {
+const mapDispatchToProps = dispatch => ({
+  showSuccessfulAlert: alertInfo => dispatch(showSuccessfulAlert(alertInfo))
+});
+
+const UserRoomChangeForm = ({ session, showSuccessfulAlert }) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     const ticket = {
@@ -26,7 +31,11 @@ const UserRoomChangeForm = ({ session }) => {
       newRoom: e.target[0].value + e.target[1].value
     };
 
-    sendChangeRoomTicket(ticket);
+    const resp = await sendChangeRoomTicket(ticket);
+    if (resp.status === 200) {
+      const alertInfo = { display: true, msg: resp.statusText };
+      showSuccessfulAlert(alertInfo);
+    }
   };
 
   return (
@@ -72,4 +81,7 @@ const UserRoomChangeForm = ({ session }) => {
   );
 };
 
-export default connect(mapStateToProps)(UserRoomChangeForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserRoomChangeForm);

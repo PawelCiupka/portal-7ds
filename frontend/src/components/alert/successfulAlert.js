@@ -1,24 +1,27 @@
-import React, { useState } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import { Modal, Button } from "react-bootstrap";
+import { hideSuccessfulAlert } from "../../actions/alert";
 
-const SuccessfulAlert = message => {
-  const [show, setShow] = useState(true);
+const mapStateToProst = ({ alerts }) => ({
+  alerts
+});
 
-  const handleClose = () => setShow(false);
+const mapDispatchToProts = dispatch => ({
+  hideSuccessfulAlert: () => dispatch(hideSuccessfulAlert())
+});
 
+const SuccessfulAlert = ({ alerts, hideSuccessfulAlert }) => {
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={alerts.display} onHide={hideSuccessfulAlert}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{message}</Modal.Body>
+        <Modal.Body>{alerts.msg}</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={hideSuccessfulAlert}>
             Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
           </Button>
         </Modal.Footer>
       </Modal>
@@ -26,4 +29,7 @@ const SuccessfulAlert = message => {
   );
 };
 
-export default SuccessfulAlert;
+export default connect(
+  mapStateToProst,
+  mapDispatchToProts
+)(SuccessfulAlert);

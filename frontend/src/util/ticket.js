@@ -7,7 +7,6 @@ export const sendChangeRoomTicket = data =>
     }
   }).then(response => {
     if (response.status === 200) {
-      alert("ok");
       return response;
     } else {
       return response;
