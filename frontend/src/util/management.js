@@ -35,11 +35,9 @@ export const acceptUnverifiedUser = user_id =>
     headers: {
       "Content-Type": "application/json"
     }
-  })
-    .then(response => response.json())
-    .then(data => {
-      alert("accepted user");
-    });
+  }).then(response => {
+    return response;
+  });
 
 export const rejectUnverifiedUser = user_id =>
   fetch("/api/management/reject-unverified-user", {
@@ -50,8 +48,6 @@ export const rejectUnverifiedUser = user_id =>
     headers: {
       "Content-Type": "application/json"
     }
-  })
-    .then(response => response.json())
-    .then(data => {
-        alert("rejected user");
-    });
+  }).then(response => {
+    return response;
+  });

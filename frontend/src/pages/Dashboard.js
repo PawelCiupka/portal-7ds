@@ -5,11 +5,13 @@ import { ProtectedRoute } from "../util/route";
 import Header from "../components/header/header";
 import UserCenter from "./dashboard/UserCenter";
 import Home from "./dashboard/Home";
-import SuccessfulAlert from "../components/alert/successfulAlert";
+import SuccessAlert from "../components/alert/successAlert";
+import ErrorAlert from "../components/alert/errorAlert";
 
 const Dashboard = () => (
   <>
-    <SuccessfulAlert />
+    <SuccessAlert />
+    <ErrorAlert />
     <Header pageTitle="Portal 7DS" />
     <Container>
       <Route exact path="/dashboard" component={Home} />

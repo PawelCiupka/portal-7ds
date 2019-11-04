@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Table, Button } from "react-bootstrap";
 import {
   getUnvefiriedUsers,
@@ -6,6 +7,14 @@ import {
   acceptUnverifiedUser,
   rejectUnverifiedUser
 } from "../../util/management";
+import { showSuccessAlert, showErrorAlert } from "../../actions/alert";
+
+const mapDispatchToProps = dispatch => ({
+  showSuccessAlert: ({ header, message }) =>
+    dispatch(showSuccessAlert(header, message)),
+  showErrorAlert: ({ header, message }) =>
+    dispatch(showErrorAlert(header, message))
+});
 
 class UnverifiedUsersTable extends React.Component {
   constructor() {
@@ -62,12 +71,12 @@ class UnverifiedUsersTable extends React.Component {
 
   acceptUnverifiedUser = (username, user_id) => {
     console.log("Akceptuje użytkownika " + username + ", z ID: " + user_id);
-    acceptUnverifiedUser(user_id);
+    const resp = acceptUnverifiedUser(user_id);
     this.updateUsers();
   };
   rejectUnverifiedUser = (username, user_id) => {
     console.log("Odrzucam użytkownika " + username + ", z ID: " + user_id);
-    rejectUnverifiedUser(user_id);
+    const resp = rejectUnverifiedUser(user_id);
     this.updateUsers();
   };
 
@@ -126,4 +135,7 @@ class UnverifiedUsersTable extends React.Component {
   }
 }
 
-export default UnverifiedUsersTable;
+export default connect(
+  null,
+  mapDispatchToProps
+)(UnverifiedUsersTable);

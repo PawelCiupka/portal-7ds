@@ -1,19 +1,16 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import { updateUserInfo } from "../../actions/session";
+import { updateInformation } from "../../util/user";
+import { mapAlertDispatchToProps, UserAlerts } from "../alert/alertController";
 
 const mapStateToProps = ({ session, errors }) => ({
-  session,
-  errors
+  session
 });
+const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
-const mapDispatchToProps = dispatch => ({
-  updateUserInfo: user => dispatch(updateUserInfo(user))
-});
-
-const UserDataChangeForm = ({ session, errors, updateUserInfo }) => {
-  const handleSubmit = e => {
+const UserDataChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     const user = {
@@ -24,7 +21,18 @@ const UserDataChangeForm = ({ session, errors, updateUserInfo }) => {
       email: e.target[3].value
     };
 
-    updateUserInfo(user);
+    await updateInformation(user).then(resp => {
+      if (resp.status === 200) {
+        showSuccessAlert({
+          message: UserAlerts.success.update_information
+        });
+        window.setTimeout("window.location.reload()", 4000, true);
+      } else {
+        showErrorAlert({
+          message: UserAlerts.error.update_information
+        });
+      }
+    });
   };
 
   return (
@@ -80,8 +88,6 @@ const UserDataChangeForm = ({ session, errors, updateUserInfo }) => {
             Zmień
           </Button>
         </Form>
-
-        {errors}
       </section>
     </>
   );

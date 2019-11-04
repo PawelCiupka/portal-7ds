@@ -1,11 +1,24 @@
-export const SHOW_SUCCESSFUL_ALERT = "SHOW_SUCCESSFUL_ALERT";
-export const HIDE_SUCCESSFUL_ALERT = "HIDE_SUCCESSFUL_ALERT";
+export const SHOW_SUCCESS_ALERT = "SHOW_SUCCESS_ALERT";
+export const HIDE_SUCCESS_ALERT = "HIDE_SUCCESS_ALERT";
+export const SHOW_ERROR_ALERT = "SHOW_ERROR_ALERT";
+export const HIDE_ERROR_ALERT = "HIDE_ERROR_ALERT";
 
-export const showSuccessfulAlert = alertInfo => ({
-  type: SHOW_SUCCESSFUL_ALERT,
-  alertInfo
+export const showSuccessAlert = (header, message) => ({
+  type: SHOW_SUCCESS_ALERT,
+  header,
+  message
 });
 
-export const hideSuccessfulAlert = () => ({
-  type: HIDE_SUCCESSFUL_ALERT
+export const hideSuccessAlert = () => ({
+  type: HIDE_SUCCESS_ALERT
+});
+
+export const showErrorAlert = (header, message) => ({
+  type: SHOW_ERROR_ALERT,
+  header,
+  message
+});
+
+export const hideErrorAlert = () => ({
+  type: HIDE_ERROR_ALERT
 });

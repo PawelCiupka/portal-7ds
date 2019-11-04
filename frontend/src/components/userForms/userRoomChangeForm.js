@@ -8,17 +8,17 @@ import {
   getFloor
 } from "../../helpers/roomList";
 import { sendChangeRoomTicket } from "../../util/ticket";
-import { showSuccessfulAlert } from "../../actions/alert";
+import {
+  mapAlertDispatchToProps,
+  TicketAlerts
+} from "../alert/alertController";
 
 const mapStateToProps = ({ session }) => ({
   session
 });
+const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
-const mapDispatchToProps = dispatch => ({
-  showSuccessfulAlert: alertInfo => dispatch(showSuccessfulAlert(alertInfo))
-});
-
-const UserRoomChangeForm = ({ session, showSuccessfulAlert }) => {
+const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
   const handleSubmit = async e => {
     e.preventDefault();
 
@@ -31,11 +31,17 @@ const UserRoomChangeForm = ({ session, showSuccessfulAlert }) => {
       newRoom: e.target[0].value + e.target[1].value
     };
 
-    const resp = await sendChangeRoomTicket(ticket);
-    if (resp.status === 200) {
-      const alertInfo = { display: true, msg: resp.statusText };
-      showSuccessfulAlert(alertInfo);
-    }
+    await sendChangeRoomTicket(ticket).then(resp => {
+      if (resp.status === 200) {
+        showSuccessAlert({
+          message: TicketAlerts.success.change_room
+        });
+      } else {
+        showErrorAlert({
+          message: TicketAlerts.error.change_room
+        });
+      }
+    });
   };
 
   return (

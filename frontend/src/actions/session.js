@@ -1,5 +1,4 @@
 import * as apiUtil from "../util/session";
-import * as userUtil from "../util/user";
 import { receiveErrors } from "./error";
 
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
@@ -40,16 +39,6 @@ export const logout = () => async dispatch => {
 
   if (response.ok) {
     return dispatch(logoutCurrentUser());
-  }
-  return dispatch(receiveErrors(data));
-};
-
-export const updateUserInfo = user => async dispatch => {
-  const response = await userUtil.updateInformation(user);
-  const data = await response.json();
-
-  if (response.ok) {
-    return dispatch(receiveCurrentUser(data));
   }
   return dispatch(receiveErrors(data));
 };

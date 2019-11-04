@@ -6,9 +6,5 @@ export const sendChangeRoomTicket = data =>
       "Content-Type": "application/json"
     }
   }).then(response => {
-    if (response.status === 200) {
-      return response;
-    } else {
-      return response;
-    }
+    return response;
   });

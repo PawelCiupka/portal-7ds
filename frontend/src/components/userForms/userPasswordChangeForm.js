@@ -1,22 +1,25 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import { updateUserSecurity } from "../../actions/user";
+import { updateSecurity } from "../../util/user";
+import { mapAlertDispatchToProps, UserAlerts } from "../alert/alertController";
 
 const mapStateToProps = ({ session, errors }) => ({
   session,
   errors
 });
+const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
-const mapDispatchToProps = dispatch => ({
-  updateUserSecurity: user => dispatch(updateUserSecurity(user))
-});
-
-const UserPasswordChangeForm = ({ session, errors, updateUserSecurity }) => {
+const UserPasswordChangeForm = ({
+  session,
+  showSuccessAlert,
+  showErrorAlert
+}) => {
   const [passError, setPassError] = useState("");
-  const handleSubmit = e => {
+
+  const handleSubmit = async e => {
     e.preventDefault();
-    setPassError("")
+    setPassError("");
 
     if (e.target[1].value === e.target[2].value) {
       const user = {
@@ -25,9 +28,19 @@ const UserPasswordChangeForm = ({ session, errors, updateUserSecurity }) => {
         password: e.target[1].value
       };
 
-      updateUserSecurity(user);
+      await updateSecurity(user).then(resp => {
+        if (resp.status === 200) {
+          showSuccessAlert({
+            message: UserAlerts.success.update_security
+          });
+        } else {
+          showErrorAlert({
+            message: UserAlerts.error.update_security
+          });
+        }
+      });
     } else {
-        setPassError("Hasła muszą być identyczne")
+      setPassError("Hasła muszą być identyczne");
     }
   };
 
@@ -70,7 +83,6 @@ const UserPasswordChangeForm = ({ session, errors, updateUserSecurity }) => {
           </Button>
         </Form>
         <p>{passError}</p>
-        <p>{errors}</p>
       </section>
     </>
   );
