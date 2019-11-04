@@ -85,4 +85,21 @@ userRouter.post("/update/security", async (req, res) => {
   }
 });
 
+userRouter.post("/getByUsername", async (req, res) => {
+  console.log("xd");
+  try {
+    const { username } = req.body;
+
+    const user = await User.findone({ username: username })
+      .populate("role")
+      .exec();
+    console.log(user.role.name);
+
+    res.send(user);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(parseError(err));
+  }
+});
+
 export default userRouter;

@@ -71,12 +71,12 @@ class UnverifiedUsersTable extends React.Component {
 
   acceptUnverifiedUser = (username, user_id) => {
     console.log("Akceptuje użytkownika " + username + ", z ID: " + user_id);
-    const resp = acceptUnverifiedUser(user_id);
+    acceptUnverifiedUser(user_id);
     this.updateUsers();
   };
   rejectUnverifiedUser = (username, user_id) => {
     console.log("Odrzucam użytkownika " + username + ", z ID: " + user_id);
-    const resp = rejectUnverifiedUser(user_id);
+    rejectUnverifiedUser(user_id);
     this.updateUsers();
   };
 
