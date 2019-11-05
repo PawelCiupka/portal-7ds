@@ -3,10 +3,6 @@ import { compareSync, hashSync } from "bcryptjs";
 import UserRole, { DEFAULT_USER_ROLE_ID } from "./userRole";
 import UserStatus, { DEFAULT_USER_STATUS_ID } from "./userStatus";
 
-export const UNVERIFIED = "unverified";
-export const VERIFIED = "verified";
-export const REJECTED = "rejected";
-
 const UserSchema = new mongoose.Schema(
   {
     username: {

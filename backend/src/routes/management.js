@@ -1,6 +1,9 @@
 import express from "express";
-import User, { VERIFIED } from "../models/user";
-import UserStatus, { USER_STATUS_UNVERIFIED } from "../models/userStatus";
+import User from "../models/user";
+import UserStatus, {
+  USER_STATUS_UNVERIFIED,
+  USER_STATUS_VERIFIED
+} from "../models/userStatus";
 import { parseError, sessionizeUser } from "../util/helpers";
 
 const managementRoutes = express.Router();
@@ -44,7 +47,9 @@ managementRoutes.post("/accept-unverified-user", async (req, res) => {
   try {
     const { id } = req.body;
 
-    const verifiedStatus = await UserStatus.findOne({ name: VERIFIED });
+    const verifiedStatus = await UserStatus.findOne({
+      name: USER_STATUS_VERIFIED
+    });
 
     await User.updateOne(
       { _id: id },

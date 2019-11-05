@@ -1,9 +1,10 @@
 import express from "express";
 import Joi from "joi";
-import User, {VERIFIED} from "../models/user";
+import User from "../models/user";
 import { signIn } from "../validations/user";
 import { SESS_NAME } from "../config";
 import { parseError, sessionizeUser } from "../util/helpers";
+import { USER_STATUS_VERIFIED } from "../models/userStatus";
 
 const sessionRouter = express.Router();
 
@@ -13,7 +14,10 @@ sessionRouter.post("", async (req, res) => {
     const { username, password } = req.body;
     await Joi.validate({ username, password }, signIn);
 
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username })
+      .populate("role")
+      .populate("status");
+    console.log(user);
     if (!user) {
       isOk = false;
       throw new Error("Użytkownik nie istnieje");
@@ -22,7 +26,7 @@ sessionRouter.post("", async (req, res) => {
       isOk = false;
       throw new Error("Nieprawidłowe dane logowania");
     }
-    if (user.status !== VERIFIED) {
+    if (user.status.name !== USER_STATUS_VERIFIED) {
       isOk = false;
       throw new Error("Twoje konto oczekuje na zaakceptowanie");
     }

@@ -7,7 +7,7 @@ const Home = () => {
     <>
       <h1>Cześć z głównej strony!</h1>
       <UnverifiedUsersTable />
-      {/* <TicketsTable /> */}
+      <TicketsTable />
     </>
   );
 };

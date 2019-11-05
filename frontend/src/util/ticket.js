@@ -1,5 +1,5 @@
 export const sendChangeRoomTicket = data =>
-  fetch("/api/ticket/new/change-room", {
+  fetch("/api/ticket/new/room-change", {
     method: "POST",
     body: JSON.stringify(data),
     headers: {

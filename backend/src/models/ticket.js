@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import TicketStatus, { DEFAULT_TICKET_STATUS_ID } from "./ticketStatus";
+import TicketType from "./ticketType";
 
 const TicketSchema = new mongoose.Schema(
   {
@@ -13,7 +14,8 @@ const TicketSchema = new mongoose.Schema(
       type: String
     },
     type: {
-      type: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: TicketType
     },
     status: {
       type: mongoose.Schema.Types.ObjectId,
