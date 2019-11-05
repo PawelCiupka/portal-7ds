@@ -1,5 +1,4 @@
 import React from "react";
-import { connect } from "react-redux";
 import { Table, Button } from "react-bootstrap";
 import {
   getUnvefiriedUsers,
@@ -7,14 +6,6 @@ import {
   acceptUnverifiedUser,
   rejectUnverifiedUser
 } from "../../util/management";
-import { showSuccessAlert, showErrorAlert } from "../../actions/alert";
-
-const mapDispatchToProps = dispatch => ({
-  showSuccessAlert: ({ header, message }) =>
-    dispatch(showSuccessAlert(header, message)),
-  showErrorAlert: ({ header, message }) =>
-    dispatch(showErrorAlert(header, message))
-});
 
 class UnverifiedUsersTable extends React.Component {
   constructor() {
@@ -69,14 +60,12 @@ class UnverifiedUsersTable extends React.Component {
     );
   };
 
-  acceptUnverifiedUser = (username, user_id) => {
-    console.log("Akceptuje użytkownika " + username + ", z ID: " + user_id);
-    acceptUnverifiedUser(user_id);
+  acceptUnverifiedUser = async user_id => {
+    await acceptUnverifiedUser(user_id);
     this.updateUsers();
   };
-  rejectUnverifiedUser = (username, user_id) => {
-    console.log("Odrzucam użytkownika " + username + ", z ID: " + user_id);
-    rejectUnverifiedUser(user_id);
+  rejectUnverifiedUser = async user_id => {
+    await rejectUnverifiedUser(user_id);
     this.updateUsers();
   };
 
@@ -106,18 +95,14 @@ class UnverifiedUsersTable extends React.Component {
                     <Button
                       variant="success"
                       size="sm"
-                      onClick={() =>
-                        this.acceptUnverifiedUser(user.username, user._id)
-                      }
+                      onClick={() => this.acceptUnverifiedUser(user._id)}
                     >
                       Akceptuj
                     </Button>
                     <Button
                       variant="danger"
                       size="sm"
-                      onClick={() =>
-                        this.rejectUnverifiedUser(user.username, user._id)
-                      }
+                      onClick={() => this.rejectUnverifiedUser(user._id)}
                     >
                       Odrzuć
                     </Button>
@@ -135,7 +120,4 @@ class UnverifiedUsersTable extends React.Component {
   }
 }
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(UnverifiedUsersTable);
+export default UnverifiedUsersTable;

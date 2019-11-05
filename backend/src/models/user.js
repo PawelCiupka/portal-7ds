@@ -1,12 +1,11 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose from "mongoose";
 import { compareSync, hashSync } from "bcryptjs";
-import Role from "./role";
+import UserRole, { DEFAULT_USER_ROLE_ID } from "./userRole";
+import UserStatus, { DEFAULT_USER_STATUS_ID } from "./userStatus";
 
 export const UNVERIFIED = "unverified";
 export const VERIFIED = "verified";
 export const REJECTED = "rejected";
-
-export const USER_ROLE = Role.findOne({"name": "user"})
 
 const UserSchema = new mongoose.Schema(
   {
@@ -39,15 +38,16 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: Role,
-      default: USER_ROLE._id //"5dc03d3e1c9d4400007cd157"
+      ref: UserRole,
+      default: DEFAULT_USER_ROLE_ID
     },
     roomAccess: {
       type: String
     },
     status: {
-      type: String,
-      default: UNVERIFIED
+      type: mongoose.Schema.Types.ObjectId,
+      ref: UserStatus,
+      default: DEFAULT_USER_STATUS_ID
     }
   },
   { timestamps: true }
