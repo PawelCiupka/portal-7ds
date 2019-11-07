@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Navbar, Nav } from "react-bootstrap";
-import UserDropdown from "./userDropdown"
+import UserDropdown from "./userDropdown";
 
 const Header = props => {
   return (
@@ -11,9 +11,9 @@ const Header = props => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">Strona startowa</Nav.Link>
-            <Nav.Link href="/dashboard">Dashboard</Nav.Link>
-            <UserDropdown/>
+            <Nav.Link href="/dashboard">Strona główna</Nav.Link>
+            <Nav.Link href="/dashboard">Administracja</Nav.Link>
+            <UserDropdown />
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -6,6 +6,7 @@ import {
   acceptUnverifiedUser,
   rejectUnverifiedUser
 } from "../../util/management";
+import { formatDate } from "../../helpers/dateFormatter";
 
 class UnverifiedUsersTable extends React.Component {
   constructor() {
@@ -60,12 +61,12 @@ class UnverifiedUsersTable extends React.Component {
     );
   };
 
-  acceptUnverifiedUser = async user_id => {
-    await acceptUnverifiedUser(user_id);
+  acceptUnverifiedUser = async userId => {
+    await acceptUnverifiedUser(userId);
     this.updateUsers();
   };
-  rejectUnverifiedUser = async user_id => {
-    await rejectUnverifiedUser(user_id);
+  rejectUnverifiedUser = async userId => {
+    await rejectUnverifiedUser(userId);
     this.updateUsers();
   };
 
@@ -76,6 +77,7 @@ class UnverifiedUsersTable extends React.Component {
         <Table responsive size="sm">
           <thead>
             <tr>
+              <th>Nazwa użytkownika</th>
               <th>Imię i nazwisko</th>
               <th>Pokój</th>
               <th>Data dodania</th>
@@ -86,11 +88,12 @@ class UnverifiedUsersTable extends React.Component {
             {this.state.users !== [] &&
               this.state.users.map((user, index) => (
                 <tr key={index}>
+                  <th>{user.username} </th>
                   <th>
-                    {user.username} {user.firstname} {user.lastname}
+                    {user.firstname} {user.lastname}
                   </th>
                   <th>{user.room}</th>
-                  <th>{user.createdAt}</th>
+                  <th>{formatDate(user.createdAt)}</th>
                   <th>
                     <Button
                       variant="success"
@@ -112,8 +115,8 @@ class UnverifiedUsersTable extends React.Component {
           </tbody>
         </Table>
 
-        <Button onClick={this.increaseSkipAmount}>+</Button>
         <Button onClick={this.decreaseSkipAmount}>-</Button>
+        <Button onClick={this.increaseSkipAmount}>+</Button>
         <Button onClick={this.updateUsers}>Odśwież</Button>
       </>
     );

@@ -26,11 +26,11 @@ export const getAmountOfUnvefiriedUsers = () =>
       return data.length;
     });
 
-export const acceptUnverifiedUser = user_id =>
+export const acceptUnverifiedUser = userId =>
   fetch("/api/management/accept-unverified-user", {
     method: "POST",
     body: JSON.stringify({
-      id: user_id
+      id: userId
     }),
     headers: {
       "Content-Type": "application/json"
@@ -39,11 +39,11 @@ export const acceptUnverifiedUser = user_id =>
     return response;
   });
 
-export const rejectUnverifiedUser = user_id =>
+export const rejectUnverifiedUser = userId =>
   fetch("/api/management/reject-unverified-user", {
     method: "POST",
     body: JSON.stringify({
-      id: user_id
+      id: userId
     }),
     headers: {
       "Content-Type": "application/json"

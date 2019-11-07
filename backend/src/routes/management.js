@@ -18,11 +18,13 @@ managementRoutes.post("/get-unverified-users", async (req, res) => {
         match: { name: USER_STATUS_UNVERIFIED }
       })
       .sort({ createdAt: -1 })
-      .skip(skipAmount)
-      .limit(limitAmount)
       .exec();
 
-    res.send(users.filter(user => user.status !== null));
+    res.send(
+      users
+        .filter(user => user.status !== null)
+        .slice(skipAmount, skipAmount + limitAmount)
+    );
   } catch (err) {
     res.status(400).send(parseError(err));
   }

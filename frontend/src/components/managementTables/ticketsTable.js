@@ -1,5 +1,11 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
+import {
+  getNewTickets,
+  getAmountOfNewTickets,
+  markTicketAsDone
+} from "../../util/ticket";
+import { formatDate } from "../../helpers/dateFormatter";
 
 class TicketsTable extends React.Component {
   constructor() {
@@ -13,21 +19,20 @@ class TicketsTable extends React.Component {
 
     this.increaseSkipAmount = this.increaseSkipAmount.bind(this);
     this.decreaseSkipAmount = this.decreaseSkipAmount.bind(this);
-    this.deleteTicket = this.deleteTicket.bind(this);
+    this.markTicketAsDone = this.markTicketAsDone.bind(this);
     this.updateTickets = this.updateTickets.bind(this);
   }
 
   componentWillMount = () => {
-    // getUnvefiriedUsers(this.state.limitAmount, this.state.skippedTickets).then(
-    //   data => {
-    //     this.setState({ tickets: data });
-    //   }
-    // );
+    getNewTickets(this.state.limitAmount, this.state.skippedTickets).then(
+      data => {
+        this.setState({ tickets: data });
+      }
+    );
   };
 
   increaseSkipAmount = async () => {
-    // const amount = await getAmountOfUnvefiriedUsers();
-    const amount = 5;
+    const amount = await getAmountOfNewTickets();
     if (
       this.state.skippedTickets - this.state.limitAmount <
       amount - this.state.skippedDifference - this.state.limitAmount
@@ -46,9 +51,18 @@ class TicketsTable extends React.Component {
     }
     this.updateTickets();
   };
-  updateTickets = () => {};
+  updateTickets = async () => {
+    await getNewTickets(this.state.limitAmount, this.state.skippedTickets).then(
+      data => {
+        this.setState({ tickets: data });
+      }
+    );
+  };
 
-  deleteTicket = () => {};
+  markTicketAsDone = async ticketId => {
+    await markTicketAsDone(ticketId);
+    this.updateTickets();
+  };
 
   render() {
     return (
@@ -69,12 +83,12 @@ class TicketsTable extends React.Component {
                 <tr key={index}>
                   <th> {ticket.userInfo} </th>
                   <th>{ticket.message}</th>
-                  <th>{ticket.createdAt}</th>
+                  <th>{formatDate(ticket.createdAt)}</th>
                   <th>
                     <Button
                       variant="success"
                       size="sm"
-                      onClick={() => this.deleteTicket()}
+                      onClick={() => this.markTicketAsDone(ticket._id)}
                     >
                       Zrobione
                     </Button>
@@ -84,8 +98,8 @@ class TicketsTable extends React.Component {
           </tbody>
         </Table>
 
-        <Button onClick={this.increaseSkipAmount}>+</Button>
         <Button onClick={this.decreaseSkipAmount}>-</Button>
+        <Button onClick={this.increaseSkipAmount}>+</Button>
         <Button onClick={this.updateTickets}>Odśwież</Button>
       </>
     );
