@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
+import * as yup from "yup";
+import { Formik } from "formik";
 import { updateInformation } from "../../util/user";
 import { mapAlertDispatchToProps, UserAlerts } from "../alert/alertController";
 
@@ -9,7 +11,24 @@ const mapStateToProps = ({ session, errors }) => ({
 });
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
-const UserDataChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
+const schema = yup.object({
+  username: yup
+    .string()
+    .required("Nazwa użytkownika jest wymagana")
+    .min(4, "Minimalna ilość znaków to 4")
+    .max(20, "Maksymalna ilośc znaków to 20"),
+  email: yup
+    .string()
+    .required("E-mail jest wymagany")
+    .email("Nieprawidłowy e-mail")
+});
+
+const UserDataChangeForm = ({
+  session,
+  showSuccessAlert,
+  showErrorAlert,
+  schema
+}) => {
   const handleSubmit = async e => {
     e.preventDefault();
 
