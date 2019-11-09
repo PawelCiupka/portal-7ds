@@ -5,12 +5,10 @@ const username = Joi.string()
   .max(30)
   .required();
 const firstname = Joi.string()
-  .alphanum()
   .min(3)
   .max(30)
   .required();
 const lastname = Joi.string()
-  .alphanum()
   .min(3)
   .max(30)
   .required();
@@ -53,8 +51,8 @@ export const updateInformation = Joi.object().keys({
   firstname,
   lastname,
   email
-})
+});
 
 export const updateSecurity = Joi.object().keys({
   password
-})
+});
