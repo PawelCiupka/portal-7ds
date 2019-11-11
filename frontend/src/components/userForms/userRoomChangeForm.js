@@ -55,7 +55,7 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
                 <Form.Label>Piętro:</Form.Label>
                 <Form.Control as="select" defaultValue={getFloor(session.room)}>
                   {floorsOptions.map(data => (
-                    <option key={data.id} value={data.value}>
+                    <option key={data.value} value={data.value}>
                       {data.text}
                     </option>
                   ))}
@@ -70,7 +70,7 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
                   defaultValue={getRoomNmb(session.room)}
                 >
                   {roomNmbOptions.map(data => (
-                    <option key={data.id} value={data.value}>
+                    <option key={data.value} value={data.value}>
                       {data.text}
                     </option>
                   ))}

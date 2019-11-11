@@ -42,3 +42,33 @@ export const EMAIL = {
   },
   values: {}
 };
+
+export const OLD_PASSWORD = {
+  errorMessage: {
+    required: "Hasło jest wymagane"
+  },
+  values: {}
+};
+
+export const PASSWORD = {
+  errorMessage: {
+    required: "Hasło jest wymagane",
+    min: "Minimalna ilość znaków to 5",
+    max: "Maksymalna ilośc znaków to 30",
+    match:
+      "Hasło musi posiadać co najmniej jedną cyfrę, małą oraz wielką literę"
+  },
+  values: {
+    min: 5,
+    max: 30,
+    match: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[a-zA-Z0-9]{1,}$/
+  }
+};
+
+export const CONFIRM_PASSWORD = {
+  errorMessage: {
+    required: "Hasło jest wymagane",
+    testMsg: "Hasła muszą być identyczne"
+  },
+  values: {}
+};

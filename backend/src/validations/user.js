@@ -17,12 +17,10 @@ const email = Joi.string()
   .required();
 
 const message =
-  "must be between 6-16 characters, " +
-  "have at least one capital letter, " +
-  "one lowercase letter, one digit, " +
-  "and one special character";
+  "musi zawierać od 5 do 30 znaków, " +
+  "musi posiadać co najmniej jedną cyfrę, małą oraz wielką literę";
 const password = Joi.string()
-  .regex(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/)
+  .regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[a-zA-Z0-9]{5,30}$/)
   .options({
     language: {
       string: {
