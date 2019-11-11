@@ -63,13 +63,11 @@ userRouter.post("/update/information", async (req, res) => {
 });
 
 userRouter.post("/update/security", async (req, res) => {
-  console.log("xd");
   try {
     const { id, oldPassword, password } = req.body;
     await Joi.validate({ password }, updateSecurity);
 
     const user = await User.findOne({ _id: id });
-    console.log(user);
     if (user && user.comparePasswords(oldPassword)) {
       await User.updateOne(
         { _id: id },
@@ -80,7 +78,6 @@ userRouter.post("/update/security", async (req, res) => {
     }
     res.status(200).send("success");
   } catch (err) {
-    console.log(err);
     res.status(400).send(parseError(err));
   }
 });
@@ -96,7 +93,21 @@ userRouter.post("/getByUsername", async (req, res) => {
 
     res.send(user);
   } catch (err) {
-    console.log(err);
+    res.status(400).send(parseError(err));
+  }
+});
+
+userRouter.post("/get-by-id", async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    const user = await User.findOne({ _id: id })
+      .populate("role")
+      .populate("status")
+      .exec();
+
+    res.send(user);
+  } catch (err) {
     res.status(400).send(parseError(err));
   }
 });
@@ -110,7 +121,6 @@ userRouter.post("/getAll", async (req, res) => {
 
     res.send(user);
   } catch (err) {
-    console.log(err);
     res.status(400).send(parseError(err));
   }
 });

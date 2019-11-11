@@ -60,9 +60,6 @@ const UserDataChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
       email: values.email
     };
 
-    console.log("user: ");
-    console.log(user);
-
     await updateInformation(user).then(resp => {
       if (resp.status === 200) {
         showSuccessAlert({

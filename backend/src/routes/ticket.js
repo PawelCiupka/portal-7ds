@@ -50,8 +50,6 @@ ticketRouter.post("/get-new-tickets", async (req, res) => {
       .sort({ createdAt: -1 })
       .exec();
 
-    console.log(tickets);
-
     res.send(
       tickets
         .filter(ticket => ticket.status !== null)

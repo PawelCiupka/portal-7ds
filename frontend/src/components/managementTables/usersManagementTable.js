@@ -1,41 +1,39 @@
 import React from "react";
 import { Table, Button } from "react-bootstrap";
-import { FaSyncAlt, FaCheck, FaTimes } from "react-icons/fa";
+import { FaSyncAlt, FaPen } from "react-icons/fa";
 import {
-  getUnvefiriedUsers,
-  getAmountOfUnvefiriedUsers,
-  acceptUnverifiedUser,
-  rejectUnverifiedUser
+  getUsers,
+  getAmountOfAllUsers,
+  getUserById
 } from "../../util/management";
-import { formatDate } from "../../helpers/dateFormatter";
+import UserManagementModal from "./userManagementModal";
 
-class UnverifiedUsersTable extends React.Component {
+class UsersManagementTable extends React.Component {
   constructor() {
     super();
     this.state = {
       users: [],
-      limitAmount: 5,
+      limitAmount: 20,
       skippedUsers: 0,
-      skippedDifference: 5
+      skippedDifference: 20,
+      showUserDetails: false,
+      detailedUser: null
     };
 
     this.increaseSkipAmount = this.increaseSkipAmount.bind(this);
     this.decreaseSkipAmount = this.decreaseSkipAmount.bind(this);
-    this.acceptUnverifiedUser = this.acceptUnverifiedUser.bind(this);
-    this.rejectUnverifiedUser = this.rejectUnverifiedUser.bind(this);
+    this.editUser = this.editUser.bind(this);
     this.updateUsers = this.updateUsers.bind(this);
   }
 
   componentWillMount = () => {
-    getUnvefiriedUsers(this.state.limitAmount, this.state.skippedUsers).then(
-      data => {
-        this.setState({ users: data });
-      }
-    );
+    getUsers(this.state.limitAmount, this.state.skippedUsers).then(data => {
+      this.setState({ users: data });
+    });
   };
 
   increaseSkipAmount = async () => {
-    const amount = await getAmountOfUnvefiriedUsers();
+    const amount = await getAmountOfAllUsers();
     if (
       this.state.skippedUsers - this.state.limitAmount <
       amount - this.state.skippedDifference - this.state.limitAmount
@@ -55,34 +53,37 @@ class UnverifiedUsersTable extends React.Component {
     this.updateUsers();
   };
   updateUsers = () => {
-    getUnvefiriedUsers(this.state.limitAmount, this.state.skippedUsers).then(
-      data => {
-        this.setState({ users: data });
-      }
-    );
+    getUsers(this.state.limitAmount, this.state.skippedUsers).then(data => {
+      this.setState({ users: data });
+    });
   };
 
-  acceptUnverifiedUser = async userId => {
-    await acceptUnverifiedUser(userId);
-    this.updateUsers();
-  };
-  rejectUnverifiedUser = async userId => {
-    await rejectUnverifiedUser(userId);
-    this.updateUsers();
+  editUser = async userId => {
+    const user = await getUserById(userId);
+    await this.setState({
+      showUserDetails: false,
+      detailedUser: user
+    });
+    await this.setState({
+      showUserDetails: true
+    });
   };
 
   render() {
     return (
       <>
-        <h3>Użytkownicy oczekujący na potwierdzenie</h3>
+        {this.state.showUserDetails ? (
+          <UserManagementModal user={this.state.detailedUser} />
+        ) : null}
+        <h3>Zarządanie użytkownikami</h3>
         <Table responsive size="sm">
           <thead>
             <tr>
               <th>Nazwa użytkownika</th>
               <th>Imię i nazwisko</th>
               <th>Pokój</th>
-              <th>Data dodania</th>
-              <th>Akcja</th>
+              <th>Komentarz</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -94,21 +95,14 @@ class UnverifiedUsersTable extends React.Component {
                     {user.firstname} {user.lastname}
                   </th>
                   <th>{user.room}</th>
-                  <th>{formatDate(user.createdAt)}</th>
+                  <th>{user.comment}</th>
                   <th>
                     <Button
                       variant="success"
                       size="sm"
-                      onClick={() => this.acceptUnverifiedUser(user._id)}
+                      onClick={() => this.editUser(user._id)}
                     >
-                      <FaCheck />
-                    </Button>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => this.rejectUnverifiedUser(user._id)}
-                    >
-                      <FaTimes />
+                      <FaPen />
                     </Button>
                   </th>
                 </tr>
@@ -126,4 +120,4 @@ class UnverifiedUsersTable extends React.Component {
   }
 }
 
-export default UnverifiedUsersTable;
+export default UsersManagementTable;

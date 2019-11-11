@@ -90,4 +90,56 @@ managementRoutes.post("/reject-unverified-user", async (req, res) => {
   }
 });
 
+managementRoutes.post("/get-users", async (req, res) => {
+  try {
+    const { limitAmount, skipAmount, firstname, lastname, room } = req.body;
+
+    const filterUsers = user => {
+      let isOk = true;
+
+      if (
+        firstname &&
+        isOk &&
+        !user.firstname.toLowerCase().includes(firstname.toLowerCase())
+      ) {
+        isOk = false;
+      }
+      if (
+        lastname &&
+        isOk &&
+        !user.lastname.toLowerCase().includes(lastname.toLowerCase())
+      ) {
+        isOk = false;
+      }
+      if (room && isOk && user.room !== room) {
+        isOk = false;
+      }
+
+      if (isOk) {
+        return user;
+      }
+    };
+
+    const users = await User.find({})
+      .sort({ room: 1 })
+      .exec();
+
+    res.send(
+      users.filter(filterUsers).slice(skipAmount, skipAmount + limitAmount)
+    );
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+managementRoutes.post("/get-all-users", async (req, res) => {
+  try {
+    const users = await User.find({}).sort({ room: 1 });
+
+    res.send(users);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
 export default managementRoutes;

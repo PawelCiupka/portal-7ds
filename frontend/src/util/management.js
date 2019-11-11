@@ -51,3 +51,46 @@ export const rejectUnverifiedUser = userId =>
   }).then(response => {
     return response;
   });
+
+export const getUsers = (limitAmount, skipAmount) =>
+  fetch("/api/management/get-users", {
+    method: "POST",
+    body: JSON.stringify({
+      limitAmount: limitAmount,
+      skipAmount: skipAmount
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });
+
+export const getAmountOfAllUsers = () =>
+  fetch("/api/management/get-all-users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data.length;
+    });
+
+export const getUserById = id =>
+  fetch("/api/users/get-by-id", {
+    method: "POST",
+    body: JSON.stringify({
+      id: id
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });

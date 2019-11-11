@@ -17,7 +17,6 @@ sessionRouter.post("", async (req, res) => {
     const user = await User.findOne({ username })
       .populate("role")
       .populate("status");
-    console.log(user);
     if (!user) {
       isOk = false;
       throw new Error("Użytkownik nie istnieje");

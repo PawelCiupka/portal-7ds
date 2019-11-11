@@ -6,6 +6,7 @@ import {
   markTicketAsDone
 } from "../../util/ticket";
 import { formatDate } from "../../helpers/dateFormatter";
+import { FaCheck } from "react-icons/fa";
 
 class TicketsTable extends React.Component {
   constructor() {
@@ -90,7 +91,7 @@ class TicketsTable extends React.Component {
                       size="sm"
                       onClick={() => this.markTicketAsDone(ticket._id)}
                     >
-                      Zrobione
+                      <FaCheck />
                     </Button>
                   </th>
                 </tr>

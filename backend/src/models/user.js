@@ -9,7 +9,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator: username => User.doesNotExist({ username }),
-        message: "Username already exists"
+        message: "Nazwa użytkownika już istnieje"
       }
     },
     firstname: {
@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema(
       type: String,
       validate: {
         validator: email => User.doesNotExist({ email }),
-        message: "Email already exists"
+        message: "Adres e-mail już istnieje"
       }
     },
     password: {
@@ -38,7 +38,12 @@ const UserSchema = new mongoose.Schema(
       default: DEFAULT_USER_ROLE_ID
     },
     roomAccess: {
-      type: String
+      type: String,
+      default: ""
+    },
+    comment: {
+      type: String,
+      default: ""
     },
     status: {
       type: mongoose.Schema.Types.ObjectId,
