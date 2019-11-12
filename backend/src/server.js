@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import session from "express-session";
 import connectStore from "connect-mongo";
 const logger = require("morgan");
-const aws = require("aws-sdk");
 import {
   userRoutes,
   sessionRoutes,
@@ -21,17 +20,7 @@ import {
 
 (async () => {
   try {
-    let s3 = new aws.S3({
-        PORT = process.env.PORT,
-        NODE_ENV = process.env.NODE_ENV,
-        MONGO_URI = process.env.MONGO_URI,
-        SESS_NAME = process.env.SESS_NAME,
-        SESS_SECRET = process.env.SESS_SECRET,
-        SESS_LIFETIME = process.env.SESS_LIFETIME
-    })
-
-
-    await mongoose.connect(s3.MONGO_URI, {
+    await mongoose.connect(MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
@@ -51,19 +40,19 @@ import {
 
     app.use(
       session({
-        name: s3.SESS_NAME,
-        secret: s3.SESS_SECRET,
+        name: SESS_NAME,
+        secret: SESS_SECRET,
         store: new MongoStore({
           mongooseConnection: mongoose.connection,
           collection: "session",
-          ttl: parseInt(s3.SESS_LIFETIME) / 1000
+          ttl: parseInt(SESS_LIFETIME) / 1000
         }),
         saveUninitialized: false,
         resave: false,
         cookie: {
           sameSite: true,
-          secure: s3.NODE_ENV === "production",
-          maxAge: parseInt(s3.SESS_LIFETIME)
+          secure: NODE_ENV === "production",
+          maxAge: parseInt(SESS_LIFETIME)
         }
       })
     );
@@ -75,7 +64,7 @@ import {
     apiRouter.use("/ticket", ticketRoutes);
     apiRouter.use("/management", managementRoutes);
 
-    app.listen(s3.PORT, () => console.log(`Listening on port ${s3.PORT}`));
+    app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
   } catch (err) {
     console.log(err);
   }
