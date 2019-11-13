@@ -26,7 +26,4 @@ const SuccessAlert = ({ alerts, hideSuccessAlert }) => {
   );
 };
 
-export default connect(
-  mapStateToProst,
-  mapDispatchToProts
-)(SuccessAlert);
+export default connect(mapStateToProst, mapDispatchToProts)(SuccessAlert);

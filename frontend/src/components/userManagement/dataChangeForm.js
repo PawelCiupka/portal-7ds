@@ -1,23 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import * as yup from "yup";
 import { useFormik } from "formik";
 import { updateInformation } from "../../util/user";
 import { mapAlertDispatchToProps, UserAlerts } from "../alert/alertController";
-import {
-  USERNAME,
-  FIRSTNAME,
-  LASTNAME,
-  EMAIL
-} from "../../helpers/formsErrorMessages";
+import { userManagementDataChangeSchema } from "../../helpers/formSchemas/userManagement/userManagementDataChangeSchema";
 
-const mapStateToProps = ({ session, errors }) => ({
+const mapStateToProps = ({ session }) => ({
   session
 });
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
-const UserDataChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
+const UserManagementDataChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
   const formik = useFormik({
     initialValues: {
       username: session.username,
@@ -25,27 +19,7 @@ const UserDataChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
       lastname: session.lastname,
       email: session.email
     },
-    validationSchema: yup.object({
-      username: yup
-        .string()
-        .required(USERNAME.errorMessage.required)
-        .min(USERNAME.values.min, USERNAME.errorMessage.min)
-        .max(USERNAME.values.max, USERNAME.errorMessage.max),
-      firstname: yup
-        .string()
-        .required(FIRSTNAME.errorMessage.required)
-        .min(FIRSTNAME.values.min, FIRSTNAME.errorMessage.min)
-        .max(FIRSTNAME.values.max, FIRSTNAME.errorMessage.max),
-      lastname: yup
-        .string()
-        .required(LASTNAME.errorMessage.required)
-        .min(LASTNAME.values.min, LASTNAME.errorMessage.min)
-        .max(LASTNAME.values.max, LASTNAME.errorMessage.max),
-      email: yup
-        .string()
-        .required(EMAIL.errorMessage.required)
-        .email(EMAIL.errorMessage.email)
-    }),
+    validationSchema: userManagementDataChangeSchema,
     onSubmit: values => {
       handleSubmit(values);
     }
@@ -169,7 +143,4 @@ const UserDataChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserDataChangeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(UserManagementDataChangeForm);

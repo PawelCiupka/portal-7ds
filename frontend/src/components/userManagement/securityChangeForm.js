@@ -1,19 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import * as yup from "yup";
 import { useFormik } from "formik";
 import { updateSecurity } from "../../util/user";
 import { mapAlertDispatchToProps, UserAlerts } from "../alert/alertController";
-import {
-  OLD_PASSWORD,
-  PASSWORD,
-  CONFIRM_PASSWORD
-} from "../../helpers/formsErrorMessages";
+import { userManagementSecurityChangeSchema } from "../../helpers/formSchemas/userManagement/userManagementSecurityChangeSchema";
 
-const mapStateToProps = ({ session, errors }) => ({
-  session,
-  errors
+const mapStateToProps = ({ session }) => ({
+  session
 });
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
@@ -28,22 +22,7 @@ const UserPasswordChangeForm = ({
       newPassword: "",
       confirmPassword: ""
     },
-    validationSchema: yup.object({
-      oldPassword: yup.string().required(OLD_PASSWORD.errorMessage.required),
-      newPassword: yup
-        .string()
-        .required(PASSWORD.errorMessage.required)
-        .min(PASSWORD.values.min, PASSWORD.errorMessage.min)
-        .max(PASSWORD.values.max, PASSWORD.errorMessage.max)
-        .matches(PASSWORD.values.match, PASSWORD.errorMessage.match),
-      confirmPassword: yup
-        .string()
-        .required(CONFIRM_PASSWORD.errorMessage.required)
-        .oneOf(
-          [yup.ref("newPassword"), null],
-          CONFIRM_PASSWORD.errorMessage.testMsg
-        )
-    }),
+    validationSchema: userManagementSecurityChangeSchema,
     onSubmit: values => {
       handleSubmit(values);
     }

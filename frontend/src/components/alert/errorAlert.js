@@ -26,7 +26,4 @@ const ErrorAlert = ({ alerts, hideErrorAlert }) => {
   );
 };
 
-export default connect(
-  mapStateToProst,
-  mapDispatchToProts
-)(ErrorAlert);
+export default connect(mapStateToProst, mapDispatchToProts)(ErrorAlert);

@@ -7,6 +7,7 @@ import UserCenter from "./dashboard/UserCenter";
 import Home from "./dashboard/Home";
 import SuccessAlert from "../components/alert/successAlert";
 import ErrorAlert from "../components/alert/errorAlert";
+import Management from "./dashboard/Management";
 
 const Dashboard = () => (
   <>
@@ -16,6 +17,7 @@ const Dashboard = () => (
     <Container>
       <Route exact path="/dashboard" component={Home} />
       <ProtectedRoute path="/dashboard/user/edit" component={UserCenter} />
+      <ProtectedRoute path="/dashboard/management" component={Management} />
     </Container>
   </>
 );

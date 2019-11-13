@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Tab, Tabs } from "react-bootstrap";
 import { clearErrors } from "../../actions/error";
-import UserDataChangeForm from "../../components/userForms/userDataChangeForm";
-import UserRoomChangeForm from "../../components/userForms/userRoomChangeForm";
-import UserPasswordChangeForm from "../../components/userForms/userPasswordChangeForm";
+import UserManagementDataChangeForm from "../../components/userManagement/dataChangeForm";
+import UserRoomChangeForm from "../../components/userManagement/roomChangeForm";
+import UserPasswordChangeForm from "../../components/userManagement/securityChangeForm";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -17,14 +17,17 @@ const mapDispatchToProps = dispatch => ({
 const UserCenter = ({ session, clearErrors }) => {
   return (
     <>
-      <h1>{session.firstname} {session.lastname}, cześć z centrum zarządzania użytkownikiem!</h1>
+      <h1>
+        {session.firstname} {session.lastname}, cześć z centrum zarządzania
+        użytkownikiem!
+      </h1>
       <Tabs
         defaultActiveKey="userData"
         id="uncontrolled-tab-example"
         onSelect={clearErrors}
       >
         <Tab eventKey="userData" title="Dane Osobowe">
-          <UserDataChangeForm />
+          <UserManagementDataChangeForm />
         </Tab>
         <Tab eventKey="userPassword" title="Bezpieczeństwo">
           <UserPasswordChangeForm />
@@ -37,7 +40,4 @@ const UserCenter = ({ session, clearErrors }) => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserCenter);
+export default connect(mapStateToProps, mapDispatchToProps)(UserCenter);
