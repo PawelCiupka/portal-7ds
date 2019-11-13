@@ -8,7 +8,8 @@ import {
   userRoutes,
   sessionRoutes,
   ticketRoutes,
-  managementRoutes
+  managementRoutes,
+  roomRoutes
 } from "./routes/index";
 import {
   PORT,
@@ -64,6 +65,7 @@ import {
     apiRouter.use("/session", sessionRoutes);
     apiRouter.use("/ticket", ticketRoutes);
     apiRouter.use("/management", managementRoutes);
+    apiRouter.use("/room", roomRoutes);
 
     app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
   } catch (err) {

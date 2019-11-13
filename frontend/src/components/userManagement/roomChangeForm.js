@@ -2,11 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import {
-  floorsOptions,
-  roomNmbOptions,
-  getRoomNmb,
-  getFloor
-} from "../../helpers/roomList";
+  floors,
+  roomNumbers,
+  getFloorFromRoom,
+  getRoomNumberFromRoom
+} from "../../helpers/roomHelper";
 import { sendChangeRoomTicket } from "../../util/ticket";
 import {
   mapAlertDispatchToProps,
@@ -47,16 +47,19 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
   return (
     <>
       <section>
-        <h2>Wyślij prośbę o zmianę pokoju</h2>
+        <h2>Wyślij prośbę o zmianę pokoju </h2>
         <Form onSubmit={handleSubmit}>
           <Row>
             <Col>
               <Form.Group>
                 <Form.Label>Piętro:</Form.Label>
-                <Form.Control as="select" defaultValue={getFloor(session.room)}>
-                  {floorsOptions.map(data => (
-                    <option key={data.value} value={data.value}>
-                      {data.text}
+                <Form.Control
+                  as="select"
+                  defaultValue={getFloorFromRoom(session.room)}
+                >
+                  {floors().map(data => (
+                    <option key={data.number} value={data.number}>
+                      {data.number}
                     </option>
                   ))}
                 </Form.Control>
@@ -67,9 +70,9 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
                 <Form.Label>Pokój:</Form.Label>
                 <Form.Control
                   as="select"
-                  defaultValue={getRoomNmb(session.room)}
+                  defaultValue={getRoomNumberFromRoom(session.room)}
                 >
-                  {roomNmbOptions.map(data => (
+                  {roomNumbers().map(data => (
                     <option key={data.value} value={data.value}>
                       {data.text}
                     </option>
@@ -87,7 +90,4 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserRoomChangeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(UserRoomChangeForm);
