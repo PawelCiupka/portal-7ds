@@ -56,7 +56,7 @@ export const PASSWORD = {
     min: "Minimalna ilość znaków to 5",
     max: "Maksymalna ilośc znaków to 30",
     match:
-      "Hasło musi posiadać co najmniej jedną cyfrę, małą oraz wielką literę"
+      "Hasło musi posiadać co najmniej jedną cyfrę, małą oraz wielką literę (bez znaków specjalnych)"
   },
   values: {
     min: 5,

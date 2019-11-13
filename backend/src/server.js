@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import session from "express-session";
 import connectStore from "connect-mongo";
 const logger = require("morgan");
+const path = require("path");
 import {
   userRoutes,
   sessionRoutes,

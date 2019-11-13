@@ -1,7 +1,7 @@
 import React from "react";
-import UnverifiedUsersTable from "../../components/managementTables/unverifiedUsersTable";
-import TicketsTable from "../../components/managementTables/ticketsTable";
-import UsersManagementTable from "../../components/managementTables/usersManagementTable";
+import UnverifiedUsersTable from "../../components/management/unverifiedUsersTable";
+import TicketsTable from "../../components/management/ticketsTable";
+import UsersManagementTable from "../../components/management/usersManagementTable";
 
 const Home = () => {
   return (

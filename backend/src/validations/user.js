@@ -19,17 +19,17 @@ const email = Joi.string()
 const message =
   "musi zawierać od 5 do 30 znaków, " +
   "musi posiadać co najmniej jedną cyfrę, małą oraz wielką literę";
-const password = Joi.string()
-  .regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[a-zA-Z0-9]{5,30}$/)
-  .options({
-    language: {
-      string: {
-        regex: {
-          base: message
-        }
-      }
-    }
-  });
+const password = Joi.string();
+// .regex(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[a-zA-Z0-9]{5,30}$/)
+// .options({
+//   language: {
+//     string: {
+//       regex: {
+//         base: message
+//       }
+//     }
+//   }
+// });
 
 export const signUp = Joi.object().keys({
   username,
