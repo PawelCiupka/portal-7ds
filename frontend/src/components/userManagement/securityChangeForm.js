@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { updateSecurity } from "../../util/user";
 import { mapAlertDispatchToProps, UserAlerts } from "../alert/alertController";
 import { userManagementSecurityChangeSchema } from "../../helpers/formSchemas/userManagement/userManagementSecurityChangeSchema";
+import FormikInputFormGroup from "../formik/formikInputFormGroup";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -60,62 +61,37 @@ const UserPasswordChangeForm = ({
       <section>
         <h2>Zmień dane dotyczące bezpieczeństwa</h2>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Group>
-            <Form.Label>Stare hasło:</Form.Label>
-            <Form.Control
-              id="oldPassword"
-              name="oldPassword"
-              type="password"
-              placeholder="Stare hasło"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.oldPassword}
-            />
-            {formik.touched.oldPassword && formik.errors.oldPassword ? (
-              <Form.Text className="text-danger">
-                {formik.errors.oldPassword}
-              </Form.Text>
-            ) : null}
-          </Form.Group>
+          {FormikInputFormGroup(
+            "Stare hasło",
+            "oldPassword",
+            "password",
+            formik,
+            formik.values.oldPassword,
+            formik.touched.oldPassword,
+            formik.errors.oldPassword
+          )}
           <Row>
             <Col>
-              <Form.Group>
-                <Form.Label>Nowe hasło:</Form.Label>
-                <Form.Control
-                  id="newPassword"
-                  name="newPassword"
-                  type="password"
-                  placeholder="Nowe hasło"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.newPassword}
-                />
-                {formik.touched.newPassword && formik.errors.newPassword ? (
-                  <Form.Text className="text-danger">
-                    {formik.errors.newPassword}
-                  </Form.Text>
-                ) : null}
-              </Form.Group>
+              {FormikInputFormGroup(
+                "Nowe hasło",
+                "newPassword",
+                "password",
+                formik,
+                formik.values.newPassword,
+                formik.touched.newPassword,
+                formik.errors.newPassword
+              )}
             </Col>
             <Col>
-              <Form.Group>
-                <Form.Label>Potwierdź nowe hasło:</Form.Label>
-                <Form.Control
-                  id="confirmPassword"
-                  name="confirmPassword"
-                  type="password"
-                  placeholder="Potwierdź nowe hasło"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.confirmPassword}
-                />
-                {formik.touched.confirmPassword &&
-                formik.errors.confirmPassword ? (
-                  <Form.Text className="text-danger">
-                    {formik.errors.confirmPassword}
-                  </Form.Text>
-                ) : null}
-              </Form.Group>
+              {FormikInputFormGroup(
+                "Potwierdź nowe hasło",
+                "confirmPassword",
+                "password",
+                formik,
+                formik.values.confirmPassword,
+                formik.touched.confirmPassword,
+                formik.errors.confirmPassword
+              )}
             </Col>
           </Row>
           <Button variant="primary" type="submit">
