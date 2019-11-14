@@ -11,7 +11,11 @@ const mapStateToProps = ({ session }) => ({
 });
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
-const UserManagementDataChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
+const UserManagementDataChangeForm = ({
+  session,
+  showSuccessAlert,
+  showErrorAlert
+}) => {
   const formik = useFormik({
     initialValues: {
       username: session.username,
@@ -143,4 +147,7 @@ const UserManagementDataChangeForm = ({ session, showSuccessAlert, showErrorAler
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserManagementDataChangeForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserManagementDataChangeForm);

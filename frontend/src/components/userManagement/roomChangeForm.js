@@ -1,12 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
-import {
-  floors,
-  roomNumbers,
-  getFloorFromRoom,
-  getRoomNumberFromRoom
-} from "../../helpers/roomHelper";
+import { useFormik } from "formik";
+import * as roomHelper from "../../helpers/roomHelper";
 import { sendChangeRoomTicket } from "../../util/ticket";
 import {
   mapAlertDispatchToProps,
@@ -19,16 +15,35 @@ const mapStateToProps = ({ session }) => ({
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
 const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const [floors, setFloors] = useState([]);
+  const [roomNumbers, setRoomNumbers] = useState([]);
 
+  useEffect(() => {
+    const prepareRoomData = async () => {
+      setFloors(await roomHelper.getFloors());
+      setRoomNumbers(await roomHelper.getRoomNumbers());
+    };
+    prepareRoomData();
+  }, []);
+
+  const formik = useFormik({
+    initialValues: {
+      floor: roomHelper.getFloorFromRoom(session.room),
+      roomNumber: roomHelper.getRoomNumberFromRoom(session.room)
+    },
+    onSubmit: values => {
+      handleSubmit(values);
+    }
+  });
+
+  const handleSubmit = async values => {
     const ticket = {
       userId: session.userId,
       username: session.username,
       firstname: session.firstname,
       lastname: session.lastname,
       oldRoom: session.room,
-      newRoom: e.target[0].value + e.target[1].value
+      newRoom: values.floor + values.roomNumber
     };
 
     await sendChangeRoomTicket(ticket).then(resp => {
@@ -48,16 +63,19 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
     <>
       <section>
         <h2>Wyślij prośbę o zmianę pokoju </h2>
-        <Form onSubmit={handleSubmit}>
+        <Form onSubmit={formik.handleSubmit}>
           <Row>
             <Col>
               <Form.Group>
                 <Form.Label>Piętro:</Form.Label>
                 <Form.Control
+                  id="floor"
+                  name="floor"
                   as="select"
-                  defaultValue={getFloorFromRoom(session.room)}
+                  onChange={formik.handleChange}
+                  value={formik.values.floor}
                 >
-                  {floors().map(data => (
+                  {floors.map(data => (
                     <option key={data.number} value={data.number}>
                       {data.number}
                     </option>
@@ -69,12 +87,15 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
               <Form.Group>
                 <Form.Label>Pokój:</Form.Label>
                 <Form.Control
+                  id="roomNumber"
+                  name="roomNumber"
                   as="select"
-                  defaultValue={getRoomNumberFromRoom(session.room)}
+                  onChange={formik.handleChange}
+                  value={formik.values.roomNumber}
                 >
-                  {roomNumbers().map(data => (
-                    <option key={data.value} value={data.value}>
-                      {data.text}
+                  {roomNumbers.map(data => (
+                    <option key={data.number} value={data.number}>
+                      {data.number}
                     </option>
                   ))}
                 </Form.Control>
