@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { useFormik } from "formik";
@@ -16,17 +16,6 @@ const mapStateToProps = ({ session }) => ({
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
 const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
-  const [floors, setFloors] = useState([]);
-  const [roomNumbers, setRoomNumbers] = useState([]);
-
-  useEffect(() => {
-    const prepareRoomData = async () => {
-      setFloors(await roomHelper.getFloors());
-      setRoomNumbers(await roomHelper.getRoomNumbers());
-    };
-    prepareRoomData();
-  }, []);
-
   const formik = useFormik({
     initialValues: {
       floor: roomHelper.getFloorFromRoom(session.room),
@@ -74,40 +63,15 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
                 formik.values.floor,
                 roomHelper.getFloorsToSelectFormGroup
               )}
-              {/* <Form.Group>
-                <Form.Label>Piętro:</Form.Label>
-                <Form.Control
-                  id="floor"
-                  name="floor"
-                  as="select"
-                  onChange={formik.handleChange}
-                  value={formik.values.floor}
-                >
-                  {floors.map(data => (
-                    <option key={data.number} value={data.number}>
-                      {data.number}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Form.Group> */}
             </Col>
             <Col>
-              <Form.Group>
-                <Form.Label>Pokój:</Form.Label>
-                <Form.Control
-                  id="roomNumber"
-                  name="roomNumber"
-                  as="select"
-                  onChange={formik.handleChange}
-                  value={formik.values.roomNumber}
-                >
-                  {roomNumbers.map(data => (
-                    <option key={data.number} value={data.number}>
-                      {data.number}
-                    </option>
-                  ))}
-                </Form.Control>
-              </Form.Group>
+              {FormikSelectFormGroup(
+                "Pokój",
+                "roomNumber",
+                formik,
+                formik.values.roomNumber,
+                roomHelper.getRoomNumbersToSelectFormGroup
+              )}
             </Col>
           </Row>
           <Button variant="primary" type="submit">

@@ -8,7 +8,7 @@ export const getFloors = async () => {
 export const getFloorsToSelectFormGroup = async () => {
   const result = await getAllFloors();
   const newResult = result.map((data, index) => {
-    return { id: String(index), value: data.number, text: data.number };
+    return { key: String(index), value: data.number, text: data.number };
   });
   return newResult;
 };
@@ -16,6 +16,14 @@ export const getFloorsToSelectFormGroup = async () => {
 export const getRoomNumbers = async () => {
   const result = await getAllRoomNumbers();
   return result;
+};
+
+export const getRoomNumbersToSelectFormGroup = async () => {
+  const result = await getAllRoomNumbers();
+  const newResult = result.map((data, index) => {
+    return { key: String(index), value: data.number, text: data.number };
+  });
+  return newResult;
 };
 
 export const getFloorFromRoom = room => {

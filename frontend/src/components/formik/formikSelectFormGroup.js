@@ -11,10 +11,10 @@ const FormikSelectFormGroup = (
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    const prepareRoomData = async () => {
+    const prepareOptions = async () => {
       setOptions(await getOptions());
     };
-    prepareRoomData();
+    prepareOptions();
   }, []);
 
   return (
@@ -30,7 +30,7 @@ const FormikSelectFormGroup = (
         >
           {options.length !== 0
             ? options.map(data => (
-                <option key={data.value} value={data.value}>
+                <option key={data.key} value={data.value}>
                   {data.text}
                 </option>
               ))
