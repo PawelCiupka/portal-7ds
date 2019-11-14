@@ -5,6 +5,7 @@ import { useFormik } from "formik";
 import { updateInformation } from "../../util/user";
 import { mapAlertDispatchToProps, UserAlerts } from "../alert/alertController";
 import { userManagementDataChangeSchema } from "../../helpers/formSchemas/userManagement/userManagementDataChangeSchema";
+import FormikInputFormGroup from "../formik/formikInputFormGroup";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -63,81 +64,48 @@ const UserManagementDataChangeForm = ({
       <section>
         <h2>Zmień dane osobowe</h2>
         <Form onSubmit={formik.handleSubmit}>
-          <Form.Group>
-            <Form.Label>Nazwa użytkownika:</Form.Label>
-            <Form.Control
-              id="username"
-              name="username"
-              type="text"
-              placeholder="Nazwa użytkownika"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.username}
-            />
-            {formik.touched.username && formik.errors.username ? (
-              <Form.Text className="text-danger">
-                {formik.errors.username}
-              </Form.Text>
-            ) : null}
-          </Form.Group>
+          {FormikInputFormGroup(
+            "Nazwa użytkownika",
+            "username",
+            "text",
+            formik,
+            formik.values.username,
+            formik.touched.username,
+            formik.errors.username
+          )}
           <Row>
             <Col>
-              <Form.Group>
-                <Form.Label>Imię:</Form.Label>
-                <Form.Control
-                  id="firstname"
-                  name="firstname"
-                  type="text"
-                  placeholder="Imię"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.firstname}
-                />
-                {formik.touched.firstname && formik.errors.firstname ? (
-                  <Form.Text className="text-danger">
-                    {formik.errors.firstname}
-                  </Form.Text>
-                ) : null}
-              </Form.Group>
+              {FormikInputFormGroup(
+                "Imię",
+                "firstname",
+                "text",
+                formik,
+                formik.values.firstname,
+                formik.touched.firstname,
+                formik.errors.firstname
+              )}
             </Col>
             <Col>
-              <Form.Group>
-                <Form.Label>Nazwisko:</Form.Label>
-                <Form.Control
-                  id="lastname"
-                  name="lastname"
-                  type="text"
-                  placeholder="Nazwisko"
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  value={formik.values.lastname}
-                />
-                {formik.touched.lastname && formik.errors.lastname ? (
-                  <Form.Text className="text-danger">
-                    {formik.errors.lastname}
-                  </Form.Text>
-                ) : null}
-              </Form.Group>
+              {FormikInputFormGroup(
+                "Nazwisko",
+                "lastname",
+                "text",
+                formik,
+                formik.values.lastname,
+                formik.touched.lastname,
+                formik.errors.lastname
+              )}
             </Col>
           </Row>
-          <Form.Group>
-            <Form.Label>E-mail:</Form.Label>
-            <Form.Control
-              id="email"
-              name="email"
-              type="text"
-              placeholder="E-mail"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.email}
-            />
-            {formik.touched.email && formik.errors.email ? (
-              <Form.Text className="text-danger">
-                {formik.errors.email}
-              </Form.Text>
-            ) : null}
-          </Form.Group>
-
+          {FormikInputFormGroup(
+            "E-mail",
+            "email",
+            "text",
+            formik,
+            formik.values.email,
+            formik.touched.email,
+            formik.errors.email
+          )}
           <Button variant="primary" type="submit">
             Zmień
           </Button>

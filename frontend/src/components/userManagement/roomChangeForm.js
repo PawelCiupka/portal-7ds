@@ -8,6 +8,7 @@ import {
   mapAlertDispatchToProps,
   TicketAlerts
 } from "../alert/alertController";
+import FormikSelectFormGroup from "../formik/formikSelectFormGroup";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -66,7 +67,14 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
         <Form onSubmit={formik.handleSubmit}>
           <Row>
             <Col>
-              <Form.Group>
+              {FormikSelectFormGroup(
+                "Piętro",
+                "floor",
+                formik,
+                formik.values.floor,
+                roomHelper.getFloorsToSelectFormGroup
+              )}
+              {/* <Form.Group>
                 <Form.Label>Piętro:</Form.Label>
                 <Form.Control
                   id="floor"
@@ -81,7 +89,7 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
                     </option>
                   ))}
                 </Form.Control>
-              </Form.Group>
+              </Form.Group> */}
             </Col>
             <Col>
               <Form.Group>
