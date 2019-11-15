@@ -9,7 +9,9 @@ const FormikTextareaFormGroup = (
   formik,
   formikValue,
   formikTouched,
-  formikErrors
+  formikErrors,
+  comment,
+  isDisabled = false
 ) => {
   return (
     <>
@@ -25,7 +27,9 @@ const FormikTextareaFormGroup = (
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formikValue}
+          disabled={isDisabled}
         />
+        {comment !== "" ? <Form.Text>{comment}</Form.Text> : null}
         {formikTouched && formikErrors ? (
           <Form.Text className="text-danger">{formikErrors}</Form.Text>
         ) : null}

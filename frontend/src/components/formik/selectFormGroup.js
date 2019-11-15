@@ -6,7 +6,9 @@ const FormikSelectFormGroup = (
   uniqueName,
   formik,
   formikValue,
-  getOptions
+  getOptions,
+  comment = "",
+  isDisabled = false
 ) => {
   const [options, setOptions] = useState([]);
 
@@ -27,6 +29,7 @@ const FormikSelectFormGroup = (
           as="select"
           onChange={formik.handleChange}
           value={formikValue}
+          disabled={isDisabled}
         >
           {options.length > 0
             ? options.map(data => (
@@ -36,6 +39,7 @@ const FormikSelectFormGroup = (
               ))
             : null}
         </Form.Control>
+        {comment !== "" ? <Form.Text>{comment}</Form.Text> : null}
       </Form.Group>
     </>
   );

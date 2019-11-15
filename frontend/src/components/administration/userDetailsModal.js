@@ -9,6 +9,7 @@ import { administrationUserDetailsSchema } from "../../helpers/formSchemas/admin
 import FormikTextareaFormGroup from "../formik/textareaFormGroup";
 import FormikInputFormGroup from "../formik/inputFormGroup";
 import FormikSelectFormGroup from "../formik/selectFormGroup";
+import FormikCheckboxFormGroup from "../formik/checkboxFormGroup";
 import { formatDate } from "../../helpers/dateFormatter";
 
 const AdministrationUserDetailsModal = props => {
@@ -25,7 +26,8 @@ const AdministrationUserDetailsModal = props => {
       comment: props.user.comment,
       createdDate: formatDate(props.user.createdAt),
       role: props.user.role._id,
-      status: props.user.status._id
+      status: props.user.status._id,
+      roomGym: false
     },
     validationSchema: administrationUserDetailsSchema,
     onSubmit: values => {
@@ -166,6 +168,32 @@ const AdministrationUserDetailsModal = props => {
               formik.touched.roomAccess,
               formik.errors.roomAccess
             )}
+            <Row>
+              <Col>
+                {FormikCheckboxFormGroup(
+                  "Siłownia",
+                  "roomGym",
+                  formik,
+                  formik.values.roomGym
+                )}
+              </Col>
+              <Col>
+                {FormikCheckboxFormGroup(
+                  "Siłownia",
+                  "roomGym",
+                  formik,
+                  formik.values.roomGym
+                )}
+              </Col>
+              <Col>
+                {FormikCheckboxFormGroup(
+                  "Siłownia",
+                  "roomGym",
+                  formik,
+                  formik.values.roomGym
+                )}
+              </Col>
+            </Row>
           </Form>
         </Modal.Body>
         <Modal.Footer>
