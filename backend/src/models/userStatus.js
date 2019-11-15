@@ -9,6 +9,9 @@ export const USER_STATUS_REJECTED = "rejected";
 const UserStatusSchema = new mongoose.Schema({
   name: {
     type: String
+  },
+  text: {
+    type: String
   }
 });
 

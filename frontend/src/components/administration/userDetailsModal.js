@@ -2,20 +2,14 @@ import React, { useState } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
-import * as yup from "yup";
-import {} from "../../util/management";
-import {
-  USERNAME,
-  FIRSTNAME,
-  LASTNAME,
-  EMAIL
-} from "../../helpers/formsErrorMessages";
-import {
-  floorsOptions,
-  roomNmbOptions,
-  getRoomNmb,
-  getFloor
-} from "../../helpers/roomList";
+import * as roomHelper from "../../helpers/roomHelper";
+import * as userStatusHelper from "../../helpers/userStatusHelper";
+import * as userRoleHelper from "../../helpers/userRoleHelper";
+import { administrationUserDetailsSchema } from "../../helpers/formSchemas/administration/userDetailsSchema";
+import FormikTextareaFormGroup from "../formik/textareaFormGroup";
+import FormikInputFormGroup from "../formik/inputFormGroup";
+import FormikSelectFormGroup from "../formik/selectFormGroup";
+import { formatDate } from "../../helpers/dateFormatter";
 
 const AdministrationUserDetailsModal = props => {
   const [show, setShow] = useState(true);
@@ -24,34 +18,16 @@ const AdministrationUserDetailsModal = props => {
       username: props.user.username,
       firstname: props.user.firstname,
       lastname: props.user.lastname,
-      floor: getFloor(props.user.room),
-      roomNmb: getRoomNmb(props.user.room),
+      floor: roomHelper.getFloorFromRoom(props.user.room),
+      roomNmb: roomHelper.getRoomNumberFromRoom(props.user.room),
       email: props.user.email,
       password: "",
-      comment: props.user.comment
+      comment: props.user.comment,
+      createdDate: formatDate(props.user.createdAt),
+      role: props.user.role._id,
+      status: props.user.status._id
     },
-    validationSchema: yup.object({
-      username: yup
-        .string()
-        .required(USERNAME.errorMessage.required)
-        .min(USERNAME.values.min, USERNAME.errorMessage.min)
-        .max(USERNAME.values.max, USERNAME.errorMessage.max),
-      firstname: yup
-        .string()
-        .required(FIRSTNAME.errorMessage.required)
-        .min(FIRSTNAME.values.min, FIRSTNAME.errorMessage.min)
-        .max(FIRSTNAME.values.max, FIRSTNAME.errorMessage.max),
-      lastname: yup
-        .string()
-        .required(LASTNAME.errorMessage.required)
-        .min(LASTNAME.values.min, LASTNAME.errorMessage.min)
-        .max(LASTNAME.values.max, LASTNAME.errorMessage.max),
-      email: yup
-        .string()
-        .required(EMAIL.errorMessage.required)
-        .email(EMAIL.errorMessage.email),
-      password: yup.string()
-    }),
+    validationSchema: administrationUserDetailsSchema,
     onSubmit: values => {
       handleSubmit(values);
     }
@@ -73,155 +49,123 @@ const AdministrationUserDetailsModal = props => {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group>
-              <Form.Label>Nazwa użytkownika:</Form.Label>
-              <Form.Control
-                id="username"
-                name="username"
-                type="text"
-                placeholder="Nazwa użytkownika"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.username}
-              />
-              {formik.touched.username && formik.errors.username ? (
-                <Form.Text className="text-danger">
-                  {formik.errors.username}
-                </Form.Text>
-              ) : null}
-            </Form.Group>
+          <Form onSubmit={formik.handleSubmit}>
+            {FormikInputFormGroup(
+              "Nazwa użytkownika",
+              "username",
+              "text",
+              formik,
+              formik.values.username,
+              formik.touched.username,
+              formik.errors.username
+            )}
             <Row>
               <Col>
-                <Form.Group>
-                  <Form.Label>Imię:</Form.Label>
-                  <Form.Control
-                    id="firstname"
-                    name="firstname"
-                    type="text"
-                    placeholder="Imię"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.firstname}
-                  />
-                  {formik.touched.firstname && formik.errors.firstname ? (
-                    <Form.Text className="text-danger">
-                      {formik.errors.firstname}
-                    </Form.Text>
-                  ) : null}
-                </Form.Group>
+                {FormikInputFormGroup(
+                  "Imię",
+                  "firstname",
+                  "text",
+                  formik,
+                  formik.values.firstname,
+                  formik.touched.firstname,
+                  formik.errors.firstname
+                )}
               </Col>
               <Col>
-                <Form.Group>
-                  <Form.Label>Nazwisko:</Form.Label>
-                  <Form.Control
-                    id="lastname"
-                    name="lastname"
-                    type="text"
-                    placeholder="Nazwisko"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    value={formik.values.lastname}
-                  />
-                  {formik.touched.lastname && formik.errors.lastname ? (
-                    <Form.Text className="text-danger">
-                      {formik.errors.lastname}
-                    </Form.Text>
-                  ) : null}
-                </Form.Group>
+                {FormikInputFormGroup(
+                  "Nazwisko",
+                  "lastname",
+                  "text",
+                  formik,
+                  formik.values.lastname,
+                  formik.touched.lastname,
+                  formik.errors.lastname
+                )}
               </Col>
             </Row>
+            {FormikInputFormGroup(
+              "E-mail",
+              "email",
+              "text",
+              formik,
+              formik.values.email,
+              formik.touched.email,
+              formik.errors.email
+            )}
             <Row>
               <Col>
-                <Form.Group>
-                  <Form.Label>Piętro:</Form.Label>
-                  <Form.Control
-                    id="floor"
-                    name="floor"
-                    as="select"
-                    onChange={formik.handleChange}
-                    value={formik.values.floor}
-                  >
-                    {floorsOptions.map(data => (
-                      <option key={data.value} value={data.value}>
-                        {data.text}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
+                {FormikSelectFormGroup(
+                  "Piętro",
+                  "floor",
+                  formik,
+                  formik.values.floor,
+                  roomHelper.getFloorsToSelectFormGroup
+                )}
               </Col>
               <Col>
-                <Form.Group>
-                  <Form.Label>Pokój:</Form.Label>
-                  <Form.Control
-                    id="roomNmb"
-                    name="roomNmb"
-                    as="select"
-                    onChange={formik.handleChange}
-                    value={formik.values.roomNmb}
-                  >
-                    {roomNmbOptions.map(data => (
-                      <option key={data.value} value={data.value}>
-                        {data.text}
-                      </option>
-                    ))}
-                  </Form.Control>
-                </Form.Group>
+                {FormikSelectFormGroup(
+                  "Pokój",
+                  "roomNumber",
+                  formik,
+                  formik.values.roomNumber,
+                  roomHelper.getRoomNumbersToSelectFormGroup
+                )}
               </Col>
             </Row>
-            <Form.Group>
-              <Form.Label>E-mail:</Form.Label>
-              <Form.Control
-                id="email"
-                name="email"
-                type="text"
-                placeholder="E-mail"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.email}
-              />
-              {formik.touched.email && formik.errors.email ? (
-                <Form.Text className="text-danger">
-                  {formik.errors.email}
-                </Form.Text>
-              ) : null}
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Hasło:</Form.Label>
-              <Form.Control
-                id="password"
-                name="password"
-                type="text"
-                placeholder="Hasło"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.password}
-              />
-              {formik.touched.password && formik.errors.password ? (
-                <Form.Text className="text-danger">
-                  {formik.errors.password}
-                </Form.Text>
-              ) : null}
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Komentarz:</Form.Label>
-              <Form.Control
-                id="comment"
-                name="comment"
-                type="text"
-                as="textarea"
-                rows="3"
-                placeholder="Nazwa użytkownika"
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                value={formik.values.comment}
-              />
-              {formik.touched.comment && formik.errors.comment ? (
-                <Form.Text className="text-danger">
-                  {formik.errors.comment}
-                </Form.Text>
-              ) : null}
-            </Form.Group>
+            {FormikInputFormGroup(
+              "Hasło",
+              "password",
+              "password",
+              formik,
+              formik.values.password,
+              formik.touched.password,
+              formik.errors.password,
+              "Jeśli nie chcesz zmieniać hasła, to pozostaw puste pole"
+            )}
+            {FormikTextareaFormGroup(
+              "Komentarz",
+              "comment",
+              "text",
+              "3",
+              formik,
+              formik.values.comment,
+              formik.touched.comment,
+              formik.errors.comment
+            )}
+            {FormikInputFormGroup(
+              "Data utworzenia",
+              "createdDate",
+              "text",
+              formik,
+              formik.values.createdDate,
+              formik.touched.createdDate,
+              formik.errors.createdDate,
+              "",
+              true
+            )}
+            {FormikSelectFormGroup(
+              "Typ użytkownika",
+              "role",
+              formik,
+              formik.values.role,
+              userRoleHelper.getUserRolesToSelectFormGroup
+            )}
+            {FormikSelectFormGroup(
+              "Status",
+              "status",
+              formik,
+              formik.values.status,
+              userStatusHelper.getUserStatusesToSelectFormGroup
+            )}
+            {FormikInputFormGroup(
+              "Dostęp do salek",
+              "roomAccess",
+              "text",
+              formik,
+              formik.values.roomAccess,
+              formik.touched.roomAccess,
+              formik.errors.roomAccess
+            )}
           </Form>
         </Modal.Body>
         <Modal.Footer>

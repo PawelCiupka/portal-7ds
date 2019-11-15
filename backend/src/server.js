@@ -4,13 +4,7 @@ import session from "express-session";
 import connectStore from "connect-mongo";
 const logger = require("morgan");
 const path = require("path");
-import {
-  userRoutes,
-  sessionRoutes,
-  ticketRoutes,
-  managementRoutes,
-  roomRoutes
-} from "./routes/index";
+import * as routes from "./routes/index";
 import {
   PORT,
   NODE_ENV,
@@ -61,11 +55,11 @@ import {
 
     const apiRouter = express.Router();
     app.use("/api", apiRouter);
-    apiRouter.use("/users", userRoutes);
-    apiRouter.use("/session", sessionRoutes);
-    apiRouter.use("/ticket", ticketRoutes);
-    apiRouter.use("/management", managementRoutes);
-    apiRouter.use("/room", roomRoutes);
+    apiRouter.use("/users", routes.userRoutes);
+    apiRouter.use("/session", routes.sessionRoutes);
+    apiRouter.use("/ticket", routes.ticketRoutes);
+    apiRouter.use("/management", routes.managementRoutes);
+    apiRouter.use("/helper", routes.helperRoutes);
 
     app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
   } catch (err) {

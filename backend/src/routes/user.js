@@ -77,21 +77,6 @@ userRouter.post("/update/security", async (req, res) => {
   }
 });
 
-userRouter.post("/getByUsername", async (req, res) => {
-  try {
-    const { username } = req.body;
-
-    const user = await User.findOne({ username: username })
-      .populate("role")
-      .populate("status")
-      .exec();
-
-    res.send(user);
-  } catch (err) {
-    res.status(400).send(parseError(err));
-  }
-});
-
 userRouter.post("/get-by-id", async (req, res) => {
   try {
     const { id } = req.body;

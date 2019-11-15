@@ -1,4 +1,4 @@
-import { getAllFloors, getAllRoomNumbers } from "../util/room";
+import { getAllFloors, getAllRoomNumbers } from "../util/helper";
 
 export const getFloors = async () => {
   const result = await getAllFloors();

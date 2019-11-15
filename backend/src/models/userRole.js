@@ -7,6 +7,9 @@ export const USER_ROLE_ADMINISTRATOR = "administrator";
 const UserRoleSchema = new mongoose.Schema({
   name: {
     type: String
+  },
+  text: {
+    type: String
   }
 });
 
