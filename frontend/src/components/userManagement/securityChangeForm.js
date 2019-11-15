@@ -4,15 +4,15 @@ import { Form, Row, Col, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import { updateSecurity } from "../../util/user";
 import { mapAlertDispatchToProps, UserAlerts } from "../alert/alertController";
-import { userManagementSecurityChangeSchema } from "../../helpers/formSchemas/userManagement/userManagementSecurityChangeSchema";
-import FormikInputFormGroup from "../formik/formikInputFormGroup";
+import { userManagementSecurityChangeSchema } from "../../helpers/formSchemas/userManagement/securityChangeSchema";
+import FormikInputFormGroup from "../formik/inputFormGroup";
 
 const mapStateToProps = ({ session }) => ({
   session
 });
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
-const UserPasswordChangeForm = ({
+const UserManagementSecurityChangeForm = ({
   session,
   showSuccessAlert,
   showErrorAlert
@@ -106,4 +106,4 @@ const UserPasswordChangeForm = ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserPasswordChangeForm);
+)(UserManagementSecurityChangeForm);

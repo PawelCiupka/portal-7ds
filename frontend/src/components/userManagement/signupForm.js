@@ -4,15 +4,15 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useFormik } from "formik";
 import { signup } from "../../actions/session";
 import * as roomHelper from "../../helpers/roomHelper";
-import FormikInputFormGroup from "../formik/formikInputFormGroup";
-import FormikSelectFormGroup from "../formik/formikSelectFormGroup";
-import { userManagementSignUpSchema } from "../../helpers/formSchemas/userManagement/userManagementSignUpSchema";
+import FormikInputFormGroup from "../formik/inputFormGroup";
+import FormikSelectFormGroup from "../formik/selectFormGroup";
+import { userManagementSignUpSchema } from "../../helpers/formSchemas/userManagement/signUpSchema";
 
 const mapDispatchToProps = dispatch => ({
   signup: user => dispatch(signup(user))
 });
 
-const SignUpForm = ({ signup }) => {
+const UserManagementSignUpForm = ({ signup }) => {
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -142,4 +142,4 @@ const SignUpForm = ({ signup }) => {
   );
 };
 
-export default connect(null, mapDispatchToProps)(SignUpForm);
+export default connect(null, mapDispatchToProps)(UserManagementSignUpForm);

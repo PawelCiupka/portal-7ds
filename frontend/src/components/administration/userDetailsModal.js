@@ -17,7 +17,7 @@ import {
   getFloor
 } from "../../helpers/roomList";
 
-const UserManagementModal = props => {
+const AdministrationUserDetailsModal = props => {
   const [show, setShow] = useState(true);
   const formik = useFormik({
     initialValues: {
@@ -237,7 +237,7 @@ const UserManagementModal = props => {
   );
 };
 
-UserManagementModal.prototype = {
+AdministrationUserDetailsModal.prototype = {
   user: PropTypes.shape({
     username: PropTypes.string.isRequired,
     firstname: PropTypes.string.isRequired,
@@ -256,4 +256,4 @@ UserManagementModal.prototype = {
   })
 };
 
-export default UserManagementModal;
+export default AdministrationUserDetailsModal;

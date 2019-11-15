@@ -1,22 +1,22 @@
 import React from "react";
-import UnverifiedUsersTable from "../../components/management/unverifiedUsersTable";
-import TicketsTable from "../../components/management/ticketsTable";
-import UsersManagementTable from "../../components/management/usersManagementTable";
+import AdministrationUnverifiedUsersTable from "../../components/administration/unverifiedUsersTable";
+import AdministrationTicketsTable from "../../components/administration/ticketsTable";
+import AdministrationUsersTable from "../../components/administration/usersTable";
 
 const Management = () => {
   return (
     <>
       <h1>Management!</h1>
       <br />
-      <UnverifiedUsersTable />
+      <AdministrationUnverifiedUsersTable />
       <br />
       <br />
       <br />
-      <TicketsTable />
+      <AdministrationTicketsTable />
       <br />
       <br />
       <br />
-      <UsersManagementTable />
+      <AdministrationUsersTable />
     </>
   );
 };

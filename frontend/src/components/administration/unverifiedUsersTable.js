@@ -9,7 +9,7 @@ import {
 } from "../../util/management";
 import { formatDate } from "../../helpers/dateFormatter";
 
-class UnverifiedUsersTable extends React.Component {
+class AdministrationUnverifiedUsersTable extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -126,4 +126,4 @@ class UnverifiedUsersTable extends React.Component {
   }
 }
 
-export default UnverifiedUsersTable;
+export default AdministrationUnverifiedUsersTable;

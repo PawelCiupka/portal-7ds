@@ -6,9 +6,9 @@ import {
   getAmountOfAllUsers,
   getUserById
 } from "../../util/management";
-import UserManagementModal from "./userManagementModal";
+import AdministrationUserDetailsModal from "./userDetailsModal";
 
-class UsersManagementTable extends React.Component {
+class AdministrationUsersTable extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -73,7 +73,7 @@ class UsersManagementTable extends React.Component {
     return (
       <>
         {this.state.showUserDetails ? (
-          <UserManagementModal user={this.state.detailedUser} />
+          <AdministrationUserDetailsModal user={this.state.detailedUser} />
         ) : null}
         <h3>Zarządanie użytkownikami</h3>
         <Table responsive size="sm">
@@ -120,4 +120,4 @@ class UsersManagementTable extends React.Component {
   }
 }
 
-export default UsersManagementTable;
+export default AdministrationUsersTable;

@@ -8,14 +8,14 @@ import {
   mapAlertDispatchToProps,
   TicketAlerts
 } from "../alert/alertController";
-import FormikSelectFormGroup from "../formik/formikSelectFormGroup";
+import FormikSelectFormGroup from "../formik/selectFormGroup";
 
 const mapStateToProps = ({ session }) => ({
   session
 });
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
-const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
+const UserManagementRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
   const formik = useFormik({
     initialValues: {
       floor: roomHelper.getFloorFromRoom(session.room),
@@ -83,4 +83,4 @@ const UserRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserRoomChangeForm);
+export default connect(mapStateToProps, mapDispatchToProps)(UserManagementRoomChangeForm);

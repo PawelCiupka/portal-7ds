@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import { login } from "../../actions/session";
-import FormikInputFormGroup from "../formik/formikInputFormGroup";
-import { userManagementLoginSchema } from "../../helpers/formSchemas/userManagement/userManagementLoginSchema";
+import FormikInputFormGroup from "../formik/inputFormGroup";
+import { userManagementLoginSchema } from "../../helpers/formSchemas/userManagement/loginSchema";
 
 const mapStateToProps = ({ errors }) => ({
   errors
@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch => ({
   login: user => dispatch(login(user))
 });
 
-const LoginForm = ({ login, errors }) => {
+const UserManagementLoginForm = ({ login, errors }) => {
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -67,4 +67,4 @@ const LoginForm = ({ login, errors }) => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(UserManagementLoginForm);

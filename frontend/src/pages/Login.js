@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import LoginForm from "../components/userManagement/loginForm";
+import UserManagementLoginForm from "../components/userManagement/loginForm";
 
 const Login = () => {
   return (
     <>
       <Container>
-        <LoginForm />
+        <UserManagementLoginForm />
 
         <br />
         <p>

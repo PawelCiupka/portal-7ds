@@ -8,7 +8,7 @@ import {
 import { formatDate } from "../../helpers/dateFormatter";
 import { FaCheck } from "react-icons/fa";
 
-class TicketsTable extends React.Component {
+class AdministrationTicketsTable extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -107,4 +107,4 @@ class TicketsTable extends React.Component {
   }
 }
 
-export default TicketsTable;
+export default AdministrationTicketsTable;

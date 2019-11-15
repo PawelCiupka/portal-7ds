@@ -4,8 +4,8 @@ import { Form, Row, Col, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import { updateInformation } from "../../util/user";
 import { mapAlertDispatchToProps, UserAlerts } from "../alert/alertController";
-import { userManagementDataChangeSchema } from "../../helpers/formSchemas/userManagement/userManagementDataChangeSchema";
-import FormikInputFormGroup from "../formik/formikInputFormGroup";
+import { userManagementDataChangeSchema } from "../../helpers/formSchemas/userManagement/dataChangeSchema";
+import FormikInputFormGroup from "../formik/inputFormGroup";
 
 const mapStateToProps = ({ session }) => ({
   session

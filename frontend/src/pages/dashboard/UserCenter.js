@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Tab, Tabs } from "react-bootstrap";
 import { clearErrors } from "../../actions/error";
 import UserManagementDataChangeForm from "../../components/userManagement/dataChangeForm";
-import UserRoomChangeForm from "../../components/userManagement/roomChangeForm";
-import UserPasswordChangeForm from "../../components/userManagement/securityChangeForm";
+import UserManagementRoomChangeForm from "../../components/userManagement/roomChangeForm";
+import UserManagementSecurityChangeForm from "../../components/userManagement/securityChangeForm";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -30,10 +30,10 @@ const UserCenter = ({ session, clearErrors }) => {
           <UserManagementDataChangeForm />
         </Tab>
         <Tab eventKey="userPassword" title="Bezpieczeństwo">
-          <UserPasswordChangeForm />
+          <UserManagementSecurityChangeForm />
         </Tab>
         <Tab eventKey="userRoom" title="Pokój">
-          <UserRoomChangeForm />
+          <UserManagementRoomChangeForm />
         </Tab>
       </Tabs>
     </>
