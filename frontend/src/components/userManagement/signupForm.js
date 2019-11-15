@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useFormik } from "formik";
 import { signup } from "../../actions/session";
 import * as roomHelper from "../../helpers/roomHelper";
 import FormikInputFormGroup from "../formik/formikInputFormGroup";
-import formikSelectFormGroup from "../formik/formikSelectFormGroup";
+import FormikSelectFormGroup from "../formik/formikSelectFormGroup";
 import { userManagementSignUpSchema } from "../../helpers/formSchemas/userManagement/userManagementSignUpSchema";
-
-import { floorsOptions, roomNmbOptions } from "../../helpers/roomList";
 
 const mapDispatchToProps = dispatch => ({
   signup: user => dispatch(signup(user))
@@ -21,8 +19,8 @@ const SignUpForm = ({ signup }) => {
       firstname: "",
       lastname: "",
       email: "",
-      floor: "",
-      roomNumber: "",
+      floor: "1",
+      roomNumber: "03",
       password: "",
       confirmPassword: ""
     },
@@ -32,24 +30,20 @@ const SignUpForm = ({ signup }) => {
     }
   });
 
-  const handleSubmit = e => {
-    console.log(e);
-    // e.preventDefault();
+  const handleSubmit = values => {
+    console.log(values);
 
-    // const room = e.target[3].value + e.target[4].value;
-    // const user = {
-    //   username: e.target[0].value,
-    //   firstname: e.target[1].value,
-    //   lastname: e.target[2].value,
-    //   room: room,
-    //   email: e.target[5].value,
-    //   password: e.target[6].value
-    // };
+    const room = values.floor + values.roomNumber;
+    const user = {
+      username: values.username,
+      firstname: values.firstname,
+      lastname: values.lastname,
+      room: room,
+      email: values.email,
+      password: values.password
+    };
 
-    // if (e.target[6].value === e.target[7].value) {
-    //   signup(user);
-    // } else {
-    // }
+    signup(user);
   };
 
   return (
@@ -99,28 +93,22 @@ const SignUpForm = ({ signup }) => {
         )}
         <Row>
           <Col>
-            <Form.Group>
-              <Form.Label>Piętro:</Form.Label>
-              <Form.Control as="select">
-                {floorsOptions.map(data => (
-                  <option key={data.id} value={data.value}>
-                    {data.text}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
+            {FormikSelectFormGroup(
+              "Piętro",
+              "floor",
+              formik,
+              formik.values.floor,
+              roomHelper.getFloorsToSelectFormGroup
+            )}
           </Col>
           <Col>
-            <Form.Group>
-              <Form.Label>Pokój:</Form.Label>
-              <Form.Control as="select">
-                {roomNmbOptions.map(data => (
-                  <option key={data.id} value={data.value}>
-                    {data.text}
-                  </option>
-                ))}
-              </Form.Control>
-            </Form.Group>
+            {FormikSelectFormGroup(
+              "Pokój",
+              "roomNumber",
+              formik,
+              formik.values.roomNumber,
+              roomHelper.getRoomNumbersToSelectFormGroup
+            )}
           </Col>
         </Row>
         <Row>

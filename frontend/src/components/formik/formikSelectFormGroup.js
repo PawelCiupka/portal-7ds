@@ -28,7 +28,7 @@ const FormikSelectFormGroup = (
           onChange={formik.handleChange}
           value={formikValue}
         >
-          {options.length !== 0
+          {options.length > 0
             ? options.map(data => (
                 <option key={data.key} value={data.value}>
                   {data.text}
