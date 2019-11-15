@@ -31,8 +31,6 @@ const SignUpForm = ({ signup }) => {
   });
 
   const handleSubmit = values => {
-    console.log(values);
-
     const room = values.floor + values.roomNumber;
     const user = {
       username: values.username,

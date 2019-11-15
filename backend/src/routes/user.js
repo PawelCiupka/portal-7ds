@@ -2,7 +2,7 @@ import Joi from "joi";
 import express from "express";
 import { hashSync } from "bcryptjs";
 import User from "../models/user";
-import { signUp, updateInformation, updateSecurity } from "../validations/user";
+import { signUp } from "../validations/user";
 import { parseError, sessionizeUser } from "../util/helpers";
 
 const userRouter = express.Router();
@@ -35,10 +35,6 @@ userRouter.post("", async (req, res) => {
 userRouter.post("/update/information", async (req, res) => {
   try {
     const { id, username, firstname, lastname, email } = req.body;
-    await Joi.validate(
-      { username, firstname, lastname, email },
-      updateInformation
-    );
 
     await User.updateOne(
       { _id: id },
@@ -65,7 +61,6 @@ userRouter.post("/update/information", async (req, res) => {
 userRouter.post("/update/security", async (req, res) => {
   try {
     const { id, oldPassword, password } = req.body;
-    await Joi.validate({ password }, updateSecurity);
 
     const user = await User.findOne({ _id: id });
     if (user && user.comparePasswords(oldPassword)) {
