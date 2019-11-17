@@ -18,3 +18,12 @@ export const USER = {
     update_security: "Nie udało się zmienić hasła"
   }
 };
+
+export const MANAGEMENT = {
+  success: {
+    update_user: "Dane użytkownika zostały zmienione"
+  },
+  error: {
+    update_user: "Nie udało zmienić się danych użytkownika"
+  }
+};

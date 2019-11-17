@@ -94,3 +94,14 @@ export const getUserById = id =>
     .then(data => {
       return data;
     });
+
+export const updateUser = user =>
+  fetch("/api/management/update-user", {
+    method: "POST",
+    body: JSON.stringify(user),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(response => {
+    return response;
+  });

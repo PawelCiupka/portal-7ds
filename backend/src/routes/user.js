@@ -92,17 +92,4 @@ userRouter.post("/get-by-id", async (req, res) => {
   }
 });
 
-userRouter.post("/getAll", async (req, res) => {
-  try {
-    const user = await User.find({})
-      .populate("role")
-      .populate("status")
-      .exec();
-
-    res.send(user);
-  } catch (err) {
-    res.status(400).send(parseError(err));
-  }
-});
-
 export default userRouter;

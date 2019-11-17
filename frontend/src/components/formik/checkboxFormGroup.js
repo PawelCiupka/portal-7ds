@@ -16,6 +16,7 @@ const FormikCheckboxFormGroup = (
           label={label}
           id={uniqueName}
           name={uniqueName}
+          checked={formikValue}
           type="checkbox"
           onChange={formik.handleChange}
           value={formikValue}

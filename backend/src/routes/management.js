@@ -1,10 +1,11 @@
 import express from "express";
 import User from "../models/user";
+import { hashSync } from "bcryptjs";
 import UserStatus, {
   USER_STATUS_UNVERIFIED,
   USER_STATUS_VERIFIED
 } from "../models/userStatus";
-import { parseError, sessionizeUser } from "../util/helpers";
+import { parseError } from "../util/helpers";
 
 const managementRoutes = express.Router();
 
@@ -137,6 +138,65 @@ managementRoutes.post("/get-all-users", async (req, res) => {
     const users = await User.find({}).sort({ room: 1 });
 
     res.send(users);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+managementRoutes.post("/update-user", async (req, res) => {
+  try {
+    const {
+      id,
+      username,
+      firstname,
+      lastname,
+      email,
+      room,
+      password,
+      comment,
+      role,
+      status,
+      roomAccess
+    } = req.body;
+
+    if (password === "") {
+      await User.updateOne(
+        { _id: id },
+        {
+          $set: {
+            username: username,
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            room: room,
+            comment: comment,
+            role: role,
+            status: status,
+            roomAccess: roomAccess
+          }
+        }
+      );
+    } else {
+      await User.updateOne(
+        { _id: id },
+        {
+          $set: {
+            username: username,
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
+            room: room,
+            password: hashSync(password, 10),
+            comment: comment,
+            role: role,
+            status: status,
+            roomAccess: roomAccess
+          }
+        }
+      );
+    }
+
+    res.status(200).send("ok");
   } catch (err) {
     res.status(400).send(parseError(err));
   }

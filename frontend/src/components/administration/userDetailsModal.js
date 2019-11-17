@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import * as roomHelper from "../../helpers/roomHelper";
+import * as roomAccessHelper from "../../helpers/roomAccessHelper";
 import * as userStatusHelper from "../../helpers/userStatusHelper";
 import * as userRoleHelper from "../../helpers/userRoleHelper";
 import { administrationUserDetailsSchema } from "../../helpers/formSchemas/administration/userDetailsSchema";
@@ -11,6 +13,13 @@ import FormikInputFormGroup from "../formik/inputFormGroup";
 import FormikSelectFormGroup from "../formik/selectFormGroup";
 import FormikCheckboxFormGroup from "../formik/checkboxFormGroup";
 import { formatDate } from "../../helpers/dateFormatter";
+import { updateUser } from "../../util/management";
+import {
+  mapAlertDispatchToProps,
+  ManagementAlerts
+} from "../alert/alertController";
+
+const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
 const AdministrationUserDetailsModal = props => {
   const [show, setShow] = useState(true);
@@ -20,14 +29,22 @@ const AdministrationUserDetailsModal = props => {
       firstname: props.user.firstname,
       lastname: props.user.lastname,
       floor: roomHelper.getFloorFromRoom(props.user.room),
-      roomNmb: roomHelper.getRoomNumberFromRoom(props.user.room),
+      roomNumber: roomHelper.getRoomNumberFromRoom(props.user.room),
       email: props.user.email,
       password: "",
       comment: props.user.comment,
       createdDate: formatDate(props.user.createdAt),
       role: props.user.role._id,
       status: props.user.status._id,
-      roomGym: false
+      roomIsGym: roomAccessHelper.isGymAvailable(props.user.roomAccess),
+      roomIsBilliards: roomAccessHelper.isBilliardsAvailable(
+        props.user.roomAccess
+      ),
+      roomIsTV: roomAccessHelper.isTVAvailable(props.user.roomAccess),
+      roomIsFitness: roomAccessHelper.isFitnessAvailable(props.user.roomAccess),
+      roomIsPingPong: roomAccessHelper.isPingPongAvailable(
+        props.user.roomAccess
+      )
     },
     validationSchema: administrationUserDetailsSchema,
     onSubmit: values => {
@@ -37,9 +54,28 @@ const AdministrationUserDetailsModal = props => {
 
   const handleClose = () => setShow(false);
 
-  const handleSubmit = values => {
-    console.log("handleSubmit: ");
-    console.log(values);
+  const handleSubmit = async values => {
+    const user = {
+      id: props.user._id,
+      username: values.username,
+      firstname: values.firstname,
+      lastname: values.lastname,
+      email: values.email,
+      room: values.floor + values.roomNumber,
+      password: values.password,
+      comment: values.comment,
+      role: values.role,
+      status: values.status,
+      roomAccess: roomAccessHelper.getRoomAccessCode(
+        values.roomIsGym,
+        values.roomIsBilliards,
+        values.roomIsTV,
+        values.roomIsFitness,
+        values.roomIsPingPong
+      )
+    };
+
+    await updateUser(user);
   };
 
   return (
@@ -117,7 +153,7 @@ const AdministrationUserDetailsModal = props => {
             {FormikInputFormGroup(
               "Hasło",
               "password",
-              "password",
+              "text",
               formik,
               formik.values.password,
               formik.touched.password,
@@ -159,38 +195,45 @@ const AdministrationUserDetailsModal = props => {
               formik.values.status,
               userStatusHelper.getUserStatusesToSelectFormGroup
             )}
-            {FormikInputFormGroup(
-              "Dostęp do salek",
-              "roomAccess",
-              "text",
-              formik,
-              formik.values.roomAccess,
-              formik.touched.roomAccess,
-              formik.errors.roomAccess
-            )}
             <Row>
               <Col>
                 {FormikCheckboxFormGroup(
                   "Siłownia",
-                  "roomGym",
+                  "roomIsGym",
                   formik,
-                  formik.values.roomGym
+                  formik.values.roomIsGym
                 )}
               </Col>
               <Col>
                 {FormikCheckboxFormGroup(
-                  "Siłownia",
-                  "roomGym",
+                  "Bilard",
+                  "roomIsBilliards",
                   formik,
-                  formik.values.roomGym
+                  formik.values.roomIsBilliards
                 )}
               </Col>
               <Col>
                 {FormikCheckboxFormGroup(
-                  "Siłownia",
-                  "roomGym",
+                  "Salka TV",
+                  "roomIsTV",
                   formik,
-                  formik.values.roomGym
+                  formik.values.roomIsTV
+                )}
+              </Col>
+              <Col>
+                {FormikCheckboxFormGroup(
+                  "Fitness",
+                  "roomIsFitness",
+                  formik,
+                  formik.values.roomIsFitness
+                )}
+              </Col>
+              <Col>
+                {FormikCheckboxFormGroup(
+                  "Ping-Pong",
+                  "roomIsPingPong",
+                  formik,
+                  formik.values.roomIsPingPong
                 )}
               </Col>
             </Row>
@@ -228,4 +271,7 @@ AdministrationUserDetailsModal.prototype = {
   })
 };
 
-export default AdministrationUserDetailsModal;
+export default connect(
+  null,
+  mapDispatchToProps
+)(AdministrationUserDetailsModal);
