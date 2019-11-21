@@ -8,6 +8,8 @@ import Home from "./dashboard/Home";
 import SuccessAlert from "../components/alert/successAlert";
 import ErrorAlert from "../components/alert/errorAlert";
 import Management from "./dashboard/Management";
+import RoomReservation from "./dashboard/RoomReservation";
+import TimetableRoomTV from "./dashboard/rooms/TimetableRoomTV";
 
 const Dashboard = () => (
   <>
@@ -18,6 +20,14 @@ const Dashboard = () => (
       <Route exact path="/dashboard" component={Home} />
       <ProtectedRoute path="/dashboard/user/edit" component={UserCenter} />
       <ProtectedRoute path="/dashboard/management" component={Management} />
+      <ProtectedRoute
+        path="/dashboard/room-reservation/menu"
+        component={RoomReservation}
+      />
+      <ProtectedRoute
+        path="/dashboard/room-reservation/tv"
+        component={TimetableRoomTV}
+      />
     </Container>
   </>
 );
