@@ -75,7 +75,19 @@ const AdministrationUserDetailsModal = props => {
       )
     };
 
-    await updateUser(user);
+    handleClose();
+
+    await updateUser(user).then(resp => {
+      if (resp.status === 200) {
+        props.showSuccessAlert({
+          message: ManagementAlerts.success.update_user
+        });
+      } else {
+        props.showErrorAlert({
+          message: ManagementAlerts.error.update_user
+        });
+      }
+    });
   };
 
   return (
