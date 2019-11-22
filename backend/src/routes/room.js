@@ -1,0 +1,99 @@
+import express from "express";
+import { parseError } from "../util/helpers";
+import Room from "../models/room";
+import RoomTimetable from "../models/roomTimetable";
+import RoomTimetableDay from "../models/roomTimetableDay";
+import RoomTimetableHour from "../models/roomTimetableHour";
+
+const ROOM_CODE = {
+  Gym: "G",
+  Billiards: "B",
+  Tv: "T",
+  Fitness: "F",
+  PingPong: "P"
+};
+
+const roomRoutes = express.Router();
+roomRoutes.post("/add/room", async (req, res) => {
+  const { name, describtion, symbol, startHour, endHour, hourDiff } = req.body;
+  try {
+    // Create timetable days
+    let days = [];
+    for (let i = 0; i < 7; i++) {
+      // Create timetable day hours
+      let hours = [];
+      for (let i = startHour; i <= endHour; i += hourDiff) {
+        const hour = new RoomTimetableHour({
+          value: String(i) + ":00"
+        });
+        hours.push(hour);
+        await hour.save();
+      }
+
+      const day = new RoomTimetableDay({
+        hours: hours
+      });
+      days.push(day);
+      await day.save();
+    }
+
+    // Create timetable
+    const timetable = new RoomTimetable({
+      days: days
+    });
+    await timetable.save();
+
+    const room = new Room({
+      name: name,
+      describtion: describtion,
+      symbol: symbol,
+      timetable: timetable._id
+    });
+    await room.save();
+
+    res.status(200).send(room);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/room-hours-for-day", async (req, res) => {
+  const { roomSymbol, dayNum } = req.body;
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol })
+      .populate("timetable")
+      .exec();
+
+    res.status(200).send(room.timetable.days[dayNum]);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/hour-details", async (req, res) => {
+  const { roomSymbol, dayNum, hourNum } = req.body;
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol })
+      .populate("timetable")
+      .exec();
+
+    res.status(200).send(room.timetable.days[dayNum].hours[hourNum]);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+// roomRoutes.post("/reserve-hour", async (req, res) => {
+//   const { roomSymbol, dayNum, hourNum } = req.body;
+//   try {
+//     const room = await Room.findOne({ symbol: roomSymbol })
+//       .populate("timetable")
+//       .exec();
+
+//     res.status(200).send(room.timetable.days[dayNum].hours[hourNum]);
+//   } catch (err) {
+//     res.status(400).send(parseError(err));
+//   }
+// });
+
+export default roomRoutes;

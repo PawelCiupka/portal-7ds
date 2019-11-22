@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
-import RoomTimetableHour from "./roomTimetableHour";
 
 const RoomTimetableDaySchema = new mongoose.Schema({
   dayOfWeek: {
-    type: String
+    type: String,
+    default: ""
   },
-  hours: [RoomTimetableHour]
+  hours: { type: Array, default: [] }
 });
 
 const RoomTimetableDay = mongoose.model(

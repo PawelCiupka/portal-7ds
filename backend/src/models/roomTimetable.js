@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
-import RoomTimetableDay from "./roomTimetableDay";
 
 const RoomTimetableSchema = new mongoose.Schema({
-  days: [RoomTimetableDay]
+  days: { type: Array, default: [] }
 });
 
 const RoomTimetable = mongoose.model("RoomTimetable", RoomTimetableSchema);

@@ -6,6 +6,10 @@ const RoomSchema = new mongoose.Schema({
     type: String
   },
   describtion: {
+    type: String,
+    default: ""
+  },
+  symbol: {
     type: String
   },
   timetable: {

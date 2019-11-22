@@ -60,6 +60,7 @@ import {
     apiRouter.use("/ticket", routes.ticketRoutes);
     apiRouter.use("/management", routes.managementRoutes);
     apiRouter.use("/helper", routes.helperRoutes);
+    apiRouter.use("/room", routes.roomRoutes);
 
     app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
   } catch (err) {
