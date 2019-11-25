@@ -1,6 +1,7 @@
 import express from "express";
 import { parseError } from "../util/helpers";
 import Room from "../models/room";
+import User from "../models/user";
 import RoomTimetable from "../models/roomTimetable";
 import RoomTimetableDay from "../models/roomTimetableDay";
 import RoomTimetableHour from "../models/roomTimetableHour";
@@ -70,6 +71,27 @@ roomRoutes.post("/get/room-hours-for-day", async (req, res) => {
   }
 });
 
+roomRoutes.post("/get/room-timetable", async (req, res) => {
+  const { roomSymbol } = req.body;
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol })
+      .populate({
+        path: "timetable",
+        populate: {
+          path: "days",
+          populate: {
+            path: "hours"
+          }
+        }
+      })
+      .exec();
+
+    res.status(200).send(room.timetable);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
 roomRoutes.post("/get/hour-details", async (req, res) => {
   const { roomSymbol, dayNum, hourNum } = req.body;
   try {
@@ -83,17 +105,43 @@ roomRoutes.post("/get/hour-details", async (req, res) => {
   }
 });
 
-// roomRoutes.post("/reserve-hour", async (req, res) => {
-//   const { roomSymbol, dayNum, hourNum } = req.body;
-//   try {
-//     const room = await Room.findOne({ symbol: roomSymbol })
-//       .populate("timetable")
-//       .exec();
+roomRoutes.post("/reserve-hour", async (req, res) => {
+  const { hourId, userId } = req.body;
+  try {
+    const user = await User.findOne({ _id: userId });
+    await RoomTimetableHour.update(
+      { _id: hourId },
+      {
+        $set: {
+          reservingUser: user,
+          isReserved: true
+        }
+      }
+    );
 
-//     res.status(200).send(room.timetable.days[dayNum].hours[hourNum]);
-//   } catch (err) {
-//     res.status(400).send(parseError(err));
-//   }
-// });
+    res.status(200).send("ok");
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/cancel-reservation", async (req, res) => {
+  const { hourId } = req.body;
+  try {
+    await RoomTimetableHour.update(
+      { _id: hourId },
+      {
+        $set: {
+          reservingUser: null,
+          isReserved: false
+        }
+      }
+    );
+
+    res.status(200).send("ok");
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
 
 export default roomRoutes;

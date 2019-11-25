@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import User from "./user";
 
 const RoomTimetableHourSchema = new mongoose.Schema({
   value: {
@@ -8,9 +9,10 @@ const RoomTimetableHourSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  reservingPerson: {
-    type: String,
-    default: ""
+  reservingUser: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: User,
+    default: null
   }
 });
 

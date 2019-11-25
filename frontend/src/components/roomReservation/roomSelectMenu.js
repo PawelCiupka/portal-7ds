@@ -3,7 +3,6 @@ import RoomReservationRoomSelectCard from "./roomSelectCard";
 
 const RoomReservationRoomSelectMenu = () => {
   const goToTV = () => {
-    console.log("GoToTV");
     document.location.href = "/dashboard/room-reservation/tv";
   };
 

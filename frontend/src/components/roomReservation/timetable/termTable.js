@@ -1,10 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { Table, Button } from "react-bootstrap";
+import { mapAlertDispatchToProps } from "../../alert/alertController";
+import { getRoomTimetable, reserveRoom } from "../../../util/room";
+
+const mapStateToProps = ({ session }) => ({
+  session
+});
+const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
 const RoomReservationTimetableTable = props => {
   const [msg, setMsg] = useState("");
+  const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    const prepareDays = async () => {
+      const res = await getRoomTimetable(props.roomSymbol);
+      setDays(res.days);
+    };
+    prepareDays();
+  }, []);
+
   const goBack = () => {
     window.history.back();
+  };
+
+  const reserveHour = hour => {
+    reserveRoom(hour._id, props.session.userId);
+    updateDays();
+    setMsg("Zarezerwowano salkę na godzine " + hour.value);
+  };
+
+  const updateDays = async () => {
+    const res = await getRoomTimetable(props.roomSymbol);
+    setDays(res.days);
   };
 
   return (
@@ -12,80 +41,55 @@ const RoomReservationTimetableTable = props => {
       <Button onClick={goBack}>Back</Button>
       <h2>{props.title}</h2>
       {msg}
-      <Table striped bordered hover responsive>
-        <thead>
-          <tr>
-            <th></th>
-            {props.days.map((day, index) => (
-              <th>{day.name}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {props.hoursTemplate.map((hour, hourIndex) => (
+
+      {days.length > 0 ? (
+        <Table striped bordered hover responsive>
+          <thead>
             <tr>
-              <th>{hour}</th>
-              {props.days.map((day, dayIndex) => (
-                <th>
-                  <Button
-                    variant="success"
-                    onClick={() => {
-                      setMsg(
-                        "Wybrano godzine " +
-                          day.hours[hourIndex] +
-                          " w " +
-                          day.name
-                      );
-                      console.log(
-                        "Selected " +
-                          day.hours[hourIndex] +
-                          " o'clock on " +
-                          day.name
-                      );
-                    }}
-                  >
-                    {day.hours[hourIndex]}
-                  </Button>
-                </th>
+              <th></th>
+              {days.map(day => (
+                <th>{day.dayOfWeek}</th>
               ))}
             </tr>
-          ))}
-          {/* {props.days.map((day, index) => (
-            <tr>
-              <th>
-                {day.hours.map((hour, index) => (
-                  <tr>
-                    <th>{hour}</th>
-                  </tr>
+          </thead>
+          <tbody>
+            {props.hoursTemplate.map((hour, hourIndex) => (
+              <tr>
+                <th>{hour}</th>
+                {days.map(day => (
+                  <th>
+                    {day.hours[hourIndex].isReserved === true ? (
+                      <Button
+                        variant="danger"
+                        disabled="disabled"
+                        onClick={() => {
+                          reserveHour(day.hours[hourIndex]);
+                        }}
+                      >
+                        {day.hours[hourIndex].value}
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="success"
+                        onClick={() => {
+                          reserveHour(day.hours[hourIndex]);
+                        }}
+                      >
+                        {day.hours[hourIndex].value}
+                      </Button>
+                    )}
+                  </th>
                 ))}
-              </th>
-            </tr>
-          ))} */}
-          {/* <tr>
-            <th></th>
-            {props.days.map((day, index) => (
-              <th>
-                {day.hours.map((hour, index) => (
-                  <tr>
-                    <Button
-                      variant="success"
-                      onClick={() =>
-                        console.log(
-                          "Selected " + hour + " o'clock on " + day.name
-                        )
-                      }
-                    >
-                      {hour}
-                    </Button>
-                  </tr>
-                ))}
-              </th>
+              </tr>
             ))}
-          </tr> */}
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
+      ) : null}
     </>
   );
 };
 
-export default RoomReservationTimetableTable;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RoomReservationTimetableTable);
