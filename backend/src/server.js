@@ -30,9 +30,9 @@ import * as routes from "./routes/index";
     app.use(express.json());
     app.use(logger("dev"));
 
-    if (process.env.NODE_ENV === "production") {
-      app.use(express.static(path.resolve(__dirname, "../../frontend/build")));
-    }
+    // if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.resolve(__dirname, "../../frontend/build")));
+    // }
     app.get("*", (request, response) => {
       response.sendFile(
         path.join(path.resolve(__dirname, "../../frontend/build", "index.html"))
