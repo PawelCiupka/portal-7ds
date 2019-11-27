@@ -80,7 +80,10 @@ roomRoutes.post("/get/room-timetable", async (req, res) => {
         populate: {
           path: "days",
           populate: {
-            path: "hours"
+            path: "hours",
+            populate: {
+              path: "reservingUser"
+            }
           }
         }
       })
@@ -93,13 +96,13 @@ roomRoutes.post("/get/room-timetable", async (req, res) => {
 });
 
 roomRoutes.post("/get/hour-details", async (req, res) => {
-  const { roomSymbol, dayNum, hourNum } = req.body;
+  const { hourId } = req.body;
   try {
-    const room = await Room.findOne({ symbol: roomSymbol })
-      .populate("timetable")
+    const hour = await RoomTimetableHour.findOne({ _id: hourId })
+      .populate("reservingUser")
       .exec();
 
-    res.status(200).send(room.timetable.days[dayNum].hours[hourNum]);
+    res.status(200).send(hour);
   } catch (err) {
     res.status(400).send(parseError(err));
   }

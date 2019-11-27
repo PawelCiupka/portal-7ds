@@ -2,7 +2,8 @@ import { showSuccessAlert, showErrorAlert } from "../../actions/alert";
 import {
   TICKET,
   USER,
-  MANAGEMENT
+  MANAGEMENT,
+  ROOM_RESERVATION
 } from "../../helpers/alerts/predefinedMessages";
 
 export const mapAlertDispatchToProps = dispatch => ({
@@ -15,3 +16,4 @@ export const mapAlertDispatchToProps = dispatch => ({
 export const TicketAlerts = TICKET;
 export const UserAlerts = USER;
 export const ManagementAlerts = MANAGEMENT;
+export const RoomReservationAlerts = ROOM_RESERVATION;

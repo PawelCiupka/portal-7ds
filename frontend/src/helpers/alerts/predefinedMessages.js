@@ -27,3 +27,14 @@ export const MANAGEMENT = {
     update_user: "Nie udało zmienić się danych użytkownika"
   }
 };
+
+export const ROOM_RESERVATION = {
+  success: {
+    reserve_room: "Zarezerwowano salkę",
+    cancel_reservation: "Anulowano rezerwację salki"
+  },
+  error: {
+    reserve_room: "Nie udało się zarezerwować salki",
+    cancel_reservation: "Nie udało się anulować rezerwacji salki"
+  }
+};

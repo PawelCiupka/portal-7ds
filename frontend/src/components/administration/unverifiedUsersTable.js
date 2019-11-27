@@ -7,7 +7,7 @@ import {
   acceptUnverifiedUser,
   rejectUnverifiedUser
 } from "../../util/management";
-import { formatDate } from "../../helpers/dateFormatter";
+import { formatDate } from "../../helpers/dateHelper";
 
 class AdministrationUnverifiedUsersTable extends React.Component {
   constructor() {

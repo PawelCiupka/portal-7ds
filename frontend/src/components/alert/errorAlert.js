@@ -18,7 +18,7 @@ const ErrorAlert = ({ alerts, hideErrorAlert }) => {
         <Modal.Body>{alerts.message}</Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={hideErrorAlert}>
-            Close
+            Zamknij
           </Button>
         </Modal.Footer>
       </Modal>

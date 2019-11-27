@@ -18,7 +18,7 @@ const SuccessAlert = ({ alerts, hideSuccessAlert }) => {
         <Modal.Body>{alerts.message}</Modal.Body>
         <Modal.Footer>
           <Button variant="success" onClick={hideSuccessAlert}>
-            Close
+            Zamknij
           </Button>
         </Modal.Footer>
       </Modal>

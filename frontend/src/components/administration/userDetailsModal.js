@@ -12,7 +12,7 @@ import FormikTextareaFormGroup from "../formik/textareaFormGroup";
 import FormikInputFormGroup from "../formik/inputFormGroup";
 import FormikSelectFormGroup from "../formik/selectFormGroup";
 import FormikCheckboxFormGroup from "../formik/checkboxFormGroup";
-import { formatDate } from "../../helpers/dateFormatter";
+import { formatDate } from "../../helpers/dateHelper";
 import { updateUser } from "../../util/management";
 import {
   mapAlertDispatchToProps,
@@ -256,7 +256,7 @@ const AdministrationUserDetailsModal = props => {
             Zmień
           </Button>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Zamknij
           </Button>
         </Modal.Footer>
       </Modal>

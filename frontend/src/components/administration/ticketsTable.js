@@ -5,7 +5,7 @@ import {
   getAmountOfNewTickets,
   markTicketAsDone
 } from "../../util/ticket";
-import { formatDate } from "../../helpers/dateFormatter";
+import { formatDate } from "../../helpers/dateHelper";
 import { FaCheck } from "react-icons/fa";
 
 class AdministrationTicketsTable extends React.Component {

@@ -1,8 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Table, Button } from "react-bootstrap";
-import { mapAlertDispatchToProps } from "../../alert/alertController";
-import { getRoomTimetable, reserveRoom } from "../../../util/room";
+import {
+  mapAlertDispatchToProps,
+  RoomReservationAlerts
+} from "../../alert/alertController";
+import {
+  getRoomTimetable,
+  reserveRoom,
+  cancelReservation
+} from "../../../util/room";
+import RoomReservationTimetableFreeButton from "./utils/free";
+import RoomReservationTimetableReservedButton from "./utils/reserved";
+import {
+  getTodayDate,
+  getDatePlusNumberOfDays
+} from "../../../helpers/dateHelper";
+import RoomReservationTimetableHead from "./utils/tableHead";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -10,46 +24,99 @@ const mapStateToProps = ({ session }) => ({
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
 const RoomReservationTimetableTable = props => {
-  const [msg, setMsg] = useState("");
   const [days, setDays] = useState([]);
 
   useEffect(() => {
-    const prepareDays = async () => {
-      const res = await getRoomTimetable(props.roomSymbol);
-      setDays(res.days);
-    };
-    prepareDays();
+    updateDays();
   }, []);
+
+  const updateDays = async () => {
+    const days = await getRoomTimetable(props.roomSymbol);
+    setDays(days.days);
+  };
 
   const goBack = () => {
     window.history.back();
   };
 
-  const reserveHour = hour => {
-    reserveRoom(hour._id, props.session.userId);
+  const manageHour = async hour => {
+    if (
+      hour.reservingUser !== null &&
+      hour.reservingUser._id === props.session.userId
+    ) {
+      await cancelReservation(hour._id).then(resp => {
+        if (resp.status === 200) {
+          props.showSuccessAlert({
+            message: RoomReservationAlerts.success.cancel_reservation
+          });
+        } else {
+          props.showErrorAlert({
+            message: RoomReservationAlerts.error.cancel_reservation
+          });
+        }
+      });
+    } else {
+      await reserveRoom(hour._id, props.session.userId).then(resp => {
+        if (resp.status === 200) {
+          props.showSuccessAlert({
+            message: RoomReservationAlerts.success.reserve_room
+          });
+        } else {
+          props.showErrorAlert({
+            message: RoomReservationAlerts.error.reserve_room
+          });
+        }
+      });
+    }
     updateDays();
-    setMsg("Zarezerwowano salkę na godzine " + hour.value);
-  };
-
-  const updateDays = async () => {
-    const res = await getRoomTimetable(props.roomSymbol);
-    setDays(res.days);
   };
 
   return (
     <>
       <Button onClick={goBack}>Back</Button>
       <h2>{props.title}</h2>
-      {msg}
 
       {days.length > 0 ? (
         <Table striped bordered hover responsive>
           <thead>
             <tr>
               <th></th>
-              {days.map(day => (
+              <th>
+                <RoomReservationTimetableHead date={getTodayDate()} />
+              </th>
+              <th>
+                <RoomReservationTimetableHead
+                  date={getDatePlusNumberOfDays(1)}
+                />
+              </th>
+              <th>
+                <RoomReservationTimetableHead
+                  date={getDatePlusNumberOfDays(2)}
+                />
+              </th>
+              <th>
+                <RoomReservationTimetableHead
+                  date={getDatePlusNumberOfDays(3)}
+                />
+              </th>
+              <th>
+                <RoomReservationTimetableHead
+                  date={getDatePlusNumberOfDays(4)}
+                />
+              </th>
+              <th>
+                <RoomReservationTimetableHead
+                  date={getDatePlusNumberOfDays(5)}
+                />
+              </th>
+              <th>
+                <RoomReservationTimetableHead
+                  date={getDatePlusNumberOfDays(6)}
+                />
+              </th>
+              {/* {days.map(day => (
                 <th>{day.dayOfWeek}</th>
-              ))}
+              ))} */}
             </tr>
           </thead>
           <tbody>
@@ -59,24 +126,16 @@ const RoomReservationTimetableTable = props => {
                 {days.map(day => (
                   <th>
                     {day.hours[hourIndex].isReserved === true ? (
-                      <Button
-                        variant="danger"
-                        disabled="disabled"
-                        onClick={() => {
-                          reserveHour(day.hours[hourIndex]);
-                        }}
-                      >
-                        {day.hours[hourIndex].value}
-                      </Button>
+                      <RoomReservationTimetableReservedButton
+                        manageHourFunc={manageHour}
+                        hour={day.hours[hourIndex]}
+                        sessionUserId={props.session.userId}
+                      />
                     ) : (
-                      <Button
-                        variant="success"
-                        onClick={() => {
-                          reserveHour(day.hours[hourIndex]);
-                        }}
-                      >
-                        {day.hours[hourIndex].value}
-                      </Button>
+                      <RoomReservationTimetableFreeButton
+                        manageHourFunc={manageHour}
+                        hour={day.hours[hourIndex]}
+                      />
                     )}
                   </th>
                 ))}

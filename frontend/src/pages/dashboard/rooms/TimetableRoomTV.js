@@ -1,15 +1,17 @@
 import React from "react";
 import RoomReservationTimetableTable from "../../../components/roomReservation/timetable/termTable";
+import {
+  ROOM_CODE,
+  ROOM_HOUR_TEMPLATE
+} from "../../../helpers/roomAccessHelper";
 
 const TimetableRoomTV = () => {
-  const hours = ["11:00", "13:00", "15:00", "17:00", "19:00", "21:00"];
-
   return (
     <>
       <RoomReservationTimetableTable
         title="Salka TV"
-        roomSymbol={"T"}
-        hoursTemplate={hours}
+        roomSymbol={ROOM_CODE.Tv}
+        hoursTemplate={ROOM_HOUR_TEMPLATE.Tv}
       />
     </>
   );
