@@ -30,7 +30,9 @@ import * as routes from "./routes/index";
     app.use(express.json());
     app.use(logger("dev"));
 
-    app.use(express.static(path.resolve(__dirname, "../../frontend/build")));
+    if (process.env.NODE_ENV === "production") {
+      app.use(express.static(path.resolve(__dirname, "../../frontend/build")));
+    }
 
     const MongoStore = connectStore(session);
 
@@ -53,6 +55,12 @@ import * as routes from "./routes/index";
       })
     );
 
+    app.get("*", (request, response) => {
+      response.sendFile(
+        path.join(path.resolve(__dirname, "../../frontend/build"), "index.html")
+      );
+    });
+
     const apiRouter = express.Router();
     app.use("/api", apiRouter);
     apiRouter.use("/users", routes.userRoutes);
@@ -65,9 +73,13 @@ import * as routes from "./routes/index";
     app.listen(process.env.PORT, () =>
       console.log(`Listening on port ${process.env.PORT}`)
     );
-    console.log("---------------------------------------------------------------")
-    console.log(process.env)
-    console.log("---------------------------------------------------------------")
+    console.log(
+      "---------------------------------------------------------------"
+    );
+    console.log(process.env);
+    console.log(
+      "---------------------------------------------------------------"
+    );
   } catch (err) {
     console.log(err);
   }
