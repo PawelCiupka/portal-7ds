@@ -6,7 +6,7 @@ const logger = require("morgan");
 const path = require("path");
 import * as routes from "./routes/index";
 // import {
-//   PORT,
+//   NODE_PORT,
 //   NODE_ENV,
 //   MONGO_URI,
 //   SESS_NAME,
@@ -30,9 +30,14 @@ import * as routes from "./routes/index";
     app.use(express.json());
     app.use(logger("dev"));
 
-    // if (process.env.NODE_ENV === "production") {
-    // }
-    app.use(express.static(path.resolve(__dirname, "../../frontend/build")));
+    if (process.env.NODE_ENV === "production") {
+      app.use(express.static(path.resolve(__dirname, "../../frontend/build")));
+    }
+    app.get("*", (request, response) => {
+      response.sendFile(
+        path.join(path.resolve(__dirname, "../../frontend/build", "index.html"))
+      );
+    });
 
     const MongoStore = connectStore(session);
 
@@ -49,17 +54,10 @@ import * as routes from "./routes/index";
         resave: false,
         cookie: {
           sameSite: true,
-          secure: process.env.NODE_ENV === "production",
           maxAge: parseInt(process.env.SESS_LIFETIME)
         }
       })
     );
-
-    app.get("*", (request, response) => {
-      response.sendFile(
-        path.join(path.resolve(__dirname, "../../frontend/build", "index.html"))
-      );
-    });
 
     const apiRouter = express.Router();
     app.use("/api", apiRouter);
@@ -70,15 +68,8 @@ import * as routes from "./routes/index";
     apiRouter.use("/helper", routes.helperRoutes);
     apiRouter.use("/room", routes.roomRoutes);
 
-    app.listen(process.env.PORT, () =>
-      console.log(`Listening on port ${process.env.PORT}`)
-    );
-    console.log(
-      "---------------------------------------------------------------"
-    );
-    console.log(process.env);
-    console.log(
-      "---------------------------------------------------------------"
+    app.listen(process.env.NODE_PORT, () =>
+      console.log(`Listening on port ${process.env.NODE_PORT}`)
     );
   } catch (err) {
     console.log(err);
