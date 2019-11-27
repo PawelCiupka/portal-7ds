@@ -57,7 +57,7 @@ import * as routes from "./routes/index";
 
     app.get("*", (request, response) => {
       response.sendFile(
-        path.join(path.resolve(__dirname, "../../frontend/build"), "index.html")
+        path.join(path.resolve(__dirname, "../../frontend/build", "index.html"))
       );
     });
 
