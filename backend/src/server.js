@@ -5,18 +5,18 @@ import connectStore from "connect-mongo";
 const logger = require("morgan");
 const path = require("path");
 import * as routes from "./routes/index";
-import {
-  PORT,
-  NODE_ENV,
-  MONGO_URI,
-  SESS_NAME,
-  SESS_SECRET,
-  SESS_LIFETIME
-} from "./config";
+// import {
+//   PORT,
+//   NODE_ENV,
+//   MONGO_URI,
+//   SESS_NAME,
+//   SESS_SECRET,
+//   SESS_LIFETIME
+// } from "./config";
 
 (async () => {
   try {
-    await mongoose.connect(MONGO_URI, {
+    await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true
     });
@@ -36,19 +36,19 @@ import {
 
     app.use(
       session({
-        name: SESS_NAME,
-        secret: SESS_SECRET,
+        name: process.env.SESS_NAME,
+        secret: process.env.SESS_SECRET,
         store: new MongoStore({
           mongooseConnection: mongoose.connection,
           collection: "session",
-          ttl: parseInt(SESS_LIFETIME) / 1000
+          ttl: parseInt(process.env.SESS_LIFETIME) / 1000
         }),
         saveUninitialized: false,
         resave: false,
         cookie: {
           sameSite: true,
-          secure: NODE_ENV === "production",
-          maxAge: parseInt(SESS_LIFETIME)
+          secure: process.env.NODE_ENV === "production",
+          maxAge: parseInt(process.env.SESS_LIFETIME)
         }
       })
     );
@@ -62,7 +62,9 @@ import {
     apiRouter.use("/helper", routes.helperRoutes);
     apiRouter.use("/room", routes.roomRoutes);
 
-    app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
+    app.listen(process.env.PORT, () =>
+      console.log(`Listening on port ${process.env.PORT}`)
+    );
   } catch (err) {
     console.log(err);
   }
