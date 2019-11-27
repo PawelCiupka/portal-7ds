@@ -6,7 +6,7 @@ const logger = require("morgan");
 const path = require("path");
 import * as routes from "./routes/index";
 // import {
-//   NODE_PORT,
+//   PORT,
 //   NODE_ENV,
 //   MONGO_URI,
 //   SESS_NAME,
@@ -30,14 +30,7 @@ import * as routes from "./routes/index";
     app.use(express.json());
     app.use(logger("dev"));
 
-    // if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.resolve(__dirname, "../../frontend/build")));
-    // }
-    app.get("*", (request, response) => {
-      response.sendFile(
-        path.join(path.resolve(__dirname, "../../frontend/build", "index.html"))
-      );
-    });
 
     const MongoStore = connectStore(session);
 
@@ -54,7 +47,7 @@ import * as routes from "./routes/index";
         resave: false,
         cookie: {
           sameSite: true,
-          //secure: process.env.NODE_ENV === "production",
+          secure: process.env.NODE_ENV === "production",
           maxAge: parseInt(process.env.SESS_LIFETIME)
         }
       })
@@ -69,8 +62,8 @@ import * as routes from "./routes/index";
     apiRouter.use("/helper", routes.helperRoutes);
     apiRouter.use("/room", routes.roomRoutes);
 
-    app.listen(process.env.NODE_PORT, () =>
-      console.log(`Listening on port ${process.env.NODE_PORT}`)
+    app.listen(process.env.PORT, () =>
+      console.log(`Listening on port ${process.env.PORT}`)
     );
   } catch (err) {
     console.log(err);
