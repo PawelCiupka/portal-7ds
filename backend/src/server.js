@@ -65,6 +65,9 @@ import * as routes from "./routes/index";
     app.listen(process.env.PORT, () =>
       console.log(`Listening on port ${process.env.PORT}`)
     );
+    console.log("---------------------------------------------------------------")
+    console.log(process.env)
+    console.log("---------------------------------------------------------------")
   } catch (err) {
     console.log(err);
   }
