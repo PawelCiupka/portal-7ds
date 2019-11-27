@@ -54,6 +54,7 @@ import * as routes from "./routes/index";
         resave: false,
         cookie: {
           sameSite: true,
+          //secure: process.env.NODE_ENV === "production",
           maxAge: parseInt(process.env.SESS_LIFETIME)
         }
       })
