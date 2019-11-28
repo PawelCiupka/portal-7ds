@@ -54,6 +54,9 @@ import * as routes from "./routes/index";
     );
 
     const apiRouter = express.Router();
+
+    app.use(express.static(path.resolve(__dirname, "../../frontend/build")));
+
     app.use("/api", apiRouter);
     apiRouter.use("/users", routes.userRoutes);
     apiRouter.use("/session", routes.sessionRoutes);
@@ -61,6 +64,12 @@ import * as routes from "./routes/index";
     apiRouter.use("/management", routes.managementRoutes);
     apiRouter.use("/helper", routes.helperRoutes);
     apiRouter.use("/room", routes.roomRoutes);
+
+    app.get("*", function(request, response) {
+      response.sendFile(
+        path.resolve(__dirname, "../../frontend/build", "index.html")
+      );
+    });
 
     app.listen(process.env.PORT, () =>
       console.log(`Listening on port ${process.env.PORT}`)
