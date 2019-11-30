@@ -4,15 +4,10 @@ import session from "express-session";
 import connectStore from "connect-mongo";
 const logger = require("morgan");
 const path = require("path");
+const dotenv = require("dotenv");
 import * as routes from "./routes/index";
-// import {
-//   PORT,
-//   NODE_ENV,
-//   MONGO_URI,
-//   SESS_NAME,
-//   SESS_SECRET,
-//   SESS_LIFETIME
-// } from "./config";
+
+dotenv.config();
 
 (async () => {
   try {

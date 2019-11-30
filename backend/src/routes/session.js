@@ -2,7 +2,6 @@ import express from "express";
 import Joi from "joi";
 import User from "../models/user";
 import { signIn } from "../validations/user";
-// import { SESS_NAME } from "../config";
 import { parseError, sessionizeUser } from "../util/helpers";
 import { USER_STATUS_VERIFIED } from "../models/userStatus";
 
