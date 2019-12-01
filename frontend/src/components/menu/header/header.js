@@ -1,29 +1,24 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Navbar, Nav } from "react-bootstrap";
 import UserDropdown from "./userDropdown";
 
-const Header = props => {
+const Header = () => {
   return (
     <>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">{props.pageTitle}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Brand href="#home">7DS</Navbar.Brand>
+        <UserDropdown />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/dashboard">Strona główna</Nav.Link>
             <Nav.Link href="/dashboard/room-reservation/menu">Salki</Nav.Link>
             <Nav.Link href="/dashboard/management">Administracja</Nav.Link>
-            <UserDropdown />
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     </>
   );
-};
-
-Header.propTypes = {
-  pageTitle: PropTypes.string.isRequired
 };
 
 export default Header;

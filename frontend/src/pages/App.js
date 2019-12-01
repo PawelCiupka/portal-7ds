@@ -5,12 +5,15 @@ import Login from "./Login";
 import Signup from "./Signup";
 import Dashboard from "./Dashboard";
 import { AuthRoute, ProtectedRoute } from "../util/route";
+import "../styles/style.css";
 
 export default () => (
   <>
-    <Route exact path="/" component={Welcome} />
-    <AuthRoute path="/login" component={Login} />
-    <AuthRoute path="/signup" component={Signup} />
-    <ProtectedRoute path="/dashboard" component={Dashboard} />
+    <div id="app-idc">
+      <Route exact path="/" component={Welcome} />
+      <AuthRoute path="/login" component={Login} />
+      <AuthRoute path="/signup" component={Signup} />
+      <ProtectedRoute path="/dashboard" component={Dashboard} />
+    </div>
   </>
 );

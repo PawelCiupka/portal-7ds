@@ -1,0 +1,75 @@
+#app-idc {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.navbar {
+  height: 3.25rem;
+  align-items: center;
+  justify-content: left;
+  padding: 0.1rem 1rem;
+  -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+}
+
+.button-icon {
+  color: #000;
+  font-size: 1.25rem;
+}
+
+.sidebar-header {
+  height: 3.25rem;
+  padding: 0.1rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sidebar-menu-user-information {
+  height: 8rem;
+  padding-bottom: 3rem !important;
+  display: flex !important;
+  justify-content: left;
+  align-items: center;
+}
+
+.sidebar-menu-user-information h3 {
+  margin-bottom: 0.1rem;
+}
+
+.sidebar-user-icon-container {
+  height: 3.75rem;
+  width: 3.75rem;
+  margin-right: 0.5rem;
+  border: 1px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidebar-user-icon {
+  font-size: 2.25rem !important;
+  margin: 0 !important;
+}
+
+.logout {
+  margin-top: 1.25rem;
+}
+
+.sidebar-menu-item {
+}
+
+.sidebar-span {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-icon {
+  margin-right: 0.5rem !important;
+  font-size: 1.3rem !important;
+}

@@ -1,34 +1,31 @@
 import React from "react";
 import { connect } from "react-redux";
 import { NavDropdown, Button } from "react-bootstrap";
-import { logout } from "../../actions/session";
+import { logout } from "../../../actions/session";
 
 const mapStateToProps = ({ session }) => ({
   session
 });
 
 const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout())
-  });
+  logout: () => dispatch(logout())
+});
 
-const UserDropdown = ({ session, logout }) => {
+const UserDropdown = props => {
   return (
     <>
-      <NavDropdown title={session.username} id="basic-nav-dropdown">
+      <NavDropdown title={props.session.username} id="basic-nav-dropdown">
         <NavDropdown.Header>
-          {session.firstname} {session.lastname}
+          {props.session.firstname} {props.session.lastname}
         </NavDropdown.Header>
         <NavDropdown.Item href="/dashboard/user/edit">
           Zarządzaj
-        </NavDropdown.Item>        
+        </NavDropdown.Item>
         <NavDropdown.Divider />
-        <Button onClick={logout}>Wyloguj</Button>
+        <Button onClick={props.logout}>Wyloguj</Button>
       </NavDropdown>
     </>
   );
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserDropdown);
+export default connect(mapStateToProps, mapDispatchToProps)(UserDropdown);
