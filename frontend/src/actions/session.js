@@ -34,10 +34,12 @@ export const signup = user => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
+  console.log("logout");
   const response = await apiUtil.logout();
   const data = await response.json();
 
   if (response.ok) {
+    window.location.reload();
     return dispatch(logoutCurrentUser());
   }
   return dispatch(receiveErrors(data));

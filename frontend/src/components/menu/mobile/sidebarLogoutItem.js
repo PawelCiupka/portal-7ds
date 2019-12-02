@@ -7,10 +7,14 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch(logout())
 });
 
-const MobileMenuSidebarLogoutItem = props => {
+const MobileMenuSidebarLogoutItem = ({ logout }) => {
   return (
     <>
-      <Menu.Item as="a" href="" onClick={props.logout} className="sidebar-menu-item logout">
+      <Menu.Item
+        as="button"
+        onClick={logout}
+        className="sidebar-menu-item logout"
+      >
         <span className="sidebar-span">
           <Icon className="sidebar-icon" name="log out" />
           Wyloguj

@@ -81,6 +81,7 @@
 }
 
 .logout {
+  border: 0;
   height: auto;
   padding: 0.5rem !important;
 }
