@@ -8,11 +8,11 @@ const MobileMenu = () => {
 
   const toggleSidebar = visible => {
     console.log("xd");
-    const page = document.getElementById("app-idc");
+    const page = document.getElementById("slider-hidder");
     if (visible) {
-      page.style.backgroundColor = "rgba(0,0,0,0.3)";
+      page.style.display = "block";
     } else {
-      page.style.backgroundColor = "rgba(0,0,0,0)";
+      page.style.display = "none";
     }
     setVisible(visible);
   };

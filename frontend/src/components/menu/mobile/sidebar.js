@@ -17,7 +17,7 @@ const MobileSidebar = props => {
         visible={props.visible}
         className="my-sidebar"
       >
-        <div>
+        <div className="sidebar-menu-items-container">
           <div className="sidebar-header">
             <Button
               variant="link"
@@ -45,7 +45,7 @@ const MobileSidebar = props => {
             text="Administracja"
           />
         </div>
-        <div>
+        <div className="sidebar-menu-item-logout-container">
           <MobileMenuSidebarLogoutItem />
         </div>
       </Sidebar>
