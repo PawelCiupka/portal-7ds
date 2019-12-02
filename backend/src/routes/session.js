@@ -11,7 +11,7 @@ sessionRouter.post("", async (req, res) => {
   try {
     let isOk = true;
     const { username, password } = req.body;
-    await Joi.validate({ username, password }, signIn);
+    // await Joi.validate({ username, password }, signIn);
 
     const user = await User.findOne({ username })
       .populate("role")

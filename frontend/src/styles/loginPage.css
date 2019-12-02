@@ -1,0 +1,116 @@
+.login-container {
+  width: 100vw;
+  height: 100vh;
+  padding: 0 15vw;
+  background: rgb(102, 45, 140);
+  background: linear-gradient(
+    45deg,
+    rgba(102, 45, 140, 1) 16%,
+    rgba(237, 30, 121, 1) 100%
+  );
+}
+
+.logo-container {
+  height: 30vh;
+  padding-top: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.logo-container h1 {
+  color: #ddd;
+  font-family: "Quicksand", sans-serif;
+}
+
+.login-form {
+  padding-top: 15vh;
+}
+
+.login-form .input-group-text {
+  width: 4rem;
+  height: 3.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border: 0;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  color: #ddd;
+}
+
+.login-form .input-group-text .icon {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 0 0 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form .form-control {
+  width: 4rem;
+  height: 3.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border: 0;
+  border-top-right-radius: 2rem !important;
+  border-bottom-right-radius: 2rem !important;
+  color: #ddd;
+}
+
+.login-form .form-control::placeholder {
+  color: #ddd;
+}
+
+.login-form .form-control:focus {
+  border: none;
+}
+
+.login-form .form-text {
+  width: 100%;
+  text-align: center;
+  color: #e6827e;
+}
+
+.login-form-error {
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  color: #e6827e;
+}
+
+.btn-fancy {
+  width: 100%;
+  height: 3.5rem;
+  padding: 0.375rem 0.75rem;
+  border: 0;
+  border-radius: 2rem;
+  color: #ddd;
+  background: #d4217d;
+}
+
+.btn-fancy:focus,
+.btn-fancy:hover,
+.btn-fancy:active,
+.btn-fancy:checked,
+.btn-fancy:visited {
+  color: #fff;
+  background: #d4217d !important;
+  outline: none;
+}
+
+.link-to-signup-container {
+  width: 100%;
+  position: absolute;
+  top: 90vh;
+  left: 0;
+}
+.link-to-signup-container p {
+  text-align: center;
+  color: #ddd;
+}
+.link-to-signup-container p a {
+  font-size: 1.05rem;
+  font-weight: bold;
+  text-align: center;
+  color: #ddd;
+}

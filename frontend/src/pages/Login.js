@@ -6,13 +6,16 @@ import UserManagementLoginForm from "../components/userManagement/loginForm";
 const Login = () => {
   return (
     <>
-      <Container>
+      <Container className="login-container">
+        <div className="logo-container">
+          <h1>Portal 7DS</h1>
+        </div>
         <UserManagementLoginForm />
-
-        <br />
-        <p>
-          Nie masz konta? <Link to="/signup">Zarejestruj się</Link>
-        </p>
+        <div className="link-to-signup-container">
+          <p>
+            Nie masz konta? <Link to="/signup">Zarejestruj się</Link>
+          </p>
+        </div>
       </Container>
     </>
   );

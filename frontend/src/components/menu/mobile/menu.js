@@ -7,7 +7,6 @@ const MobileMenu = () => {
   const [visible, setVisible] = useState(false);
 
   const toggleSidebar = visible => {
-    console.log("xd");
     const page = document.getElementById("slider-hidder");
     if (visible) {
       page.style.display = "block";
