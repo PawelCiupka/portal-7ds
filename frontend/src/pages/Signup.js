@@ -6,13 +6,17 @@ import UserManagementSignUpForm from "../components/userManagement/signupForm";
 const Signup = () => {
   return (
     <>
-      <Container>
+      <Container className="register-container">
+        <div className="logo-container">
+          <h1>Portal 7DS</h1>
+          <p>Rejestracja</p>
+        </div>
         <UserManagementSignUpForm />
-
-        <br />
-        <p>
-          Masz już konto? <Link to="/login">Zaloguj się</Link>
-        </p>
+        <div className="link-to-login-container">
+          <p>
+            Masz już konto? <Link to="/login">Zaloguj się</Link>
+          </p>
+        </div>
       </Container>
     </>
   );

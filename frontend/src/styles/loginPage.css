@@ -2,11 +2,11 @@
   width: 100vw;
   height: 100vh;
   padding: 0 15vw;
-  background: rgb(102, 45, 140);
+  background: rgb(69, 20, 90);
   background: linear-gradient(
-    45deg,
-    rgba(102, 45, 140, 1) 16%,
-    rgba(237, 30, 121, 1) 100%
+    48deg,
+    rgba(69, 20, 90, 1) 18%,
+    rgba(255, 83, 0, 1) 100%
   );
 }
 
@@ -16,11 +16,23 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  flex-wrap: wrap;
 }
 
 .logo-container h1 {
+  width: 100%;
+  margin: 0;
   color: #ddd;
   font-family: "Quicksand", sans-serif;
+  text-align: center;
+}
+
+.logo-container {
+  width: 100%;
+  margin: 0;
+  color: #ddd;
+  font-family: "Quicksand", sans-serif;
+  font-size: 0.8rem;
 }
 
 .login-form {

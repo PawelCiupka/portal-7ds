@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
-const FormikInputFormGroup = (
+const FormikInputNoLabelFormGroup = (
   label,
   uniqueName,
   inputType,
@@ -16,7 +16,6 @@ const FormikInputFormGroup = (
   return (
     <>
       <Form.Group className={formGroupClassName}>
-        <Form.Label>{label}:</Form.Label>
         <Form.Control
           id={uniqueName}
           name={uniqueName}
@@ -29,11 +28,11 @@ const FormikInputFormGroup = (
         />
         {comment !== "" ? <Form.Text>{comment}</Form.Text> : null}
         {formikTouched && formikErrors ? (
-          <Form.Text className="text-danger">{formikErrors}</Form.Text>
+          <Form.Text>{formikErrors}</Form.Text>
         ) : null}
       </Form.Group>
     </>
   );
 };
 
-export default FormikInputFormGroup;
+export default FormikInputNoLabelFormGroup;

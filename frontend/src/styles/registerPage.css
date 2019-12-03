@@ -1,0 +1,87 @@
+.register-container {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 0 8vw;
+  background: rgb(69, 20, 90);
+  background: linear-gradient(
+    217deg,
+    rgba(69, 20, 90, 1) 25%,
+    rgba(195, 63, 0, 1) 100%
+  );
+}
+
+.register-form {
+  padding-top: 15vh;
+}
+
+.register-form .input-group-text {
+  width: 4rem;
+  height: 3.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border: 0;
+  border-top-left-radius: 2rem;
+  border-bottom-left-radius: 2rem;
+  color: #ddd;
+}
+
+.register-form .input-group-text .icon {
+  width: 2rem;
+  height: 2rem;
+  margin: 0 0 0 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-form .form-control {
+  height: 3.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border: 0;
+  padding: 0 1.5rem;
+  border-top-right-radius: 2rem !important;
+  border-bottom-right-radius: 2rem !important;
+  border-top-left-radius: 2rem !important;
+  border-bottom-left-radius: 2rem !important;
+  color: #ddd;
+}
+
+.register-form .form-control::placeholder {
+  color: #ddd;
+}
+
+.register-form .form-control:focus {
+  border: none;
+}
+
+.register-form .form-text {
+  width: 100%;
+  text-align: center;
+  color: #e6827e;
+}
+
+.register-form-error {
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  color: #e6827e;
+}
+
+.register-form .btn-fancy {
+  margin: 1.5rem 0 2.5rem 0;
+}
+
+.link-to-login-container {
+  width: 100%;
+  padding-bottom: 8vh;
+}
+.link-to-login-container p {
+  text-align: center;
+  color: #ddd;
+}
+.link-to-login-container p a {
+  font-size: 1.05rem;
+  font-weight: bold;
+  text-align: center;
+  color: #ddd;
+}

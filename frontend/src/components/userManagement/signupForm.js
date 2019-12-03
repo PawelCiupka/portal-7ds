@@ -4,9 +4,9 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import { useFormik } from "formik";
 import { signup } from "../../actions/session";
 import * as roomHelper from "../../helpers/roomHelper";
-import FormikInputFormGroup from "../formik/inputFormGroup";
-import FormikSelectFormGroup from "../formik/selectFormGroup";
 import { userManagementSignUpSchema } from "../../helpers/formSchemas/userManagement/signUpSchema";
+import FormikInputNoLabelFormGroup from "../formik/inputNoLabelFormGroup";
+import FormikSelectNoLabelFormGroup from "../formik/selectNoLabelFormGroup";
 
 const mapDispatchToProps = dispatch => ({
   signup: user => dispatch(signup(user))
@@ -46,8 +46,8 @@ const UserManagementSignUpForm = ({ signup }) => {
 
   return (
     <>
-      <Form onSubmit={formik.handleSubmit}>
-        {FormikInputFormGroup(
+      <Form className="register-form" onSubmit={formik.handleSubmit}>
+        {FormikInputNoLabelFormGroup(
           "Nazwa użytkownika",
           "username",
           "text",
@@ -55,10 +55,10 @@ const UserManagementSignUpForm = ({ signup }) => {
           formik.values.username,
           formik.touched.username,
           formik.errors.username
-        )}
+        )}        
         <Row>
           <Col>
-            {FormikInputFormGroup(
+            {FormikInputNoLabelFormGroup(
               "Imię",
               "firstname",
               "text",
@@ -69,7 +69,7 @@ const UserManagementSignUpForm = ({ signup }) => {
             )}
           </Col>
           <Col>
-            {FormikInputFormGroup(
+            {FormikInputNoLabelFormGroup(
               "Nazwisko",
               "lastname",
               "text",
@@ -80,7 +80,7 @@ const UserManagementSignUpForm = ({ signup }) => {
             )}
           </Col>
         </Row>
-        {FormikInputFormGroup(
+        {FormikInputNoLabelFormGroup(
           "E-mail",
           "email",
           "text",
@@ -91,8 +91,7 @@ const UserManagementSignUpForm = ({ signup }) => {
         )}
         <Row>
           <Col>
-            {FormikSelectFormGroup(
-              "Piętro",
+            {FormikSelectNoLabelFormGroup(
               "floor",
               formik,
               formik.values.floor,
@@ -100,8 +99,7 @@ const UserManagementSignUpForm = ({ signup }) => {
             )}
           </Col>
           <Col>
-            {FormikSelectFormGroup(
-              "Pokój",
+            {FormikSelectNoLabelFormGroup(
               "roomNumber",
               formik,
               formik.values.roomNumber,
@@ -109,32 +107,26 @@ const UserManagementSignUpForm = ({ signup }) => {
             )}
           </Col>
         </Row>
-        <Row>
-          <Col>
-            {FormikInputFormGroup(
-              "Hasło",
-              "password",
-              "password",
-              formik,
-              formik.values.password,
-              formik.touched.password,
-              formik.errors.password
-            )}
-          </Col>
-          <Col>
-            {FormikInputFormGroup(
-              "Potwierdź hasło",
-              "confirmPassword",
-              "password",
-              formik,
-              formik.values.confirmPassword,
-              formik.touched.confirmPassword,
-              formik.errors.confirmPassword
-            )}
-          </Col>
-        </Row>
+        {FormikInputNoLabelFormGroup(
+          "Hasło",
+          "password",
+          "password",
+          formik,
+          formik.values.password,
+          formik.touched.password,
+          formik.errors.password
+        )}
+        {FormikInputNoLabelFormGroup(
+          "Potwierdź hasło",
+          "confirmPassword",
+          "password",
+          formik,
+          formik.values.confirmPassword,
+          formik.touched.confirmPassword,
+          formik.errors.confirmPassword
+        )}
 
-        <Button variant="primary" type="submit">
+        <Button className="btn-fancy" type="submit">
           Zarejestruj
         </Button>
       </Form>
