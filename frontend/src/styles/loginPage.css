@@ -2,11 +2,18 @@
   width: 100vw;
   height: 100vh;
   padding: 0 15vw;
-  background: rgb(69, 20, 90);
+  /* background: rgb(69, 20, 90);
   background: linear-gradient(
     48deg,
     rgba(69, 20, 90, 1) 18%,
     rgba(255, 83, 0, 1) 100%
+  ); */
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 53%,
+    rgba(0, 212, 255, 1) 100%
   );
 }
 
@@ -97,7 +104,8 @@
   border: 0;
   border-radius: 2rem;
   color: #ddd;
-  background: #d4217d;
+  /* background: #d4217d; */
+  background: #0564b5;
 }
 
 .btn-fancy:focus,
@@ -106,7 +114,8 @@
 .btn-fancy:checked,
 .btn-fancy:visited {
   color: #fff;
-  background: #d4217d !important;
+  /* background: #d4217d !important; */
+  background: #0564b5 !important;
   outline: none;
 }
 

@@ -8,7 +8,7 @@ export const getFloors = async () => {
 export const getFloorsToSelectFormGroup = async () => {
   const result = await getAllFloors();
   let newResult = result.map((data, index) => {
-    return { key: String(index + 1), value: data.number, text: data.number };
+    return { key: String(index), value: data.number, text: data.number };
   });
   await newResult.unshift({ key: "0", value: "0", text: "Piętro" });
   return newResult;

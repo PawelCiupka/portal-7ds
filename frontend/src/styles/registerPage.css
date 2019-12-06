@@ -2,11 +2,18 @@
   width: 100vw;
   min-height: 100vh;
   padding: 0 8vw;
-  background: rgb(69, 20, 90);
+  /* background: rgb(69, 20, 90);
   background: linear-gradient(
     217deg,
     rgba(69, 20, 90, 1) 25%,
     rgba(195, 63, 0, 1) 100%
+  ); */
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    228deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 53%,
+    rgba(0, 212, 255, 1) 100%
   );
 }
 
@@ -77,6 +84,18 @@
 
 .register-form .btn-fancy {
   margin: 1.5rem 0 2.5rem 0;
+  background: #081e87;
+}
+
+.register-form .btn-fancy:focus,
+.register-form .btn-fancy:hover,
+.register-form .btn-fancy:active,
+.register-form .btn-fancy:checked,
+.register-form .btn-fancy:visited {
+  color: #fff;
+  /* background: #d4217d !important; */
+  background: #081e87 !important;
+  outline: none;
 }
 
 .link-to-login-container {
