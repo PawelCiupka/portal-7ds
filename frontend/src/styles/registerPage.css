@@ -45,6 +45,14 @@
   color: #ddd;
 }
 
+.register-form select.form-control {
+  box-shadow: transparent;
+  appearance: none;
+}
+
+.register-container select.form-control option {
+}
+
 .register-form .form-control::placeholder {
   color: #ddd;
 }
