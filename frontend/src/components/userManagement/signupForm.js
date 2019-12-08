@@ -55,7 +55,7 @@ const UserManagementSignUpForm = ({ signup }) => {
           formik.values.username,
           formik.touched.username,
           formik.errors.username
-        )}        
+        )}
         <Row>
           <Col>
             {FormikInputNoLabelFormGroup(
@@ -95,7 +95,7 @@ const UserManagementSignUpForm = ({ signup }) => {
               "floor",
               formik,
               formik.values.floor,
-              roomHelper.getFloorsToSelectFormGroup
+              roomHelper.getFloorsWithDefaultToSelectFormGroup
             )}
           </Col>
           <Col>
@@ -103,7 +103,7 @@ const UserManagementSignUpForm = ({ signup }) => {
               "roomNumber",
               formik,
               formik.values.roomNumber,
-              roomHelper.getRoomNumbersToSelectFormGroup
+              roomHelper.getRoomNumbersWithDefaultToSelectFormGroup
             )}
           </Col>
         </Row>

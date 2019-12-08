@@ -25,6 +25,18 @@ export const getNewTickets = (limitAmount, skipAmount) =>
       return data;
     });
 
+export const getAllNewTickets = () =>
+  fetch("/api/ticket/get-all-new-tickets", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });
+
 export const getAmountOfNewTickets = () =>
   fetch("/api/ticket/get-all-new-tickets", {
     method: "POST",
@@ -37,7 +49,7 @@ export const getAmountOfNewTickets = () =>
       return data.length;
     });
 
-export const markTicketAsDone = ticketId => {
+export const markTicketAsDone = async ticketId => {
   fetch("/api/ticket/mark-ticket-as-done", {
     method: "POST",
     body: JSON.stringify({

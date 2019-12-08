@@ -1,8 +1,8 @@
 import React from "react";
-import { Table, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import { MDBDataTable } from "mdbreact";
 import {
-  getNewTickets,
-  getAmountOfNewTickets,
+  getAllNewTickets,
   markTicketAsDone
 } from "../../util/ticket";
 import { formatDate } from "../../helpers/dateHelper";
@@ -12,56 +12,63 @@ class AdministrationTicketsTable extends React.Component {
   constructor() {
     super();
     this.state = {
-      tickets: [],
-      limitAmount: 5,
-      skippedTickets: 0,
-      skippedDifference: 5
+      data: [],
+      isActionDone: false
     };
 
-    this.increaseSkipAmount = this.increaseSkipAmount.bind(this);
-    this.decreaseSkipAmount = this.decreaseSkipAmount.bind(this);
     this.markTicketAsDone = this.markTicketAsDone.bind(this);
-    this.updateTickets = this.updateTickets.bind(this);
   }
 
   componentWillMount = () => {
-    getNewTickets(this.state.limitAmount, this.state.skippedTickets).then(
-      data => {
-        this.setState({ tickets: data });
-      }
-    );
-  };
-
-  increaseSkipAmount = async () => {
-    const amount = await getAmountOfNewTickets();
-    if (
-      this.state.skippedTickets - this.state.limitAmount <
-      amount - this.state.skippedDifference - this.state.limitAmount
-    ) {
-      await this.setState({
-        skippedTickets: this.state.skippedTickets + this.state.skippedDifference
-      });
-      this.updateTickets();
-    }
-  };
-  decreaseSkipAmount = async () => {
-    if (this.state.skippedTickets >= 1) {
-      await this.setState({
-        skippedTickets: this.state.skippedTickets - this.state.skippedDifference
-      });
-    }
     this.updateTickets();
   };
-  updateTickets = async () => {
-    await getNewTickets(this.state.limitAmount, this.state.skippedTickets).then(
-      data => {
-        this.setState({ tickets: data });
-      }
-    );
+
+  updateTickets = () => {
+    getAllNewTickets().then(data => {
+      this.updateData(data);
+    });
+  };
+
+  updateData = tickets => {
+    let result = {
+      columns: [
+        { label: "Użytkownik", field: "user", sort: "asc" },
+        { label: "Wiadomość", field: "msg", sort: "asc" },
+        { label: "Data", field: "createdAt", sort: "asc" },
+        { label: "Akcja", field: "action", sort: "asc" }
+      ],
+      rows: []
+    };
+
+    result.rows = this.prepareTickets(tickets);
+    this.setState({ data: result });
+  };
+
+  prepareTickets = tickets => {
+    let result = [];
+    tickets.forEach(ticket => {
+      const t = {
+        user: ticket.userInfo,
+        msg: ticket.message,
+        createdAt: formatDate(ticket.createdAt),
+        action: (
+          <Button
+            variant="success"
+            size="sm"
+            onClick={() => this.markTicketAsDone(ticket._id)}
+          >
+            <FaCheck />
+          </Button>
+        )
+      };
+      result.push(t);
+    });
+    return result;
   };
 
   markTicketAsDone = async ticketId => {
     await markTicketAsDone(ticketId);
+    this.setState({ isActionDone: true });
     this.updateTickets();
   };
 
@@ -69,39 +76,18 @@ class AdministrationTicketsTable extends React.Component {
     return (
       <>
         <h3>Zgłoszenia</h3>
-        <Table responsive size="sm">
-          <thead>
-            <tr>
-              <th>Użytkownik</th>
-              <th>Wiadomość</th>
-              <th>Data dodania</th>
-              <th>Akcja</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.tickets !== [] &&
-              this.state.tickets.map((ticket, index) => (
-                <tr key={index}>
-                  <th> {ticket.userInfo} </th>
-                  <th>{ticket.message}</th>
-                  <th>{formatDate(ticket.createdAt)}</th>
-                  <th>
-                    <Button
-                      variant="success"
-                      size="sm"
-                      onClick={() => this.markTicketAsDone(ticket._id)}
-                    >
-                      <FaCheck />
-                    </Button>
-                  </th>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-
-        <Button onClick={this.decreaseSkipAmount}>-</Button>
-        <Button onClick={this.increaseSkipAmount}>+</Button>
-        <Button onClick={this.updateTickets}>Odśwież</Button>
+        <MDBDataTable
+          bordered
+          responsive
+          striped
+          small
+          hover
+          data={this.state.data}
+          entriesLabel="Pokaż wpisy"
+          paginationLabel={["-", "+"]}
+          searchLabel="Szukaj"
+          infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
+        />
       </>
     );
   }

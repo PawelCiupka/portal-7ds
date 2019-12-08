@@ -24,7 +24,6 @@ const FormikSelectNoLabelFormGroup = (
         <Form.Control
           id={uniqueName}
           name={uniqueName}
-          defaultValue="0"
           as="select"
           onChange={formik.handleChange}
           value={formikValue}

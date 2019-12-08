@@ -1,0 +1,27 @@
+.welcome-container {
+  width: 100vw;
+  height: 100vh;
+  padding: 0 15vw;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    45deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 53%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+.welcome-container .link-to-signup-login-container {
+  width: 100%;
+  margin-top: 20vh;
+}
+.welcome-container .link-to-signup-login-container p {
+  padding: 0.5rem;
+  text-align: center;
+  color: #ddd;
+}
+.welcome-container .link-to-signup-login-container p a {
+  font-weight: bold;
+  text-align: center;
+  color: #ddd;
+}
