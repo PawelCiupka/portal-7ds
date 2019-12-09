@@ -18,7 +18,7 @@ const MobileMenu = () => {
 
   return (
     <>
-      <Navbar expand="lg">
+      <Navbar expand="lg" fixed="top">
         <Button
           variant="link"
           className="button-icon"
@@ -26,7 +26,7 @@ const MobileMenu = () => {
         >
           <Icon name="bars" />
         </Button>
-        <Navbar.Brand href="#home">7DS</Navbar.Brand>
+        <Navbar.Brand href="/dashboard">Portal 7DS</Navbar.Brand>
 
         <MobileSidebar
           visible={visible}

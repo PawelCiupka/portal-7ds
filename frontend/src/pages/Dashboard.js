@@ -16,19 +16,21 @@ const Dashboard = () => (
     <SuccessAlert />
     <ErrorAlert />
     <Menu />
-    <Container>
-      <Route exact path="/dashboard" component={Home} />
-      <ProtectedRoute path="/dashboard/user/edit" component={UserCenter} />
-      <ProtectedRoute path="/dashboard/management" component={Management} />
-      <ProtectedRoute
-        path="/dashboard/room-reservation/menu"
-        component={RoomReservation}
-      />
-      <ProtectedRoute
-        path="/dashboard/room-reservation/tv"
-        component={TimetableRoomTV}
-      />
-    </Container>
+    <div id="main-content">
+      <Container id="desktop-container">
+        <Route exact path="/dashboard" component={Home} />
+        <ProtectedRoute path="/dashboard/user/edit" component={UserCenter} />
+        <ProtectedRoute path="/dashboard/management" component={Management} />
+        <ProtectedRoute
+          path="/dashboard/room-reservation/menu"
+          component={RoomReservation}
+        />
+        <ProtectedRoute
+          path="/dashboard/room-reservation/tv"
+          component={TimetableRoomTV}
+        />
+      </Container>
+    </div>
   </>
 );
 

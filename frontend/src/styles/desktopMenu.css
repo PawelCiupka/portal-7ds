@@ -1,0 +1,23 @@
+.desktop-navbar {
+  top: 3rem !important;
+  padding-top: 1rem;
+  background: #fafafa !important;
+}
+
+.navbar-menu-item {
+  height: 3rem;
+  padding: 0.75rem 1.2rem !important;
+  display: flex !important;
+  align-items: center;
+}
+
+.navbar-span {
+  display: flex;
+  align-items: center;
+  color: #515151
+}
+
+.navbar-icon {
+  margin-right: 0.5rem !important;
+  font-size: 1.3rem !important;
+}
