@@ -1,35 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { MDBDataTable } from "mdbreact";
 import {
   getAllNewTickets,
-  markTicketAsDone
+  markTicketAsDone,
+  getAmountOfNewTickets
 } from "../../util/ticket";
 import { formatDate } from "../../helpers/dateHelper";
 import { FaCheck } from "react-icons/fa";
 
-class AdministrationTicketsTable extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      data: [],
-      isActionDone: false
+const AdministrationTicketsTable = () => {
+  const [isActionDone, setIsActionDone] = useState(true);
+  const [data, setData] = useState({ columns: [], rows: [] });
+
+  useEffect(() => {
+    updateTickets();
+  }, []);
+
+  useEffect(() => {
+    const doUpdateData = async () => {
+      if (isActionDone === true) {
+        if (data.rows.length === (await getAmountOfNewTickets())) {
+          setIsActionDone(false);
+          updateTickets();
+        }
+      }
     };
 
-    this.markTicketAsDone = this.markTicketAsDone.bind(this);
-  }
+    doUpdateData();
+  });
 
-  componentWillMount = () => {
-    this.updateTickets();
-  };
-
-  updateTickets = () => {
-    getAllNewTickets().then(data => {
-      this.updateData(data);
+  const updateTickets = async () => {
+    await getAllNewTickets().then(data => {
+      updateData(data);
     });
   };
 
-  updateData = tickets => {
+  const updateData = tickets => {
     let result = {
       columns: [
         { label: "Użytkownik", field: "user", sort: "asc" },
@@ -40,12 +47,6 @@ class AdministrationTicketsTable extends React.Component {
       rows: []
     };
 
-    result.rows = this.prepareTickets(tickets);
-    this.setState({ data: result });
-  };
-
-  prepareTickets = tickets => {
-    let result = [];
     tickets.forEach(ticket => {
       const t = {
         user: ticket.userInfo,
@@ -55,42 +56,41 @@ class AdministrationTicketsTable extends React.Component {
           <Button
             variant="success"
             size="sm"
-            onClick={() => this.markTicketAsDone(ticket._id)}
+            onClick={() => markTicket(ticket._id)}
           >
             <FaCheck />
           </Button>
         )
       };
-      result.push(t);
+      result.rows.push(t);
     });
-    return result;
+
+    setData(result);
   };
 
-  markTicketAsDone = async ticketId => {
+  const markTicket = async ticketId => {
     await markTicketAsDone(ticketId);
-    this.setState({ isActionDone: true });
-    this.updateTickets();
+    await setIsActionDone(true);
+    await updateTickets();
   };
 
-  render() {
-    return (
-      <>
-        <h3>Zgłoszenia</h3>
-        <MDBDataTable
-          bordered
-          responsive
-          striped
-          small
-          hover
-          data={this.state.data}
-          entriesLabel="Pokaż wpisy"
-          paginationLabel={["-", "+"]}
-          searchLabel="Szukaj"
-          infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
-        />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <h3>Zgłoszenia</h3>
+      <MDBDataTable
+        bordered
+        responsive
+        striped
+        small
+        hover
+        data={data}
+        entriesLabel="Pokaż wpisy"
+        paginationLabel={["-", "+"]}
+        searchLabel="Szukaj"
+        infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
+      />
+    </>
+  );
+};
 
 export default AdministrationTicketsTable;
