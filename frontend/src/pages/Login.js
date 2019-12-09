@@ -12,7 +12,6 @@ const Login = () => {
 
   return (
     <>
-      {" "}
       {isMobile ? (
         <Container className="login-container">
           <div className="logo-container">
@@ -26,14 +25,15 @@ const Login = () => {
           </div>
         </Container>
       ) : (
-        <>
-          <Container className="login-container">
-            <div className="login-div-left">
-              <div className="logo-container">
-                <h1>Portal 7DS</h1>
-              </div>
+        <Container className="login-container">
+          <div className="login-div-left">
+            <div className="logo-container">
+              <h1>Portal 7DS</h1>
+              <h3>Zaloguj się</h3>
             </div>
-            <div className="login-div-right">
+          </div>
+          <div className="login-div-right">
+            <div>
               <UserManagementLoginForm />
               <div className="link-to-signup-container">
                 <p>
@@ -41,9 +41,9 @@ const Login = () => {
                 </p>
               </div>
             </div>
-          </Container>
-        </>
-      )}{" "}
+          </div>
+        </Container>
+      )}
     </>
   );
 };
