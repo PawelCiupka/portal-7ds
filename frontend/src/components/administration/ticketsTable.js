@@ -7,7 +7,7 @@ import {
   getAmountOfNewTickets
 } from "../../util/ticket";
 import { formatDate } from "../../helpers/dateHelper";
-import { FaCheck } from "react-icons/fa";
+import { Icon } from "semantic-ui-react";
 
 const AdministrationTicketsTable = () => {
   const [isActionDone, setIsActionDone] = useState(true);
@@ -58,7 +58,7 @@ const AdministrationTicketsTable = () => {
             size="sm"
             onClick={() => markTicket(ticket._id)}
           >
-            <FaCheck />
+            <Icon name="check" />
           </Button>
         )
       };
@@ -88,6 +88,7 @@ const AdministrationTicketsTable = () => {
         paginationLabel={["-", "+"]}
         searchLabel="Szukaj"
         infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
+        noRecordsFoundLabel="Nie znaleziono wpisów"
       />
     </>
   );

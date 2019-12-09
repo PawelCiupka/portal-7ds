@@ -1,123 +1,106 @@
-import React from "react";
-import { Table, Button } from "react-bootstrap";
-import { FaSyncAlt, FaPen } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
+import { MDBDataTable } from "mdbreact";
+import { Icon } from "semantic-ui-react";
 import {
-  getUsers,
+  getAllUsers,
   getAmountOfAllUsers,
   getUserById
 } from "../../util/management";
 import AdministrationUserDetailsModal from "./userDetailsModal";
 
-class AdministrationUsersTable extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-      limitAmount: 20,
-      skippedUsers: 0,
-      skippedDifference: 20,
-      showUserDetails: false,
-      detailedUser: null
+const AdministrationUnverifiedUsersTable = () => {
+  const [isActionDone, setIsActionDone] = useState(true);
+  const [data, setData] = useState({ columns: [], rows: [] });
+  const [detailedUser, setDetailedUser] = useState(null);
+  const [showUserDetails, setShowUserDetails] = useState(false);
+
+  useEffect(() => {
+    updateUsers();
+  }, []);
+
+  useEffect(() => {
+    const doUpdateData = async () => {
+      if (isActionDone === true) {
+        if (data.rows.length === (await getAmountOfAllUsers())) {
+          setIsActionDone(false);
+          updateUsers();
+        }
+      }
     };
 
-    this.increaseSkipAmount = this.increaseSkipAmount.bind(this);
-    this.decreaseSkipAmount = this.decreaseSkipAmount.bind(this);
-    this.editUser = this.editUser.bind(this);
-    this.updateUsers = this.updateUsers.bind(this);
-  }
+    doUpdateData();
+  });
 
-  componentWillMount = () => {
-    getUsers(this.state.limitAmount, this.state.skippedUsers).then(data => {
-      this.setState({ users: data });
+  const updateUsers = async () => {
+    await getAllUsers().then(data => {
+      updateData(data);
     });
   };
 
-  increaseSkipAmount = async () => {
-    const amount = await getAmountOfAllUsers();
-    if (
-      this.state.skippedUsers - this.state.limitAmount <
-      amount - this.state.skippedDifference - this.state.limitAmount
-    ) {
-      await this.setState({
-        skippedUsers: this.state.skippedUsers + this.state.skippedDifference
-      });
-      this.updateUsers();
-    }
-  };
-  decreaseSkipAmount = async () => {
-    if (this.state.skippedUsers >= 1) {
-      await this.setState({
-        skippedUsers: this.state.skippedUsers - this.state.skippedDifference
-      });
-    }
-    this.updateUsers();
-  };
-  updateUsers = () => {
-    getUsers(this.state.limitAmount, this.state.skippedUsers).then(data => {
-      this.setState({ users: data });
+  const updateData = users => {
+    let result = {
+      columns: [
+        { label: "Nazwa użytkownika", field: "username", sort: "asc" },
+        { label: "Imię i nazwisko", field: "userInfo", sort: "asc" },
+        { label: "Pokój", field: "room", sort: "asc" },
+        { label: "Komentarz", field: "comment", sort: "asc" },
+        { label: "Akcja", field: "action", sort: "asc" }
+      ],
+      rows: []
+    };
+
+    users.forEach(user => {
+      const u = {
+        username: user.username,
+        userInfo: user.firstname + " " + user.lastname,
+        room: user.room,
+        comment: user.comment === "" ? " " : user.comment,
+        action: (
+          <Button
+            variant="success"
+            size="sm"
+            onClick={() => editUser(user._id)}
+          >
+            <Icon name="pencil alternate" />
+          </Button>
+        )
+      };
+      result.rows.push(u);
     });
+
+    setData(result);
   };
 
-  editUser = async userId => {
+  const editUser = async userId => {
     const user = await getUserById(userId);
-    await this.setState({
-      showUserDetails: false,
-      detailedUser: user
-    });
-    await this.setState({
-      showUserDetails: true
-    });
+    await setShowUserDetails(false);
+    await setDetailedUser(user);
+    await setShowUserDetails(true);
+    updateUsers();
   };
 
-  render() {
-    return (
-      <>
-        {this.state.showUserDetails ? (
-          <AdministrationUserDetailsModal user={this.state.detailedUser} />
-        ) : null}
-        <h3>Zarządanie użytkownikami</h3>
-        <Table responsive size="sm">
-          <thead>
-            <tr>
-              <th>Nazwa użytkownika</th>
-              <th>Imię i nazwisko</th>
-              <th>Pokój</th>
-              <th>Komentarz</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.users !== [] &&
-              this.state.users.map((user, index) => (
-                <tr key={index}>
-                  <th>{user.username} </th>
-                  <th>
-                    {user.firstname} {user.lastname}
-                  </th>
-                  <th>{user.room}</th>
-                  <th>{user.comment}</th>
-                  <th>
-                    <Button
-                      variant="success"
-                      size="sm"
-                      onClick={() => this.editUser(user._id)}
-                    >
-                      <FaPen />
-                    </Button>
-                  </th>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
+  return (
+    <>
+      {showUserDetails ? (
+        <AdministrationUserDetailsModal user={detailedUser} />
+      ) : null}
+      <h3>Zarządanie użytkownikami</h3>
+      <MDBDataTable
+        bordered
+        responsive
+        striped
+        small
+        hover
+        data={data}
+        entriesLabel="Pokaż wpisy"
+        paginationLabel={["-", "+"]}
+        searchLabel="Szukaj"
+        infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
+        noRecordsFoundLabel="Nie znaleziono wpisów"
+      />
+    </>
+  );
+};
 
-        <Button onClick={this.decreaseSkipAmount}>-</Button>
-        <Button onClick={this.increaseSkipAmount}>+</Button>
-        <Button onClick={this.updateUsers}>
-          <FaSyncAlt />
-        </Button>
-      </>
-    );
-  }
-}
-
-export default AdministrationUsersTable;
+export default AdministrationUnverifiedUsersTable;

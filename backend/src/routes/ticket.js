@@ -101,19 +101,19 @@ ticketRouter.post("/mark-ticket-as-done", async (req, res) => {
   }
 });
 
-ticketRouter.post("/new", async (req, res) => {
-  try {
-    const { value } = req.body;
+// ticketRouter.post("/new", async (req, res) => {
+//   try {
+//     const { value } = req.body;
 
-    const newTicket = new TicketStatus({
-      name: value
-    });
-    await newTicket.save();
+//     const newTicket = new TicketStatus({
+//       name: value
+//     });
+//     await newTicket.save();
 
-    res.send(newTicket);
-  } catch (err) {
-    res.status(400).send(parseError(err));
-  }
-});
+//     res.send(newTicket);
+//   } catch (err) {
+//     res.status(400).send(parseError(err));
+//   }
+// });
 
 export default ticketRouter;

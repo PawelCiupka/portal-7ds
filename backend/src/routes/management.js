@@ -9,28 +9,6 @@ import { parseError } from "../util/helpers";
 
 const managementRoutes = express.Router();
 
-managementRoutes.post("/get-unverified-users", async (req, res) => {
-  try {
-    const { limitAmount, skipAmount } = req.body;
-
-    const users = await User.find({})
-      .populate({
-        path: "status",
-        match: { name: USER_STATUS_UNVERIFIED }
-      })
-      .sort({ createdAt: -1 })
-      .exec();
-
-    res.send(
-      users
-        .filter(user => user.status !== null)
-        .slice(skipAmount, skipAmount + limitAmount)
-    );
-  } catch (err) {
-    res.status(400).send(parseError(err));
-  }
-});
-
 managementRoutes.post("/get-all-unverified-users", async (req, res) => {
   try {
     const users = await User.find({})
@@ -86,48 +64,6 @@ managementRoutes.post("/reject-unverified-user", async (req, res) => {
 
     // const user = await User.findOne({ _id: id });
     res.status(200).send("success");
-  } catch (err) {
-    res.status(400).send(parseError(err));
-  }
-});
-
-managementRoutes.post("/get-users", async (req, res) => {
-  try {
-    const { limitAmount, skipAmount, firstname, lastname, room } = req.body;
-
-    const filterUsers = user => {
-      let isOk = true;
-
-      if (
-        firstname &&
-        isOk &&
-        !user.firstname.toLowerCase().includes(firstname.toLowerCase())
-      ) {
-        isOk = false;
-      }
-      if (
-        lastname &&
-        isOk &&
-        !user.lastname.toLowerCase().includes(lastname.toLowerCase())
-      ) {
-        isOk = false;
-      }
-      if (room && isOk && user.room !== room) {
-        isOk = false;
-      }
-
-      if (isOk) {
-        return user;
-      }
-    };
-
-    const users = await User.find({})
-      .sort({ room: 1 })
-      .exec();
-
-    res.send(
-      users.filter(filterUsers).slice(skipAmount, skipAmount + limitAmount)
-    );
   } catch (err) {
     res.status(400).send(parseError(err));
   }

@@ -1,10 +1,6 @@
-export const getUnvefiriedUsers = (limitAmount, skipAmount) =>
-  fetch("/api/management/get-unverified-users", {
+export const getAllUnvefiriedUsers = () =>
+  fetch("/api/management/get-all-unverified-users", {
     method: "POST",
-    body: JSON.stringify({
-      limitAmount: limitAmount,
-      skipAmount: skipAmount
-    }),
     headers: {
       "Content-Type": "application/json"
     }
@@ -52,13 +48,9 @@ export const rejectUnverifiedUser = userId =>
     return response;
   });
 
-export const getUsers = (limitAmount, skipAmount) =>
-  fetch("/api/management/get-users", {
+export const getAllUsers = () =>
+  fetch("/api/management/get-all-users", {
     method: "POST",
-    body: JSON.stringify({
-      limitAmount: limitAmount,
-      skipAmount: skipAmount
-    }),
     headers: {
       "Content-Type": "application/json"
     }

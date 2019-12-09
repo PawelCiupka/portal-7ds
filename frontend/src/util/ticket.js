@@ -9,22 +9,6 @@ export const sendChangeRoomTicket = data =>
     return response;
   });
 
-export const getNewTickets = (limitAmount, skipAmount) =>
-  fetch("/api/ticket/get-new-tickets", {
-    method: "POST",
-    body: JSON.stringify({
-      limitAmount: limitAmount,
-      skipAmount: skipAmount
-    }),
-    headers: {
-      "Content-Type": "application/json"
-    }
-  })
-    .then(response => response.json())
-    .then(data => {
-      return data;
-    });
-
 export const getAllNewTickets = () =>
   fetch("/api/ticket/get-all-new-tickets", {
     method: "POST",

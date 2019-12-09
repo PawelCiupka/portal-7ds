@@ -15,3 +15,34 @@
   -webkit-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
 }
+
+
+
+/* SEMANTIC-UI-REACT Icon - START */
+i.icon {
+  margin: 0;
+}
+/* SEMANTIC-UI-REACT Icon - END */
+
+
+
+/* MDB DataTables - START */
+.dataTables_length select {
+  width: auto;
+}
+.dataTables_filter {
+  display: flex;
+  justify-content: flex-end;
+}
+.dataTables_filter input {
+  display: inline-block;
+  margin-left: 0.5rem;
+  width: auto;
+}
+@media (max-width: 768px) {
+  .dataTables_filter {
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+/* MDB DataTables - END */

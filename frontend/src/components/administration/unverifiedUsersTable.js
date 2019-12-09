@@ -1,129 +1,115 @@
-import React from "react";
-import { Table, Button } from "react-bootstrap";
-import { FaSyncAlt, FaCheck, FaTimes } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { Button } from "react-bootstrap";
+import { MDBDataTable } from "mdbreact";
+import { Icon } from "semantic-ui-react";
 import {
-  getUnvefiriedUsers,
+  getAllUnvefiriedUsers,
   getAmountOfUnvefiriedUsers,
   acceptUnverifiedUser,
   rejectUnverifiedUser
 } from "../../util/management";
 import { formatDate } from "../../helpers/dateHelper";
 
-class AdministrationUnverifiedUsersTable extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      users: [],
-      limitAmount: 5,
-      skippedUsers: 0,
-      skippedDifference: 5
+const AdministrationUnverifiedUsersTable = () => {
+  const [isActionDone, setIsActionDone] = useState(true);
+  const [data, setData] = useState({ columns: [], rows: [] });
+
+  useEffect(() => {
+    updateUsers();
+  }, []);
+
+  useEffect(() => {
+    const doUpdateData = async () => {
+      if (isActionDone === true) {
+        if (data.rows.length === (await getAmountOfUnvefiriedUsers())) {
+          setIsActionDone(false);
+          updateUsers();
+        }
+      }
     };
 
-    this.increaseSkipAmount = this.increaseSkipAmount.bind(this);
-    this.decreaseSkipAmount = this.decreaseSkipAmount.bind(this);
-    this.acceptUnverifiedUser = this.acceptUnverifiedUser.bind(this);
-    this.rejectUnverifiedUser = this.rejectUnverifiedUser.bind(this);
-    this.updateUsers = this.updateUsers.bind(this);
-  }
+    doUpdateData();
+  });
 
-  componentWillMount = () => {
-    getUnvefiriedUsers(this.state.limitAmount, this.state.skippedUsers).then(
-      data => {
-        this.setState({ users: data });
-      }
-    );
+  const updateUsers = async () => {
+    await getAllUnvefiriedUsers().then(data => {
+      updateData(data);
+    });
   };
 
-  increaseSkipAmount = async () => {
-    const amount = await getAmountOfUnvefiriedUsers();
-    if (
-      this.state.skippedUsers - this.state.limitAmount <
-      amount - this.state.skippedDifference - this.state.limitAmount
-    ) {
-      await this.setState({
-        skippedUsers: this.state.skippedUsers + this.state.skippedDifference
-      });
-      this.updateUsers();
-    }
-  };
-  decreaseSkipAmount = async () => {
-    if (this.state.skippedUsers >= 1) {
-      await this.setState({
-        skippedUsers: this.state.skippedUsers - this.state.skippedDifference
-      });
-    }
-    this.updateUsers();
-  };
-  updateUsers = () => {
-    getUnvefiriedUsers(this.state.limitAmount, this.state.skippedUsers).then(
-      data => {
-        this.setState({ users: data });
-      }
-    );
+  const updateData = users => {
+    let result = {
+      columns: [
+        { label: "Nazwa użytkownika", field: "username", sort: "asc" },
+        { label: "Imię i nazwisko", field: "userInfo", sort: "asc" },
+        { label: "Pokój", field: "room", sort: "asc" },
+        { label: "Data dodania", field: "createdAt", sort: "asc" },
+        { label: "Akcja", field: "action", sort: "asc" }
+      ],
+      rows: []
+    };
+
+    users.forEach(user => {
+      const u = {
+        username: user.username,
+        userInfo: user.firstname + " " + user.lastname,
+        room: user.room,
+        createdAt: formatDate(user.createdAt),
+        action: (
+          <>
+            <Button
+              variant="success"
+              size="sm"
+              onClick={() => acceptUser(user._id)}
+            >
+              <Icon name="check" />
+            </Button>
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => rejectUser(user._id)}
+            >
+              <Icon name="times" />
+            </Button>
+          </>
+        )
+      };
+      result.rows.push(u);
+    });
+
+    setData(result);
   };
 
-  acceptUnverifiedUser = async userId => {
+  const acceptUser = async userId => {
     await acceptUnverifiedUser(userId);
-    this.updateUsers();
+    await setIsActionDone(true);
+    updateUsers();
   };
-  rejectUnverifiedUser = async userId => {
+
+  const rejectUser = async userId => {
     await rejectUnverifiedUser(userId);
-    this.updateUsers();
+    await setIsActionDone(true);
+    updateUsers();
   };
 
-  render() {
-    return (
-      <>
-        <h3>Użytkownicy oczekujący na potwierdzenie</h3>
-        <Table responsive size="sm">
-          <thead>
-            <tr>
-              <th>Nazwa użytkownika</th>
-              <th>Imię i nazwisko</th>
-              <th>Pokój</th>
-              <th>Data dodania</th>
-              <th>Akcja</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.users !== [] &&
-              this.state.users.map((user, index) => (
-                <tr key={index}>
-                  <th>{user.username} </th>
-                  <th>
-                    {user.firstname} {user.lastname}
-                  </th>
-                  <th>{user.room}</th>
-                  <th>{formatDate(user.createdAt)}</th>
-                  <th>
-                    <Button
-                      variant="success"
-                      size="sm"
-                      onClick={() => this.acceptUnverifiedUser(user._id)}
-                    >
-                      <FaCheck />
-                    </Button>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => this.rejectUnverifiedUser(user._id)}
-                    >
-                      <FaTimes />
-                    </Button>
-                  </th>
-                </tr>
-              ))}
-          </tbody>
-        </Table>
-
-        <Button onClick={this.decreaseSkipAmount}>-</Button>
-        <Button onClick={this.increaseSkipAmount}>+</Button>
-        <Button onClick={this.updateUsers}>
-          <FaSyncAlt />
-        </Button>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <h3>Użytkownicy oczekujący na potwierdzenie</h3>
+      <MDBDataTable
+        bordered
+        responsive
+        striped
+        small
+        hover
+        data={data}
+        entriesLabel="Pokaż wpisy"
+        paginationLabel={["-", "+"]}
+        searchLabel="Szukaj"
+        infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
+        noRecordsFoundLabel="Nie znaleziono wpisów"
+      />
+    </>
+  );
+};
 
 export default AdministrationUnverifiedUsersTable;
