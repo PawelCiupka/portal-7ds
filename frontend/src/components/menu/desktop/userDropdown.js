@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { NavDropdown, Button } from "react-bootstrap";
+import { NavDropdown, Button, Dropdown } from "react-bootstrap";
+import { Icon } from "semantic-ui-react";
 import { logout } from "../../../actions/session";
 
 const mapStateToProps = ({ session }) => ({
@@ -14,16 +15,33 @@ const mapDispatchToProps = dispatch => ({
 const UserDropdown = props => {
   return (
     <>
-      <NavDropdown title={props.session.username} id="basic-nav-dropdown">
-        <NavDropdown.Header>
-          {props.session.firstname} {props.session.lastname}
-        </NavDropdown.Header>
-        <NavDropdown.Item href="/dashboard/user/edit">
-          Zarządzaj
-        </NavDropdown.Item>
-        <NavDropdown.Divider />
-        <Button onClick={props.logout}>Wyloguj</Button>
-      </NavDropdown>
+      <Dropdown id="desktop-user-dropdown">
+        {/* <button
+          role="button"
+          type="button"
+          id="dropdown-basic"
+          class="header-user-icon-container"
+          data-toggle="dropdown"
+        >
+          <Icon className="header-user-icon" name="user" />
+        </button> */}
+        <Dropdown.Toggle className="header-user-icon-container" bsPrefix="">
+          <Icon className="header-user-icon" name="user" />
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Header>
+            <div>
+              <span>
+                Cześć, {props.session.firstname} {props.session.lastname}
+              </span>
+            </div>
+          </Dropdown.Header>
+          <Dropdown.Item href="/dashboard/user/edit">Ustawienia</Dropdown.Item>
+          <Dropdown.Divider />
+          <Dropdown.Item onClick={props.logout}>Wyloguj</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
     </>
   );
 };

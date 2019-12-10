@@ -6,13 +6,13 @@ const Header = () => {
   return (
     <>
       <Navbar bg="light" fixed="top">
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Brand href="/dashboard">Portal 7DS</Navbar.Brand>
-        <UserDropdown />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-          </Nav>
-        </Navbar.Collapse>
+        <div className="header-navbar-brand-container">
+          <Navbar.Brand href="/dashboard">Portal 7DS</Navbar.Brand>
+        </div>
+        <div className="header-container">
+          <div></div>
+          <UserDropdown />
+        </div>
       </Navbar>
     </>
   );
