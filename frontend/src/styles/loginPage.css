@@ -118,9 +118,7 @@
 
 .link-to-signup-container {
   width: 100%;
-  position: absolute;
-  top: 90vh;
-  left: 0;
+  padding: 8vh 0;
 }
 .link-to-signup-container p {
   text-align: center;
@@ -173,9 +171,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center; 
-    background: rgb(2,0,36);
-    background: linear-gradient(238deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 33%, rgba(0,212,255,1) 100%); 
+    align-items: center;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(
+      238deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(9, 9, 121, 1) 33%,
+      rgba(0, 212, 255, 1) 100%
+    );
   }
   .login-form {
     width: 40vw;
@@ -183,10 +186,9 @@
     padding: 5vw;
   }
   .link-to-signup-container {
-    position: relative;
-    top: 0;
-    width: 100%;
+    padding: 0;
   }
+
   .btn-fancy {
     background: #073696;
   }

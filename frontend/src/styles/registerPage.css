@@ -84,7 +84,7 @@
 }
 
 .register-form .btn-fancy {
-  margin: 1.5rem 0 2.5rem 0;
+  margin-top: 1.5rem;
   background: #081e87;
 }
 
@@ -101,7 +101,7 @@
 
 .link-to-login-container {
   width: 100%;
-  padding-bottom: 8vh;
+  padding: 8vh 0;
 }
 .link-to-login-container p {
   text-align: center;
@@ -166,12 +166,10 @@
   .register-form {
     width: 40vw;
     height: auto;
-    padding: 7vw 5vw 1vw 5vw;
+    padding: 7vw 5vw 5vw 5vw;
   }
-  .link-to-signup-container {
-    position: relative;
-    top: 0;
-    width: 100%;
+  .link-to-login-container {
+    padding-top: 0;
   }
   .btn-fancy {
     background: #073696;
