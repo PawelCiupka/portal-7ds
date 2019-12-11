@@ -1,120 +1,6 @@
-.register-container {
-  width: 100vw;
-  min-height: 100vh;
-  max-width: 100vw;
-  padding: 0 8vw;
-  /* background: rgb(69, 20, 90);
-  background: linear-gradient(
-    217deg,
-    rgba(69, 20, 90, 1) 25%,
-    rgba(195, 63, 0, 1) 100%
-  ); */
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    228deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 53%,
-    rgba(0, 212, 255, 1) 100%
-  );
-}
 
-.register-form {
-  padding-top: 15vh;
-}
 
-.register-form .input-group-text {
-  width: 4rem;
-  height: 3.5rem;
-  background: rgba(255, 255, 255, 0.3);
-  border: 0;
-  border-top-left-radius: 2rem;
-  border-bottom-left-radius: 2rem;
-  color: #ddd;
-}
-
-.register-form .input-group-text .icon {
-  width: 2rem;
-  height: 2rem;
-  margin: 0 0 0 0.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.register-form .form-control {
-  height: 3.5rem;
-  background: rgba(255, 255, 255, 0.3);
-  border: 0;
-  padding: 0 1.5rem;
-  border-top-right-radius: 2rem !important;
-  border-bottom-right-radius: 2rem !important;
-  border-top-left-radius: 2rem !important;
-  border-bottom-left-radius: 2rem !important;
-  color: #ddd;
-}
-
-.register-form select.form-control {
-  box-shadow: transparent;
-  appearance: none;
-}
-
-.register-container select.form-control option {
-}
-
-.register-form .form-control::placeholder {
-  color: #ddd;
-}
-
-.register-form .form-control:focus {
-  border: none;
-}
-
-.register-form .form-text {
-  width: 100%;
-  text-align: center;
-  color: #e6827e;
-}
-
-.register-form-error {
-  width: 100%;
-  padding-top: 0.5rem;
-  padding-bottom: 1rem;
-  text-align: center;
-  color: #e6827e;
-}
-
-.register-form .btn-fancy {
-  margin-top: 1.5rem;
-  background: #081e87;
-}
-
-.register-form .btn-fancy:focus,
-.register-form .btn-fancy:hover,
-.register-form .btn-fancy:active,
-.register-form .btn-fancy:checked,
-.register-form .btn-fancy:visited {
-  color: #fff;
-  /* background: #d4217d !important; */
-  background: #081e87 !important;
-  outline: none;
-}
-
-.link-to-login-container {
-  width: 100%;
-  padding: 8vh 0;
-}
-.link-to-login-container p {
-  text-align: center;
-  color: #ddd;
-}
-.link-to-login-container p a {
-  font-size: 1.05rem;
-  font-weight: bold;
-  text-align: center;
-  color: #ddd;
-}
-
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .register-container {
     display: flex;
     margin: 0;
@@ -173,5 +59,110 @@
   }
   .btn-fancy {
     background: #073696;
+  }
+} */
+
+
+#register-container {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  padding: 0 7vw;
+  background: #fff;
+}
+.logo-container {
+  width: 100%;
+  padding-top: 15vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.logo-container h1 {
+  width: 100%;
+  margin: 0;
+  color: #073696;
+  font-family: "Quicksand", sans-serif;
+  text-align: center;
+}
+
+.register-form {
+  max-width: 25rem;
+  padding: 4vh 3vh;
+  margin-top: 10vh;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  border: 1px solid rgba(5, 100, 181, 1);
+}
+.register-form .form-control {
+  /* width: 4rem; */
+  height: 3.5rem;
+  background: rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(5, 100, 181, 1);
+  border-top-right-radius: 2rem !important;
+  border-bottom-right-radius: 2rem !important;
+  border-top-left-radius: 2rem !important;
+  border-bottom-left-radius: 2rem !important;
+  color: rgba(5, 100, 181, 1);
+}
+.register-form .form-control::placeholder {
+  color: rgba(5, 100, 181, 1);
+}
+.register-form .form-control:focus {
+  border: none;
+}
+.register-form select.form-control {
+  box-shadow: transparent;
+  appearance: none;
+}
+.register-form .form-text {
+  width: 100%;
+  text-align: center;
+  color: #e6827e;
+}
+.register-form-error {
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  text-align: center;
+  color: #e6827e;
+}
+.register-form .btn-fancy {
+  width: 100%;
+  height: 3.5rem;
+  padding: 0.375rem 0.75rem;
+  border: 1px solid rgba(5, 100, 181, 1);
+  border-radius: 2rem;
+  color: #ddd;
+  background: rgba(5, 100, 181, 1);
+}
+.register-form .btn-fancy:focus,
+.register-form .btn-fancy:hover,
+.register-form .btn-fancy:active,
+.register-form .btn-fancy:checked,
+.register-form .btn-fancy:visited {
+  color: #fff;
+  background: rgba(5, 100, 181, 0.8);
+  outline: none;
+}
+
+.link-to-login-container {
+  width: 100%;
+  padding: 8vh 0;
+}
+.link-to-login-container p {
+  text-align: center;
+}
+.link-to-login-container p a {
+  font-size: 1.05rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .logo-container {
+    padding-top: 10vh !important;
+    padding-bottom: 8vh !important;
   }
 }

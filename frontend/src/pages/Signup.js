@@ -11,7 +11,7 @@ const Signup = () => {
   });
   return (
     <>
-      {isMobile ? (
+      {/* {isMobile ? (
         <Container className="register-container">
           <div className="logo-container">
             <h1>Portal 7DS</h1>
@@ -43,7 +43,19 @@ const Signup = () => {
             </div>
           </div>
         </Container>
-      )}
+      )} */}
+      <Container id="register-container">
+        <div className="logo-container">
+          <h1>Portal 7DS</h1>
+          <p>Rejestracja</p>
+        </div>
+        <UserManagementSignUpForm />
+        <div className="link-to-login-container">
+          <p>
+            Masz już konto? <Link to="/login">Zaloguj się</Link>
+          </p>
+        </div>
+      </Container>
     </>
   );
 };
