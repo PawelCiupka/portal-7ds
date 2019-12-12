@@ -99,6 +99,7 @@
   top: 3rem !important;
   padding-top: 1rem;
   background: #fafafa !important;
+  z-index: 101 !important;
 }
 
 .navbar-menu-item {

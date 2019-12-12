@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { NavDropdown, Button, Dropdown } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
 import { logout } from "../../../actions/session";
 
@@ -16,15 +16,6 @@ const UserDropdown = props => {
   return (
     <>
       <Dropdown id="desktop-user-dropdown">
-        {/* <button
-          role="button"
-          type="button"
-          id="dropdown-basic"
-          class="header-user-icon-container"
-          data-toggle="dropdown"
-        >
-          <Icon className="header-user-icon" name="user" />
-        </button> */}
         <Dropdown.Toggle className="header-user-icon-container" bsPrefix="">
           <Icon className="header-user-icon" name="user" />
         </Dropdown.Toggle>
