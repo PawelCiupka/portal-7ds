@@ -5,7 +5,7 @@
   padding: 0 10vw;
   background: #fff;
 }
-.logo-container {
+#login-container .logo-container {
   width: 100%;
   padding-top: 15vh;
   margin: 0;
@@ -13,7 +13,7 @@
   justify-content: center;
   align-items: flex-start;
 }
-.logo-container h1 {
+#login-container .logo-container h1 {
   width: 100%;
   margin: 0;
   color: #073696;
@@ -56,6 +56,13 @@
   border-bottom-right-radius: 2rem !important;
   color: rgba(5, 100, 181, 1);
 }
+.login-form .form-control:focus,
+.login-form .form-control:hover,
+.login-form .form-control:active,
+.login-form .form-control:checked,
+.login-form .form-control:visited {
+  background: rgba(255, 255, 255, 0.3);
+}
 .login-form .form-control::placeholder {
   color: rgba(5, 100, 181, 1);
 }
@@ -65,14 +72,14 @@
 .login-form .form-text {
   width: 100%;
   text-align: center;
-  color: #e6827e;
+  color: #ec3a34;
 }
 .login-form-error {
   width: 100%;
   padding-top: 0.5rem;
   padding-bottom: 1rem;
   text-align: center;
-  color: #e6827e;
+  color: #ec3a34;
 }
 .login-form .btn-fancy {
   width: 100%;
