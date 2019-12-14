@@ -1,0 +1,37 @@
+.hours-col {
+  width: 5.5%;
+}
+.one-of-seven-cols {
+  width: 13.5%;
+}
+
+.table-head-col-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.table-head-col-container p {
+  width: 100%;
+  text-align: center;
+}
+
+.table-head-col-container p:nth-child(1) {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.table-head-col-container p:nth-child(2) {
+  font-size: 0.88rem;
+}
+
+.reservation-btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.reservation-hour-container {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 0.9rem;
+}

@@ -6,6 +6,7 @@ const logger = require("morgan");
 const path = require("path");
 const dotenv = require("dotenv");
 import * as routes from "./routes/index";
+import { intervalReservationFunction } from "./util/roomReservationHelper";
 
 dotenv.config();
 
@@ -69,6 +70,8 @@ dotenv.config();
     app.listen(process.env.PORT, () =>
       console.log(`Listening on port ${process.env.PORT}`)
     );
+
+    intervalReservationFunction();
   } catch (err) {
     console.log(err);
   }

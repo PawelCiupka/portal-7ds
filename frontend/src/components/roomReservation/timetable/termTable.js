@@ -80,36 +80,36 @@ const RoomReservationTimetableTable = props => {
         <Table striped bordered hover responsive>
           <thead>
             <tr>
-              <th></th>
-              <th>
+              <th className="hours-col"></th>
+              <th className="one-of-seven-cols">
                 <RoomReservationTimetableHead date={getTodayDate()} />
               </th>
-              <th>
+              <th className="one-of-seven-cols">
                 <RoomReservationTimetableHead
                   date={getDatePlusNumberOfDays(1)}
                 />
               </th>
-              <th>
+              <th className="one-of-seven-cols">
                 <RoomReservationTimetableHead
                   date={getDatePlusNumberOfDays(2)}
                 />
               </th>
-              <th>
+              <th className="one-of-seven-cols">
                 <RoomReservationTimetableHead
                   date={getDatePlusNumberOfDays(3)}
                 />
               </th>
-              <th>
+              <th className="one-of-seven-cols">
                 <RoomReservationTimetableHead
                   date={getDatePlusNumberOfDays(4)}
                 />
               </th>
-              <th>
+              <th className="one-of-seven-cols">
                 <RoomReservationTimetableHead
                   date={getDatePlusNumberOfDays(5)}
                 />
               </th>
-              <th>
+              <th className="one-of-seven-cols">
                 <RoomReservationTimetableHead
                   date={getDatePlusNumberOfDays(6)}
                 />
@@ -122,7 +122,11 @@ const RoomReservationTimetableTable = props => {
           <tbody>
             {props.hoursTemplate.map((hour, hourIndex) => (
               <tr>
-                <th>{hour}</th>
+                <th>
+                  <div className="reservation-hour-container">
+                    <span>{hour}</span>
+                  </div>
+                </th>
                 {days.map(day => (
                   <th>
                     {day.hours[hourIndex].isReserved === true ? (

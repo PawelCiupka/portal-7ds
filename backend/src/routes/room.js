@@ -58,19 +58,6 @@ roomRoutes.post("/add/room", async (req, res) => {
   }
 });
 
-roomRoutes.post("/get/room-hours-for-day", async (req, res) => {
-  const { roomSymbol, dayNum } = req.body;
-  try {
-    const room = await Room.findOne({ symbol: roomSymbol })
-      .populate("timetable")
-      .exec();
-
-    res.status(200).send(room.timetable.days[dayNum]);
-  } catch (err) {
-    res.status(400).send(parseError(err));
-  }
-});
-
 roomRoutes.post("/get/room-timetable", async (req, res) => {
   const { roomSymbol } = req.body;
   try {
@@ -90,6 +77,68 @@ roomRoutes.post("/get/room-timetable", async (req, res) => {
       .exec();
 
     res.status(200).send(room.timetable);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/hours-template", async (req, res) => {
+  const { roomSymbol } = req.body;
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol })
+      .populate({
+        path: "timetable",
+        populate: {
+          path: "days",
+          populate: {
+            path: "hours",
+            populate: {
+              path: "reservingUser"
+            }
+          }
+        }
+      })
+      .exec();
+
+    const hours = room.timetable.days[0].hours;
+    let valueOfHours = [];
+    hours.forEach(hour => {
+      valueOfHours.push(hour.value);
+    });
+
+    res.status(200).send(valueOfHours);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/get-id-for-today-hour", async (req, res) => {
+  const { roomSymbol, hourString } = req.body;
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol })
+      .populate({
+        path: "timetable",
+        populate: {
+          path: "days",
+          populate: {
+            path: "hours",
+            populate: {
+              path: "reservingUser"
+            }
+          }
+        }
+      })
+      .exec();
+
+    const hours = room.timetable.days[0].hours;
+    let hourId = "";
+    hours.forEach(hour => {
+      if (hour.value === hourString) {
+        hourId = hour._id;
+      }
+    });
+
+    res.status(200).send(hourId);
   } catch (err) {
     res.status(400).send(parseError(err));
   }

@@ -8,44 +8,46 @@ const RoomReservationTimetableReservedButton = props => {
 
   return (
     <>
-      {props.hour.reservingUser._id === props.sessionUserId ? (
-        <OverlayTrigger
-          key="top"
-          delay="1000"
-          placement="top"
-          overlay={<Tooltip id={"tooltip-top"}>Anuluj rezerwację</Tooltip>}
-        >
-          <Button
-            variant="danger"
-            onClick={() => {
-              props.manageHourFunc(props.hour);
-            }}
+      <div className="reservation-btn-container">
+        {props.hour.reservingUser._id === props.sessionUserId ? (
+          <OverlayTrigger
+            key="top"
+            delay="1000"
+            placement="top"
+            overlay={<Tooltip id={"tooltip-top"}>Anuluj rezerwację</Tooltip>}
           >
-            {props.hour.value}
-          </Button>
-        </OverlayTrigger>
-      ) : (
-        <OverlayTrigger
-          key="top"
-          delay="1000"
-          placement="top"
-          overlay={
-            <Tooltip id={"tooltip-top"}>
-              {getReservationDetailText(props.hour.reservingUser)}
-            </Tooltip>
-          }
-        >
-          <Button
-            variant="danger"
-            disabled="disabled"
-            onClick={() => {
-              props.manageHourFunc(props.hour);
-            }}
+            <Button
+              variant="danger"
+              onClick={() => {
+                props.manageHourFunc(props.hour);
+              }}
+            >
+              {props.hour.value}
+            </Button>
+          </OverlayTrigger>
+        ) : (
+          <OverlayTrigger
+            key="top"
+            delay="1000"
+            placement="top"
+            overlay={
+              <Tooltip id={"tooltip-top"}>
+                {getReservationDetailText(props.hour.reservingUser)}
+              </Tooltip>
+            }
           >
-            {props.hour.value}
-          </Button>
-        </OverlayTrigger>
-      )}
+            <Button
+              variant="danger"
+              disabled="disabled"
+              onClick={() => {
+                props.manageHourFunc(props.hour);
+              }}
+            >
+              {props.hour.value}
+            </Button>
+          </OverlayTrigger>
+        )}
+      </div>
     </>
   );
 };

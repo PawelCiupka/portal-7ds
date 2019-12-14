@@ -34,7 +34,6 @@ export const signup = user => async dispatch => {
 };
 
 export const logout = () => async dispatch => {
-  console.log("logout");
   const response = await apiUtil.logout();
   const data = await response.json();
 
