@@ -5,18 +5,21 @@ import PropTypes from "prop-types";
 const RoomReservationRoomSelectCard = props => {
   return (
     <>
-      <Card style={{ width: "18rem" }}>
-        <Card.Img variant="top" src={props.imageSrc} />
+      <Card className="reservation-card-container">
+        <div className="reservation-card-color" />
         <Card.Body>
-          <Card.Title>{props.title}</Card.Title>
-          <Card.Text>{props.description}</Card.Text>
-          <Button variant="primary" onClick={props.informationFunc}>
-            Informacje
-          </Button>
-          <br />
-          <Button variant="primary" onClick={props.reservationFunc}>
-            Rezerwuj
-          </Button>
+          <div className="reservation-card-menu-wrapper">
+            <Card.Title>{props.title}</Card.Title>
+            <div className="reservice-card-buttons-wrapper">
+              <Button variant="primary" onClick={props.informationFunc}>
+                Informacje
+              </Button>
+              <br />
+              <Button variant="primary" onClick={props.reservationFunc}>
+                Rezerwuj
+              </Button>
+            </div>
+          </div>
         </Card.Body>
       </Card>
     </>

@@ -7,18 +7,18 @@ import {
   ROOM_RESERVATION_LIMIT
 } from "../../../helpers/roomPredefineValues";
 
-const TimetableRoomTV = () => {
+const TimetableFitness = () => {
   return (
     <>
       <RoomReservationTimetableTable
-        title={ROOM_TITLE.Tv}
-        roomSymbol={ROOM_CODE.Tv}
-        hoursTemplate={ROOM_HOUR_TEMPLATE.Tv}
-        reservationAmountLimitDay={ROOM_RESERVATION_LIMIT.Tv.day}
-        reservationAmountLimitWeek={ROOM_RESERVATION_LIMIT.Tv.week}
+        title={ROOM_TITLE.Fitness}
+        roomSymbol={ROOM_CODE.Fitness}
+        hoursTemplate={ROOM_HOUR_TEMPLATE.Fitness}
+        reservationAmountLimitDay={ROOM_RESERVATION_LIMIT.Fitness.day}
+        reservationAmountLimitWeek={ROOM_RESERVATION_LIMIT.Fitness.week}
       />
     </>
   );
 };
 
-export default TimetableRoomTV;
+export default TimetableFitness;

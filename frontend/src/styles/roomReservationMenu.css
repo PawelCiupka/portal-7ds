@@ -1,0 +1,84 @@
+.reservation-card-container {
+  width: 100%;
+  height: 16rem;
+  margin: 0.5rem 0;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+#room-select-menu .reservation-card-container:nth-child(1) {
+  background: url("https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-position: center;
+  background-size: cover;
+}
+#room-select-menu .reservation-card-container:nth-child(2) {
+  background: url("https://images.pexels.com/photos/2017868/pexels-photo-2017868.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-position: center;
+  background-size: cover;
+}
+#room-select-menu .reservation-card-container:nth-child(3) {
+  background: url("https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-position: center;
+  background-size: cover;
+}
+#room-select-menu .reservation-card-container:nth-child(4) {
+  background: url("https://images.pexels.com/photos/39671/physiotherapy-weight-training-dumbbell-exercise-balls-39671.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-position: center;
+  background-size: cover;
+}
+#room-select-menu .reservation-card-container:nth-child(5) {
+  background: url("https://images.pexels.com/photos/976873/pexels-photo-976873.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background-position: center;
+  background-size: cover;
+}
+
+.reservation-card-container .card-body {
+  z-index: 10;
+}
+
+.reservation-card-color {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(12, 34, 56, 0.7);
+  z-index: 1;
+}
+
+.reservation-card-menu-wrapper {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.reservation-card-menu-wrapper .card-title {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-size: 1.8rem;
+  color: #fff;
+}
+
+.reservation-card-menu-wrapper .card-text {
+  width: 100%;
+}
+
+.reservice-card-buttons-wrapper {
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+}
+
+.reservice-card-buttons-wrapper .btn {
+  margin: 0 1rem;
+}
+.reservice-card-buttons-wrapper .btn:nth-child(1) {
+  margin-left: 0;
+}

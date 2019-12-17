@@ -4,4 +4,5 @@ import "./desktopMenu.css";
 import "./loginPage.css";
 import "./registerPage.css";
 import "./alert.css";
-import "./roomReservationComponents.css"
+import "./roomReservationComponents.css";
+import "./roomReservationMenu.css";

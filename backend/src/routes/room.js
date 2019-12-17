@@ -6,14 +6,6 @@ import RoomTimetable from "../models/roomTimetable";
 import RoomTimetableDay from "../models/roomTimetableDay";
 import RoomTimetableHour from "../models/roomTimetableHour";
 
-const ROOM_CODE = {
-  Gym: "G",
-  Billiards: "B",
-  Tv: "T",
-  Fitness: "F",
-  PingPong: "P"
-};
-
 const roomRoutes = express.Router();
 roomRoutes.post("/add/room", async (req, res) => {
   const { name, describtion, symbol, startHour, endHour, hourDiff } = req.body;
