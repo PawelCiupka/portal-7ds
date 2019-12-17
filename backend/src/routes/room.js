@@ -32,6 +32,7 @@ roomRoutes.post("/add/room", async (req, res) => {
       }
 
       const day = new RoomTimetableDay({
+        dayOfWeek: String(i),
         hours: hours
       });
       days.push(day);
@@ -112,8 +113,21 @@ roomRoutes.post("/get/hours-template", async (req, res) => {
   }
 });
 
-roomRoutes.post("/get/get-id-for-today-hour", async (req, res) => {
-  const { roomSymbol, hourString } = req.body;
+roomRoutes.post("/get/hour-details", async (req, res) => {
+  const { hourId } = req.body;
+  try {
+    const hour = await RoomTimetableHour.findOne({ _id: hourId })
+      .populate("reservingUser")
+      .exec();
+
+    res.status(200).send(hour);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/reserved-hours-by-user-week", async (req, res) => {
+  const { roomSymbol, userId } = req.body;
   try {
     const room = await Room.findOne({ symbol: roomSymbol })
       .populate({
@@ -130,28 +144,63 @@ roomRoutes.post("/get/get-id-for-today-hour", async (req, res) => {
       })
       .exec();
 
-    const hours = room.timetable.days[0].hours;
-    let hourId = "";
-    hours.forEach(hour => {
-      if (hour.value === hourString) {
-        hourId = hour._id;
-      }
+    let userReservations = [];
+    room.timetable.days.forEach(day => {
+      day.hours.forEach(hour => {
+        if (
+          hour.reservingUser !== null &&
+          String(hour.reservingUser._id) === String(userId)
+        ) {
+          userReservations.push(hour._id);
+        }
+      });
     });
 
-    res.status(200).send(hourId);
+    res.status(200).send(userReservations);
   } catch (err) {
     res.status(400).send(parseError(err));
   }
 });
 
-roomRoutes.post("/get/hour-details", async (req, res) => {
-  const { hourId } = req.body;
+roomRoutes.post("/get/reserved-hours-by-user-day", async (req, res) => {
+  const { roomSymbol, hourId, userId } = req.body;
   try {
-    const hour = await RoomTimetableHour.findOne({ _id: hourId })
-      .populate("reservingUser")
+    const room = await Room.findOne({ symbol: roomSymbol })
+      .populate({
+        path: "timetable",
+        populate: {
+          path: "days",
+          populate: {
+            path: "hours",
+            populate: {
+              path: "reservingUser"
+            }
+          }
+        }
+      })
       .exec();
 
-    res.status(200).send(hour);
+    let selectedDay = null;
+    room.timetable.days.forEach(day => {
+      day.hours.forEach(hour => {
+        if (String(hour._id) === String(hourId)) {
+          selectedDay = day;
+        }
+      });
+    });
+
+    let userReservations = [];
+    selectedDay.hours.forEach(hour => {
+      if (
+        hour.reservingUser !== null &&
+        String(hour.reservingUser._id) === String(userId)
+      ) {
+        console.log(hour.reservingUser._id + " ?= " + userId);
+        userReservations.push(hour._id);
+      }
+    });
+
+    res.status(200).send(userReservations);
   } catch (err) {
     res.status(400).send(parseError(err));
   }

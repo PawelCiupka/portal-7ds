@@ -13,6 +13,43 @@ export const getRoomTimetable = async roomSymbol =>
       return data;
     });
 
+export const getNumberOfReservedRoomsByUserWeek = async (roomSymbol, userId) =>
+  await fetch("/api/room/get/reserved-hours-by-user-week", {
+    method: "POST",
+    body: JSON.stringify({
+      roomSymbol: roomSymbol,
+      userId: userId
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data.length;
+    });
+
+export const getNumberOfReservedRoomsByUserDay = async (
+  roomSymbol,
+  hourId,
+  userId
+) =>
+  await fetch("/api/room/get/reserved-hours-by-user-day", {
+    method: "POST",
+    body: JSON.stringify({
+      roomSymbol: roomSymbol,
+      hourId: hourId,
+      userId: userId
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data.length;
+    });
+
 export const reserveRoom = async (hourId, userId) =>
   await fetch("/api/room/reserve-hour", {
     method: "POST",

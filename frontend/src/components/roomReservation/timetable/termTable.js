@@ -8,7 +8,9 @@ import {
 import {
   getRoomTimetable,
   reserveRoom,
-  cancelReservation
+  cancelReservation,
+  getNumberOfReservedRoomsByUserWeek,
+  getNumberOfReservedRoomsByUserDay
 } from "../../../util/room";
 import RoomReservationTimetableFreeButton from "./utils/free";
 import RoomReservationTimetableReservedButton from "./utils/reserved";
@@ -56,17 +58,40 @@ const RoomReservationTimetableTable = props => {
         }
       });
     } else {
-      await reserveRoom(hour._id, props.session.userId).then(resp => {
-        if (resp.status === 200) {
-          props.showSuccessAlert({
-            message: RoomReservationAlerts.success.reserve_room
-          });
-        } else {
-          props.showErrorAlert({
-            message: RoomReservationAlerts.error.reserve_room
-          });
-        }
-      });
+      // Aamount of reservation - week
+      const numberOfReservationsWeek = await getNumberOfReservedRoomsByUserWeek(
+        props.roomSymbol,
+        props.session.userId
+      );
+
+      // Amount of reservation - day
+      const numberOfReservationsDay = await getNumberOfReservedRoomsByUserDay(
+        props.roomSymbol,
+        hour._id,
+        props.session.userId
+      );
+
+      if (numberOfReservationsWeek >= props.reservationAmountLimitWeek) {
+        props.showErrorAlert({
+          message: RoomReservationAlerts.error.limit_reservation_week
+        });
+      } else if (numberOfReservationsDay >= props.reservationAmountLimitDay) {
+        props.showErrorAlert({
+          message: RoomReservationAlerts.error.limit_reservation_day
+        });
+      } else {
+        await reserveRoom(hour._id, props.session.userId).then(resp => {
+          if (resp.status === 200) {
+            props.showSuccessAlert({
+              message: RoomReservationAlerts.success.reserve_room
+            });
+          } else {
+            props.showErrorAlert({
+              message: RoomReservationAlerts.error.reserve_room
+            });
+          }
+        });
+      }
     }
     updateDays();
   };
