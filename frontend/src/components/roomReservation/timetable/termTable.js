@@ -102,7 +102,7 @@ const RoomReservationTimetableTable = props => {
       <h2>{props.title}</h2>
 
       {days.length > 0 ? (
-        <Table striped bordered hover responsive>
+        <Table bordered striped responsive size="sm" className="room-reservation-table">
           <thead>
             <tr>
               <th className="hours-col"></th>

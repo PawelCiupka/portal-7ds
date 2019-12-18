@@ -5,6 +5,13 @@
   width: 13.5%;
 }
 
+.room-reservation-table th {
+  transition-duration: 0.1s;
+}
+.room-reservation-table th:hover {
+  background: #eee;
+}
+
 .table-head-col-container {
   display: flex;
   align-items: center;
@@ -30,8 +37,17 @@
   align-items: center;
   justify-content: center;
 }
+.reservation-btn-container .btn {
+  width: 60%;
+}
 .reservation-hour-container {
-    margin-top: auto;
-    margin-bottom: auto;
-    font-size: 0.9rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 960px) {
+  .reservation-btn-container .btn {
+    width: auto;
+  }
 }
