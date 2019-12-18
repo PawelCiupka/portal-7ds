@@ -107,6 +107,7 @@ const AdministrationUnverifiedUsersTable = () => {
         searchLabel="Szukaj"
         infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
         noRecordsFoundLabel="Nie znaleziono wpisów"
+        className="administration-table"
       />
     </>
   );

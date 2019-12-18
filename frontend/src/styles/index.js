@@ -6,3 +6,4 @@ import "./registerPage.css";
 import "./alert.css";
 import "./roomReservationComponents.css";
 import "./roomReservationMenu.css";
+import "./administrationPage.css";
