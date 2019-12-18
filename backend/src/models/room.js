@@ -5,12 +5,14 @@ const RoomSchema = new mongoose.Schema({
   name: {
     type: String
   },
-  describtion: {
-    type: String,
-    default: ""
-  },
   symbol: {
     type: String
+  },
+  dailyLimit: {
+    type: Number
+  },
+  weeklyLimit: {
+    type: Number
   },
   timetable: {
     type: mongoose.Schema.Types.ObjectId,

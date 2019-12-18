@@ -9,7 +9,7 @@
 }
 
 #room-select-menu .reservation-card-container:nth-child(1) {
-  background: url("https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background: url("https://cdn.pixabay.com/photo/2016/03/27/23/00/weight-lifting-1284616_1280.jpg");
   background-position: center;
   background-size: cover;
 }
@@ -19,7 +19,7 @@
   background-size: cover;
 }
 #room-select-menu .reservation-card-container:nth-child(3) {
-  background: url("https://images.pexels.com/photos/1571458/pexels-photo-1571458.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+  background: url("https://images.pexels.com/photos/1174746/pexels-photo-1174746.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
   background-position: center;
   background-size: cover;
 }

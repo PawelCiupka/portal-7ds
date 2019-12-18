@@ -8,11 +8,7 @@ import SuccessAlert from "../components/alert/successAlert";
 import ErrorAlert from "../components/alert/errorAlert";
 import Management from "./dashboard/Management";
 import RoomReservation from "./dashboard/RoomReservation";
-import TimetableRoomTV from "./dashboard/rooms/TimetableRoomTV";
-import TimetableGym from "./dashboard/rooms/TimetableGym";
-import TimetableBilliards from "./dashboard/rooms/TimetableBilliards";
-import TimetableFitness from "./dashboard/rooms/TimetableFitness";
-import TimetablePingPong from "./dashboard/rooms/TimetablePingPong";
+import RoomTimetable from "./dashboard/rooms/RoomTimetable";
 import Menu from "../components/menu/menu";
 
 const Dashboard = () => (
@@ -31,23 +27,23 @@ const Dashboard = () => (
         />
         <ProtectedRoute
           path="/dashboard/room-reservation/gym"
-          component={TimetableGym}
+          component={() => <RoomTimetable roomSymbol="G" />}
         />
         <ProtectedRoute
           path="/dashboard/room-reservation/billiards"
-          component={TimetableBilliards}
+          component={() => <RoomTimetable roomSymbol="B" />}
         />
         <ProtectedRoute
           path="/dashboard/room-reservation/tv"
-          component={TimetableRoomTV}
+          component={() => <RoomTimetable roomSymbol="T" />}
         />
         <ProtectedRoute
           path="/dashboard/room-reservation/fitness"
-          component={TimetableFitness}
+          component={() => <RoomTimetable roomSymbol="F" />}
         />
         <ProtectedRoute
           path="/dashboard/room-reservation/pingpong"
-          component={TimetablePingPong}
+          component={() => <RoomTimetable roomSymbol="P" />}
         />
       </Container>
     </div>

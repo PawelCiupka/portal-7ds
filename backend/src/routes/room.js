@@ -8,7 +8,15 @@ import RoomTimetableHour from "../models/roomTimetableHour";
 
 const roomRoutes = express.Router();
 roomRoutes.post("/add/room", async (req, res) => {
-  const { name, describtion, symbol, startHour, endHour, hourDiff } = req.body;
+  const {
+    name,
+    symbol,
+    dailyLimit,
+    weeklyLimit,
+    startHour,
+    endHour,
+    hourDiff
+  } = req.body;
   try {
     // Create timetable days
     let days = [];
@@ -39,8 +47,9 @@ roomRoutes.post("/add/room", async (req, res) => {
 
     const room = new Room({
       name: name,
-      describtion: describtion,
       symbol: symbol,
+      dailyLimit: dailyLimit,
+      weeklyLimit: weeklyLimit,
       timetable: timetable._id
     });
     await room.save();
@@ -100,6 +109,50 @@ roomRoutes.post("/get/hours-template", async (req, res) => {
     });
 
     res.status(200).send(valueOfHours);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/room-details", async (req, res) => {
+  const { roomSymbol } = req.body;
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol }).exec();
+
+    res.status(200).send(room);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/room-name", async (req, res) => {
+  const { roomSymbol } = req.body;
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol }).exec();
+
+    res.status(200).send(room.name);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/room-daily-reservation-limit", async (req, res) => {
+  const { roomSymbol } = req.body;
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol }).exec();
+
+    res.status(200).send(room.dailyLimit);
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/room-weekly-reservation-limit", async (req, res) => {
+  const { roomSymbol } = req.body;
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol }).exec();
+
+    res.status(200).send(room.weeklyLimit);
   } catch (err) {
     res.status(400).send(parseError(err));
   }

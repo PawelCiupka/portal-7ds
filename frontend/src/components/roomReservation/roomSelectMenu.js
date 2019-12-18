@@ -11,7 +11,7 @@ const RoomReservationRoomSelectMenu = () => {
   };
   const goToTV = () => {
     document.location.href = "/dashboard/room-reservation/tv";
-  };  
+  };
   const goToFitness = () => {
     document.location.href = "/dashboard/room-reservation/fitness";
   };

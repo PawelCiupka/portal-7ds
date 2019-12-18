@@ -91,3 +91,78 @@ export const getHourDetails = async hourId =>
     .then(data => {
       return data;
     });
+
+export const getRoomDetails = async roomSymbol =>
+  await fetch("/api/room/get/room-details", {
+    method: "POST",
+    body: JSON.stringify({
+      roomSymbol: roomSymbol
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });
+
+export const getRoomName = async roomSymbol =>
+  await fetch("/api/room/get/room-name", {
+    method: "POST",
+    body: JSON.stringify({
+      roomSymbol: roomSymbol
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });
+
+export const getRoomHoursTemplate = async roomSymbol =>
+  await fetch("/api/room/get/hours-template", {
+    method: "POST",
+    body: JSON.stringify({
+      roomSymbol: roomSymbol
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });
+
+export const getRoomDailyReservationLimit = async roomSymbol =>
+  await fetch("/api/room/room-daily-reservation-limit", {
+    method: "POST",
+    body: JSON.stringify({
+      roomSymbol: roomSymbol
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });
+
+export const getRoomWeeklyReservationLimit = async roomSymbol =>
+  await fetch("/api/room/room-weekly-reservation-limit", {
+    method: "POST",
+    body: JSON.stringify({
+      roomSymbol: roomSymbol
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });

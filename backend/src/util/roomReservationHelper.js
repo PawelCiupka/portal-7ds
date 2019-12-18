@@ -1,4 +1,4 @@
-import { ROOM_HOUR_TEMPLATE, ROOM_CODE } from "./helpers";
+import { ROOM_CODE } from "./helpers";
 import Room from "../models/room";
 import User from "../models/user";
 import RoomTimetableHour from "../models/roomTimetableHour";
@@ -27,6 +27,35 @@ const getHoursForDay = async (roomSymbol, dayNum) => {
     });
     const hours = days[dayNum].hours;
     return hours;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const getRoomHoursTemplate = async roomSymbol => {
+  try {
+    const room = await Room.findOne({ symbol: roomSymbol })
+      .populate({
+        path: "timetable",
+        populate: {
+          path: "days",
+          populate: {
+            path: "hours",
+            populate: {
+              path: "reservingUser"
+            }
+          }
+        }
+      })
+      .exec();
+
+    const hours = room.timetable.days[0].hours;
+    let valueOfHours = [];
+    hours.forEach(hour => {
+      valueOfHours.push(hour.value);
+    });
+
+    return valueOfHours;
   } catch (err) {
     console.log(err);
   }
@@ -122,33 +151,84 @@ const resetDayHours = async roomSymbol => {
 };
 
 const resetReservations = () => {
-  // resetDayHours(ROOM_CODE.Gym);
-  // resetDayHours(ROOM_CODE.Billiards);
+  resetDayHours(ROOM_CODE.Gym);
+  resetDayHours(ROOM_CODE.Billiards);
   resetDayHours(ROOM_CODE.Tv);
-  // resetDayHours(ROOM_CODE.Fitness);
-  // resetDayHours(ROOM_CODE.PingPong);
+  resetDayHours(ROOM_CODE.Fitness);
+  resetDayHours(ROOM_CODE.PingPong);
   console.log("Reset all reservation for today");
 };
 
 export const intervalReservationFunction = () => {
-  console.log("Start automatic room reservation service");
   const delay = 60 * 1000;
+  console.log(
+    "Start automatic room reservation service with delay " +
+      String(delay / 1000) +
+      "s."
+  );
+
+  let hoursTemplateGym = [];
+  getRoomHoursTemplate(ROOM_CODE.Gym).then(res => (hoursTemplateGym = res));
+
+  let hoursTemplateBilliards = [];
+  getRoomHoursTemplate(ROOM_CODE.Billiards).then(
+    res => (hoursTemplateBilliards = res)
+  );
+
+  let hoursTemplateTv = [];
+  getRoomHoursTemplate(ROOM_CODE.Tv).then(res => (hoursTemplateTv = res));
+
+  let hoursTemplateFitness = [];
+  getRoomHoursTemplate(ROOM_CODE.Fitness).then(
+    res => (hoursTemplateFitness = res)
+  );
+
+  let hoursTemplatePingPong = [];
+  getRoomHoursTemplate(ROOM_CODE.PingPong).then(
+    res => (hoursTemplatePingPong = res)
+  );
 
   let reserveHour = setInterval(() => {
     const d = new Date();
     const nowHour = d.getHours() + ":" + ("0" + d.getMinutes()).slice(-2);
+    console.log("Checking " + nowHour + " o'clock");
 
-    ROOM_HOUR_TEMPLATE.Tv.forEach(hour => {
+    hoursTemplateGym.forEach(hour => {
       if (hour === nowHour) {
         console.log(hour + " is equal to " + nowHour);
-        manageHour(ROOM_CODE.Tv, hour);
-      } else {
-        console.log(hour + " is not equal to " + nowHour);
+        manageHour(ROOM_CODE.Gym, hour);
+      }
+    });
+
+    hoursTemplateBilliards.forEach(hour => {
+      if (hour === nowHour) {
+        console.log(hour + " is equal to " + nowHour);
+        manageHour(ROOM_CODE.Gym, hour);
+      }
+    });
+
+    hoursTemplateTv.forEach(hour => {
+      if (hour === nowHour) {
+        console.log(hour + " is equal to " + nowHour);
+        manageHour(ROOM_CODE.Gym, hour);
+      }
+    });
+
+    hoursTemplateFitness.forEach(hour => {
+      if (hour === nowHour) {
+        console.log(hour + " is equal to " + nowHour);
+        manageHour(ROOM_CODE.Gym, hour);
+      }
+    });
+
+    hoursTemplatePingPong.forEach(hour => {
+      if (hour === nowHour) {
+        console.log(hour + " is equal to " + nowHour);
+        manageHour(ROOM_CODE.Gym, hour);
       }
     });
 
     if (nowHour === "23:59") {
-      console.log(nowHour + " is equal to 23:59");
       resetReservations();
     }
   }, delay);
