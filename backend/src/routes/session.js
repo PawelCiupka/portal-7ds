@@ -1,7 +1,5 @@
 import express from "express";
-import Joi from "joi";
 import User from "../models/user";
-import { signIn } from "../validations/user";
 import { parseError, sessionizeUser } from "../util/helpers";
 import { USER_STATUS_VERIFIED } from "../models/userStatus";
 
@@ -57,6 +55,7 @@ sessionRouter.delete("", ({ session }, res) => {
 });
 
 sessionRouter.get("", ({ session: { user } }, res) => {
+  console.log(user);
   res.send({ user });
 });
 

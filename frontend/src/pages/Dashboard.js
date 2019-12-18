@@ -1,7 +1,7 @@
 import React from "react";
 import { Route } from "react-router-dom";
 import { Container } from "react-bootstrap";
-import { ProtectedRoute } from "../util/route";
+import { ProtectedRoute, ProtectedExtraRoute } from "../util/route";
 import UserCenter from "./dashboard/UserCenter";
 import Home from "./dashboard/Home";
 import SuccessAlert from "../components/alert/successAlert";
@@ -20,7 +20,10 @@ const Dashboard = () => (
       <Container id="desktop-container">
         <Route exact path="/dashboard" component={Home} />
         <ProtectedRoute path="/dashboard/user/edit" component={UserCenter} />
-        <ProtectedRoute path="/dashboard/management" component={Management} />
+        <ProtectedExtraRoute
+          path="/dashboard/management"
+          component={Management}
+        />
         <ProtectedRoute
           path="/dashboard/room-reservation/menu"
           component={RoomReservation}

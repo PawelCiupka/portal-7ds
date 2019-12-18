@@ -1,10 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Menu, Sidebar, Icon } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import { Button } from "react-bootstrap";
 import MobileSidebarItem from "./sidebarItem";
 import MobileMenuUserInformation from "./userInformation";
 import MobileMenuSidebarLogoutItem from "./sidebarLogoutItem";
+
+const mapStateToProps = ({ session }) => ({
+  session
+});
 
 const MobileSidebar = props => {
   return (
@@ -39,11 +44,13 @@ const MobileSidebar = props => {
             iconName="calendar alternate outline"
             text="Rezerwacja salek"
           />
-          <MobileSidebarItem
-            href="/dashboard/management"
-            iconName="cog"
-            text="Administracja"
-          />
+          {props.session.role === "admin" ? (
+            <MobileSidebarItem
+              href="/dashboard/management"
+              iconName="cog"
+              text="Administracja"
+            />
+          ) : null}
         </div>
         <div className="sidebar-menu-item-logout-container">
           <MobileMenuSidebarLogoutItem />
@@ -53,4 +60,4 @@ const MobileSidebar = props => {
   );
 };
 
-export default MobileSidebar;
+export default connect(mapStateToProps, null)(MobileSidebar);

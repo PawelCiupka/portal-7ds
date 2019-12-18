@@ -71,7 +71,7 @@ managementRoutes.post("/reject-unverified-user", async (req, res) => {
 
 managementRoutes.post("/get-all-users", async (req, res) => {
   try {
-    const users = await User.find({}).sort({ room: 1 });
+    const users = await User.find({ room: { $ne: "000" } }).sort({ room: 1 });
 
     res.send(users);
   } catch (err) {

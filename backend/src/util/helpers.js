@@ -10,7 +10,9 @@ export const sessionizeUser = user => {
     firstname: user.firstname,
     lastname: user.lastname,
     room: user.room,
-    email: user.email
+    email: user.email,
+    role: user.role.name,
+    roomAccess: user.roomAccess
   };
 };
 

@@ -1,9 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Menu, Sidebar } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import DesktopNavbarItem from "./navbarItem";
 
-const DesktopNavbar = () => {
+const mapStateToProps = ({ session }) => ({
+  session
+});
+
+const DesktopNavbar = props => {
   return (
     <>
       <Sidebar as={Menu} vertical visible={true} className="desktop-navbar">
@@ -18,15 +23,17 @@ const DesktopNavbar = () => {
             iconName="calendar alternate outline"
             text="Rezerwacja salek"
           />
-          <DesktopNavbarItem
-            href="/dashboard/management"
-            iconName="cog"
-            text="Administracja"
-          />
+          {props.session.role === "admin" ? (
+            <DesktopNavbarItem
+              href="/dashboard/management"
+              iconName="cog"
+              text="Administracja"
+            />
+          ) : null}
         </div>
       </Sidebar>
     </>
   );
 };
 
-export default DesktopNavbar;
+export default connect(mapStateToProps, null)(DesktopNavbar);
