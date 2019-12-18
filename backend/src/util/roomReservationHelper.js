@@ -2,8 +2,9 @@ import { ROOM_HOUR_TEMPLATE, ROOM_CODE } from "./helpers";
 import Room from "../models/room";
 import User from "../models/user";
 import RoomTimetableHour from "../models/roomTimetableHour";
+import RoomTimetableDay from "../models/roomTimetableDay";
 
-const getTodayHours = async roomSymbol => {
+const getHoursForDay = async (roomSymbol, dayNum) => {
   try {
     const room = await Room.findOne({ symbol: roomSymbol })
       .populate({
@@ -24,7 +25,7 @@ const getTodayHours = async roomSymbol => {
         return 1;
       }
     });
-    const hours = days[0].hours;
+    const hours = days[dayNum].hours;
     return hours;
   } catch (err) {
     console.log(err);
@@ -33,22 +34,25 @@ const getTodayHours = async roomSymbol => {
 
 const manageHour = async (roomSymbol, hourString) => {
   try {
-    const hours = await getTodayHours(roomSymbol);
+    const hours = await getHoursForDay(roomSymbol, 0);
 
     console.log(hours);
     hours.forEach(async hour => {
       if (hour.value === hourString) {
-        const user = await User.findOne({ _id: "5dee29d65551370b446368ef" });
-        RoomTimetableHour.updateOne(
-          { _id: hour._id },
-          {
-            $set: {
-              isReserved: true,
-              reservingUser: user
+        console.log(hour);
+        if (hour.reservingUser === null) {
+          const user = await User.findOne({ _id: "5dee29d65551370b446368ef" });
+          RoomTimetableHour.updateOne(
+            { _id: hour._id },
+            {
+              $set: {
+                isReserved: true,
+                reservingUser: user
+              }
             }
-          }
-        ).exec();
-        console.log("Auto reservation made at " + hourString);
+          ).exec();
+          console.log("Auto reservation made at " + hourString);
+        }
       }
     });
   } catch (err) {
@@ -58,9 +62,27 @@ const manageHour = async (roomSymbol, hourString) => {
 
 const resetDayHours = async roomSymbol => {
   try {
-    const hours = await getTodayHours(roomSymbol);
+    const room = await Room.findOne({ symbol: roomSymbol })
+      .populate({
+        path: "timetable",
+        populate: {
+          path: "days",
+          populate: {
+            path: "hours"
+          }
+        }
+      })
+      .exec();
+    const days = room.timetable.days.sort((a, b) => {
+      if (a.dayOfWeek < b.dayOfWeek) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
 
-    hours.forEach(async hour => {
+    let todayHours = await getHoursForDay(roomSymbol, 0);
+    todayHours.forEach(async hour => {
       RoomTimetableHour.updateOne(
         { _id: hour._id },
         {
@@ -71,6 +93,29 @@ const resetDayHours = async roomSymbol => {
         }
       ).exec();
     });
+
+    todayHours = await getHoursForDay(roomSymbol, 0);
+    days.forEach((day, index) => {
+      if (index > 0) {
+        let i = index - 1;
+        RoomTimetableDay.updateOne(
+          { _id: days[i]._id },
+          {
+            $set: {
+              hours: day.hours
+            }
+          }
+        ).exec();
+      }
+    });
+    RoomTimetableDay.updateOne(
+      { _id: days[6]._id },
+      {
+        $set: {
+          hours: todayHours
+        }
+      }
+    ).exec();
   } catch (err) {
     console.log(err);
   }
