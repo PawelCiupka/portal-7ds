@@ -7,6 +7,10 @@
   z-index: 102;
 }
 
+.my-sidebar {
+  overflow-y: hidden;
+}
+
 .button-icon {
   color: #000;
   font-size: 1.25rem;
@@ -64,7 +68,7 @@
 }
 
 .sidebar-menu-items-container {
-  height: 88vh;
+  height: 82vh;
 }
 
 .sidebar-menu-item {

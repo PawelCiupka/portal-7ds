@@ -32,6 +32,8 @@ const FormikInputWithIconFormGroup = (
             onBlur={formik.handleBlur}
             value={formikValue}
             disabled={isDisabled}
+            autoCapitalize="none"
+            autoCorrect="none"
           />
           {comment !== "" ? <Form.Text>{comment}</Form.Text> : null}
           {formikTouched && formikErrors ? (
