@@ -203,28 +203,28 @@ export const intervalReservationFunction = () => {
     hoursTemplateBilliards.forEach(hour => {
       if (hour === nowHour) {
         console.log(hour + " is equal to " + nowHour);
-        manageHour(ROOM_CODE.Gym, hour);
+        manageHour(ROOM_CODE.Billiards, hour);
       }
     });
 
     hoursTemplateTv.forEach(hour => {
       if (hour === nowHour) {
         console.log(hour + " is equal to " + nowHour);
-        manageHour(ROOM_CODE.Gym, hour);
+        manageHour(ROOM_CODE.Tv, hour);
       }
     });
 
     hoursTemplateFitness.forEach(hour => {
       if (hour === nowHour) {
         console.log(hour + " is equal to " + nowHour);
-        manageHour(ROOM_CODE.Gym, hour);
+        manageHour(ROOM_CODE.Fitness, hour);
       }
     });
 
     hoursTemplatePingPong.forEach(hour => {
       if (hour === nowHour) {
         console.log(hour + " is equal to " + nowHour);
-        manageHour(ROOM_CODE.Gym, hour);
+        manageHour(ROOM_CODE.PingPong, hour);
       }
     });
 
