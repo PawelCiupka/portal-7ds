@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Dropdown } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
 import { logout } from "../../../actions/session";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -15,24 +15,34 @@ const mapDispatchToProps = dispatch => ({
 const UserDropdown = props => {
   return (
     <>
-      <Dropdown id="desktop-user-dropdown">
+      <Link
+        id="desktop-user-information"
+        to="/dashboard/user/edit"
+      >
+        <div className="header-user-icon-container">
+          <Icon className="header-user-icon" name="user" />
+        </div>
+        <div>
+          <h3>
+            {props.session.firstname} {props.session.lastname}
+          </h3>
+        </div>
+      </Link>
+      {/* <Dropdown id="desktop-user-dropdown">
         <Dropdown.Toggle className="header-user-icon-container" bsPrefix="">
           <Icon className="header-user-icon" name="user" />
         </Dropdown.Toggle>
-
+        <div className="user-information">
+          <h3>
+            {props.session.firstname} {props.session.lastname}
+          </h3>
+        </div>
         <Dropdown.Menu>
-          <Dropdown.Header>
-            <div>
-              <span>
-                Cześć, {props.session.firstname} {props.session.lastname}
-              </span>
-            </div>
-          </Dropdown.Header>
           <Dropdown.Item href="/dashboard/user/edit">Ustawienia</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={props.logout}>Wyloguj</Dropdown.Item>
         </Dropdown.Menu>
-      </Dropdown>
+      </Dropdown> */}
     </>
   );
 };
