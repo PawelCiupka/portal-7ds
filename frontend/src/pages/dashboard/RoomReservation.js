@@ -4,7 +4,9 @@ import RoomReservationRoomSelectMenu from "../../components/roomReservation/room
 const RoomReservation = () => {
   return (
     <>
-      <h1>Zarezerwuj salkę</h1>
+      <div className="dashboard-page-title">
+        <h4>Rezerwacja salek</h4>
+      </div>
       <RoomReservationRoomSelectMenu />
     </>
   );

@@ -6,16 +6,11 @@ import AdministrationUsersTable from "../../components/administration/usersTable
 const Management = () => {
   return (
     <>
-      <h1>Management!</h1>
-      <br />
+      <div className="dashboard-page-title">
+        <h4>Panel administracyjny</h4>
+      </div>
       <AdministrationUnverifiedUsersTable />
-      <br />
-      <br />
-      <br />
       <AdministrationTicketsTable />
-      <br />
-      <br />
-      <br />
       <AdministrationUsersTable />
     </>
   );

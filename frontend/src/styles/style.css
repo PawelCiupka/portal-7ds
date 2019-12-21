@@ -66,3 +66,42 @@ i.icon {
   }
 }
 /* MDB DataTables - END */
+
+.dashboard-page-title {
+  width: 100%;
+  margin: 1.2rem 0 1.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.dashboard-page-title h4 {
+  font-size: 1.9rem;
+  margin: 0;
+}
+.dashboard-page-title .btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  border-radius: 50%;
+  background: #aaa;
+  border-color: #aaa;
+}
+.dashboard-page-title .btn .icon {
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  .dashboard-page-title h4 {
+    font-size: 1.5rem;
+  }
+  .dashboard-page-title .btn {
+    width: 1.9rem;
+    height: 1.9rem;
+  }
+}

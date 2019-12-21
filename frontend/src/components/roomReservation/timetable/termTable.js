@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { Table, Button } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import {
   mapAlertDispatchToProps,
   RoomReservationAlerts
@@ -36,10 +36,6 @@ const RoomReservationTimetableTable = props => {
   const updateDays = async () => {
     const days = await getRoomTimetable(props.roomSymbol);
     setDays(days.days);
-  };
-
-  const goBack = () => {
-    window.history.back();
   };
 
   const manageHour = async hour => {
@@ -118,9 +114,6 @@ const RoomReservationTimetableTable = props => {
 
   return (
     <>
-      <Button onClick={goBack}>Back</Button>
-      <h2>{props.title}</h2>
-
       {days.length > 0 ? (
         <Table
           bordered

@@ -17,10 +17,11 @@ const mapDispatchToProps = dispatch => ({
 const UserCenter = ({ session, clearErrors }) => {
   return (
     <>
-      <h1>
-        {session.firstname} {session.lastname}, cześć z centrum zarządzania
-        użytkownikiem!
-      </h1>
+      <div className="dashboard-page-title">
+        <h4>
+          {session.firstname} {session.lastname} - Panel Zarządzania
+        </h4>
+      </div>
       <Tabs
         defaultActiveKey="userData"
         id="uncontrolled-tab-example"
