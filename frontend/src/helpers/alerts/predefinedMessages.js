@@ -36,6 +36,7 @@ export const ROOM_RESERVATION = {
   error: {
     reserve_room: "Nie udało się zarezerwować salki",
     cancel_reservation: "Nie udało się anulować rezerwacji salki",
+    permission: "Nie masz uprawnień do rezerwacji tej salki",
     limit_reservation_day: "Osiągnięto limit rezerwacji salki w wybranym dniu",
     limit_reservation_week: "Osiągnięto limit rezerwacji salki"
   }

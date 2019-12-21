@@ -47,3 +47,21 @@ export const isFitnessAvailable = accessText => {
 export const isPingPongAvailable = accessText => {
   return String(accessText).includes(ROOM_CODE.PingPong);
 };
+
+export const checkUserRoomReservationPermission = (accessText, roomSymbol) => {
+  if (roomSymbol === ROOM_CODE.Gym) {
+    return isGymAvailable(accessText);
+  }
+  if (roomSymbol === ROOM_CODE.Billiards) {
+    return isBilliardsAvailable(accessText);
+  }
+  if (roomSymbol === ROOM_CODE.TV) {
+    return isTVAvailable(accessText);
+  }
+  if (roomSymbol === ROOM_CODE.Fitness) {
+    return isFitnessAvailable(accessText);
+  }
+  if (roomSymbol === ROOM_CODE.PingPong) {
+    return isPingPongAvailable(accessText);
+  }
+};

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import RoomReservationTimetableTable from "../../../components/roomReservation/timetable/termTable";
-import {
-  getRoomHoursTemplate,
-  getRoomDetails
-} from "../../../util/room";
+import { getRoomHoursTemplate, getRoomDetails } from "../../../util/room";
 
 const RoomTimetable = props => {
   const [hoursTemplate, setHoursTemplate] = useState([]);

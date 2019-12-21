@@ -19,6 +19,7 @@ import {
   getDatePlusNumberOfDays
 } from "../../../helpers/dateHelper";
 import RoomReservationTimetableHead from "./utils/tableHead";
+import { checkUserRoomReservationPermission } from "../../../helpers/roomAccessHelper";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -58,28 +59,47 @@ const RoomReservationTimetableTable = props => {
         }
       });
     } else {
-      // Aamount of reservation - week
+      let canReserve = true;
+
+      // Chceck that user has permission to make reservation
+      if (
+        !checkUserRoomReservationPermission(
+          props.session.roomAccess,
+          props.roomSymbol
+        )
+      ) {
+        canReserve = false;
+        props.showErrorAlert({
+          message: RoomReservationAlerts.error.permission
+        });
+      }
+
+      // Check aamount of reservation - week
       const numberOfReservationsWeek = await getNumberOfReservedRoomsByUserWeek(
         props.roomSymbol,
         props.session.userId
       );
+      if (numberOfReservationsWeek >= props.reservationAmountLimitWeek) {
+        canReserve = false;
+        props.showErrorAlert({
+          message: RoomReservationAlerts.error.limit_reservation_week
+        });
+      }
 
-      // Amount of reservation - day
+      // Check amount of reservation - day
       const numberOfReservationsDay = await getNumberOfReservedRoomsByUserDay(
         props.roomSymbol,
         hour._id,
         props.session.userId
       );
-
-      if (numberOfReservationsWeek >= props.reservationAmountLimitWeek) {
-        props.showErrorAlert({
-          message: RoomReservationAlerts.error.limit_reservation_week
-        });
-      } else if (numberOfReservationsDay >= props.reservationAmountLimitDay) {
+      if (numberOfReservationsDay >= props.reservationAmountLimitDay) {
+        canReserve = false;
         props.showErrorAlert({
           message: RoomReservationAlerts.error.limit_reservation_day
         });
-      } else {
+      }
+
+      if (canReserve === true) {
         await reserveRoom(hour._id, props.session.userId).then(resp => {
           if (resp.status === 200) {
             props.showSuccessAlert({
@@ -102,7 +122,13 @@ const RoomReservationTimetableTable = props => {
       <h2>{props.title}</h2>
 
       {days.length > 0 ? (
-        <Table bordered striped responsive size="sm" className="room-reservation-table">
+        <Table
+          bordered
+          striped
+          responsive
+          size="sm"
+          className="room-reservation-table"
+        >
           <thead>
             <tr>
               <th className="hours-col"></th>
