@@ -7,18 +7,24 @@ const MobileMenu = () => {
   const [visible, setVisible] = useState(false);
 
   const toggleSidebar = visible => {
-    const page = document.getElementById("slider-hidder");
+    const sliderHidder = document.getElementById("slider-hidder");
+    const navbar = document.getElementById("mobile-navbar");
+    const body = document.body;
     if (visible) {
-      page.style.display = "block";
+      sliderHidder.style.display = "block";
+      body.style.overflow = "hidden";
+      navbar.style.backgroundColor = "#999";
     } else {
-      page.style.display = "none";
+      sliderHidder.style.display = "none";
+      body.style.overflow = "visible";
+      navbar.style.backgroundColor = "#fff";
     }
     setVisible(visible);
   };
 
   return (
     <>
-      <Navbar expand="lg" fixed="top">
+      <Navbar expand="lg" fixed="top" id="mobile-navbar">
         <Button
           variant="link"
           className="button-icon"

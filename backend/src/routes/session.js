@@ -55,7 +55,6 @@ sessionRouter.delete("", ({ session }, res) => {
 });
 
 sessionRouter.get("", ({ session: { user } }, res) => {
-  console.log(user);
   res.send({ user });
 });
 
