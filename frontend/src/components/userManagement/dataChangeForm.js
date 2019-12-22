@@ -62,7 +62,7 @@ const UserManagementDataChangeForm = ({
   return (
     <>
       <section>
-        <h2>Zmień dane osobowe</h2>
+        <h5>Dane osobowe</h5>
         <Form onSubmit={formik.handleSubmit}>
           {FormikInputFormGroup(
             "Nazwa użytkownika",

@@ -9,6 +9,7 @@
 
 #main-content {
   padding-top: 4rem;
+  background: #fafafa;
 }
 
 .navbar {
@@ -78,7 +79,7 @@ i.icon {
   font-size: 1.9rem;
   margin: 0;
 }
-.dashboard-page-title .btn {
+.dashboard-page-title .back-button {
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
@@ -89,7 +90,7 @@ i.icon {
   background: #aaa;
   border-color: #aaa;
 }
-.dashboard-page-title .btn .icon {
+.dashboard-page-title .back-button .icon {
   width: 2rem;
   height: 2rem;
   display: flex;
@@ -100,7 +101,7 @@ i.icon {
   .dashboard-page-title h4 {
     font-size: 1.5rem;
   }
-  .dashboard-page-title .btn {
+  .dashboard-page-title .back-button {
     width: 1.9rem;
     height: 1.9rem;
   }

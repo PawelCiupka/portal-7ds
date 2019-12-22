@@ -21,33 +21,28 @@ const RoomReservationRoomSelectMenu = () => {
 
   return (
     <>
-      <div id="room-select-menu">
+      <section id="room-select-menu">
         <RoomReservationRoomSelectCard
           title={ROOM_TITLE.Gym}
-          description="Oto Siłownia"
           reservationFunc={goToGym}
         />
         <RoomReservationRoomSelectCard
           title={ROOM_TITLE.Billiards}
-          description="Oto Bilard"
           reservationFunc={goToBilliards}
         />
         <RoomReservationRoomSelectCard
           title={ROOM_TITLE.Tv}
-          description="Oto Salka multimedialna"
           reservationFunc={goToTV}
         />
         <RoomReservationRoomSelectCard
           title={ROOM_TITLE.Fitness}
-          description="Oto Fitness"
           reservationFunc={goToFitness}
         />
         <RoomReservationRoomSelectCard
           title={ROOM_TITLE.PingPong}
-          description="Ping Pong"
           reservationFunc={goToPingPong}
         />
-      </div>
+      </section>
     </>
   );
 };

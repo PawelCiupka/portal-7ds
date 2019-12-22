@@ -82,24 +82,26 @@ const AdministrationUnverifiedUsersTable = () => {
 
   return (
     <>
-      {showUserDetails ? (
-        <AdministrationUserDetailsModal user={detailedUser} />
-      ) : null}
-      <h3>Zarządanie użytkownikami</h3>
-      <MDBDataTable
-        bordered
-        responsive
-        striped
-        small
-        hover
-        data={data}
-        entriesLabel="Pokaż wpisy"
-        paginationLabel={["-", "+"]}
-        searchLabel="Szukaj"
-        infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
-        noRecordsFoundLabel="Nie znaleziono wpisów"
-        className="administration-table"
-      />
+      <section>
+        {showUserDetails ? (
+          <AdministrationUserDetailsModal user={detailedUser} />
+        ) : null}
+        <h5>Zarządanie użytkownikami</h5>
+        <MDBDataTable
+          bordered
+          responsive
+          striped
+          small
+          hover
+          data={data}
+          entriesLabel="Pokaż wpisy"
+          paginationLabel={["-", "+"]}
+          searchLabel="Szukaj"
+          infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
+          noRecordsFoundLabel="Nie znaleziono wpisów"
+          className="administration-table"
+        />
+      </section>
     </>
   );
 };

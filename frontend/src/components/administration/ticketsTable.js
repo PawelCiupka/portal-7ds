@@ -76,21 +76,23 @@ const AdministrationTicketsTable = () => {
 
   return (
     <>
-      <h3>Zgłoszenia</h3>
-      <MDBDataTable
-        bordered
-        responsive
-        striped
-        small
-        hover
-        data={data}
-        entriesLabel="Pokaż wpisy"
-        paginationLabel={["-", "+"]}
-        searchLabel="Szukaj"
-        infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
-        noRecordsFoundLabel="Nie znaleziono wpisów"
-        className="administration-table"
-      />
+      <section>
+        <h5>Zgłoszenia</h5>
+        <MDBDataTable
+          bordered
+          responsive
+          striped
+          small
+          hover
+          data={data}
+          entriesLabel="Pokaż wpisy"
+          paginationLabel={["-", "+"]}
+          searchLabel="Szukaj"
+          infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
+          noRecordsFoundLabel="Nie znaleziono wpisów"
+          className="administration-table"
+        />
+      </section>
     </>
   );
 };

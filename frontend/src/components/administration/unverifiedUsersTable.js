@@ -94,21 +94,23 @@ const AdministrationUnverifiedUsersTable = () => {
 
   return (
     <>
-      <h3>Użytkownicy oczekujący na potwierdzenie</h3>
-      <MDBDataTable
-        bordered
-        responsive
-        striped
-        small
-        hover
-        data={data}
-        entriesLabel="Pokaż wpisy"
-        paginationLabel={["-", "+"]}
-        searchLabel="Szukaj"
-        infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
-        noRecordsFoundLabel="Nie znaleziono wpisów"
-        className="administration-table"
-      />
+      <h5>Użytkownicy oczekujący na potwierdzenie</h5>
+      <section>
+        <MDBDataTable
+          bordered
+          responsive
+          striped
+          small
+          hover
+          data={data}
+          entriesLabel="Pokaż wpisy"
+          paginationLabel={["-", "+"]}
+          searchLabel="Szukaj"
+          infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
+          noRecordsFoundLabel="Nie znaleziono wpisów"
+          className="administration-table"
+        />
+      </section>
     </>
   );
 };

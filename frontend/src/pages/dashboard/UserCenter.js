@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Tab, Tabs } from "react-bootstrap";
-import { clearErrors } from "../../actions/error";
+import { Card, Button } from "react-bootstrap";
+import { logout } from "../../actions/session";
 import UserManagementDataChangeForm from "../../components/userManagement/dataChangeForm";
 import UserManagementRoomChangeForm from "../../components/userManagement/roomChangeForm";
 import UserManagementSecurityChangeForm from "../../components/userManagement/securityChangeForm";
@@ -11,32 +11,25 @@ const mapStateToProps = ({ session }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  clearErrors: () => dispatch(clearErrors())
+  logout: () => dispatch(logout())
 });
 
-const UserCenter = ({ session, clearErrors }) => {
+const UserCenter = ({ session, logout }) => {
   return (
     <>
-      <div className="dashboard-page-title">
-        <h4>
-          {session.firstname} {session.lastname} - Panel Zarządzania
-        </h4>
+      <div className="dashboard-page-title flex-separate">
+        <h4>Panel Zarządzania użytkownikiem {session.username}</h4>
+        <Button onClick={logout}>Wyloguj</Button>
       </div>
-      <Tabs
-        defaultActiveKey="userData"
-        id="uncontrolled-tab-example"
-        onSelect={clearErrors}
-      >
-        <Tab eventKey="userData" title="Dane Osobowe">
-          <UserManagementDataChangeForm />
-        </Tab>
-        <Tab eventKey="userPassword" title="Bezpieczeństwo">
-          <UserManagementSecurityChangeForm />
-        </Tab>
-        <Tab eventKey="userRoom" title="Pokój">
-          <UserManagementRoomChangeForm />
-        </Tab>
-      </Tabs>
+      <Card className="dashboard-card user-management-card">
+        <UserManagementDataChangeForm />
+      </Card>
+      <Card className="dashboard-card user-management-card">
+        <UserManagementSecurityChangeForm />
+      </Card>
+      <Card className="dashboard-card user-management-card">
+        <UserManagementRoomChangeForm />
+      </Card>
     </>
   );
 };

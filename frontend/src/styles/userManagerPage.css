@@ -1,0 +1,9 @@
+@media (min-width: 768px) {
+  .user-management-card {
+    padding: 3rem 4rem !important;
+  }
+}
+
+.flex-separate {
+  justify-content: space-between;
+}

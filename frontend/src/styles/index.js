@@ -7,3 +7,5 @@ import "./alert.css";
 import "./roomReservationComponents.css";
 import "./roomReservationMenu.css";
 import "./administrationPage.css";
+import "./userManagerPage.css";
+import "./dashboardCard.css";

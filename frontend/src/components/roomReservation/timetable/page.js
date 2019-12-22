@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { Icon } from "semantic-ui-react";
 import RoomReservationTimetableTable from "./termTable";
 import RoomReservationRoomInformation from "../roomInformation";
@@ -10,21 +10,27 @@ const RoomReservationPage = props => {
   };
   return (
     <>
-      <div className="dashboard-page-title">
-        <Button variant="secondary" onClick={goBack}>
-          <Icon name="arrow left" />
-        </Button>
-        <h4>{props.title}</h4>
-      </div>
+      <section>
+        <div className="dashboard-page-title">
+          <Button variant="secondary" className="back-button" onClick={goBack}>
+            <Icon name="arrow left" />
+          </Button>
+          <h4>{props.title}</h4>
+        </div>
 
-      <RoomReservationTimetableTable
-        roomSymbol={props.roomSymbol}
-        hoursTemplate={props.hoursTemplate}
-        reservationAmountLimitDay={props.reservationAmountLimitDay}
-        reservationAmountLimitWeek={props.reservationAmountLimitWeek}
-      />
+        <Card className="dashboard-card">
+          <RoomReservationTimetableTable
+            roomSymbol={props.roomSymbol}
+            hoursTemplate={props.hoursTemplate}
+            reservationAmountLimitDay={props.reservationAmountLimitDay}
+            reservationAmountLimitWeek={props.reservationAmountLimitWeek}
+          />
+        </Card>
 
-      <RoomReservationRoomInformation roomSymbol={props.roomSymbol} />
+        <Card className="dashboard-card">
+          <RoomReservationRoomInformation roomSymbol={props.roomSymbol} />
+        </Card>
+      </section>
     </>
   );
 };

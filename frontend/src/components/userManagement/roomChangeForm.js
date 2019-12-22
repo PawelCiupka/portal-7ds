@@ -15,7 +15,11 @@ const mapStateToProps = ({ session }) => ({
 });
 const mapDispatchToProps = Object.assign(mapAlertDispatchToProps);
 
-const UserManagementRoomChangeForm = ({ session, showSuccessAlert, showErrorAlert }) => {
+const UserManagementRoomChangeForm = ({
+  session,
+  showSuccessAlert,
+  showErrorAlert
+}) => {
   const formik = useFormik({
     initialValues: {
       floor: roomHelper.getFloorFromRoom(session.room),
@@ -52,7 +56,7 @@ const UserManagementRoomChangeForm = ({ session, showSuccessAlert, showErrorAler
   return (
     <>
       <section>
-        <h2>Wyślij prośbę o zmianę pokoju </h2>
+        <h5>Wyślij prośbę o zmianę pokoju </h5>
         <Form onSubmit={formik.handleSubmit}>
           <Row>
             <Col>
@@ -83,4 +87,7 @@ const UserManagementRoomChangeForm = ({ session, showSuccessAlert, showErrorAler
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserManagementRoomChangeForm);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserManagementRoomChangeForm);

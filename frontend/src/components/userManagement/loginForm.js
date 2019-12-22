@@ -37,36 +37,38 @@ const UserManagementLoginForm = ({ login, errors }) => {
 
   return (
     <>
-      <Form className="login-form" onSubmit={formik.handleSubmit}>
-        {FormikInputWithIconFormGroup(
-          "Nazwa użytkownika",
-          "username",
-          "text",
-          "user",
-          formik,
-          formik.values.username,
-          formik.touched.username,
-          formik.errors.username
-        )}
-        {FormikInputWithIconFormGroup(
-          "Hasło",
-          "password",
-          "password",
-          "key",
-          formik,
-          formik.values.password,
-          formik.touched.password,
-          formik.errors.password
-        )}
+      <section>
+        <Form className="login-form" onSubmit={formik.handleSubmit}>
+          {FormikInputWithIconFormGroup(
+            "Nazwa użytkownika",
+            "username",
+            "text",
+            "user",
+            formik,
+            formik.values.username,
+            formik.touched.username,
+            formik.errors.username
+          )}
+          {FormikInputWithIconFormGroup(
+            "Hasło",
+            "password",
+            "password",
+            "key",
+            formik,
+            formik.values.password,
+            formik.touched.password,
+            formik.errors.password
+          )}
 
-        <div className="login-form-error">
-          <p>{errors}</p>
-        </div>
+          <div className="login-form-error">
+            <p>{errors}</p>
+          </div>
 
-        <Button className="btn-fancy" type="submit">
-          Zaloguj
-        </Button>
-      </Form>
+          <Button className="btn-fancy" type="submit">
+            Zaloguj
+          </Button>
+        </Form>
+      </section>
     </>
   );
 };

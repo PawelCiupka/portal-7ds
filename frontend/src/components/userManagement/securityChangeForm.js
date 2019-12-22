@@ -59,7 +59,7 @@ const UserManagementSecurityChangeForm = ({
   return (
     <>
       <section>
-        <h2>Zmień dane dotyczące bezpieczeństwa</h2>
+        <h5>Dane dotyczące bezpieczeństwa</h5>
         <Form onSubmit={formik.handleSubmit}>
           {FormikInputFormGroup(
             "Stare hasło",

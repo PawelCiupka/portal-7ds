@@ -114,84 +114,86 @@ const RoomReservationTimetableTable = props => {
 
   return (
     <>
-      {days.length > 0 ? (
-        <Table
-          bordered
-          striped
-          responsive
-          size="sm"
-          className="room-reservation-table"
-        >
-          <thead>
-            <tr>
-              <th className="hours-col"></th>
-              <th className="one-of-seven-cols">
-                <RoomReservationTimetableHead date={getTodayDate()} />
-              </th>
-              <th className="one-of-seven-cols">
-                <RoomReservationTimetableHead
-                  date={getDatePlusNumberOfDays(1)}
-                />
-              </th>
-              <th className="one-of-seven-cols">
-                <RoomReservationTimetableHead
-                  date={getDatePlusNumberOfDays(2)}
-                />
-              </th>
-              <th className="one-of-seven-cols">
-                <RoomReservationTimetableHead
-                  date={getDatePlusNumberOfDays(3)}
-                />
-              </th>
-              <th className="one-of-seven-cols">
-                <RoomReservationTimetableHead
-                  date={getDatePlusNumberOfDays(4)}
-                />
-              </th>
-              <th className="one-of-seven-cols">
-                <RoomReservationTimetableHead
-                  date={getDatePlusNumberOfDays(5)}
-                />
-              </th>
-              <th className="one-of-seven-cols">
-                <RoomReservationTimetableHead
-                  date={getDatePlusNumberOfDays(6)}
-                />
-              </th>
-              {/* {days.map(day => (
+      <section>
+        {days.length > 0 ? (
+          <Table
+            bordered
+            striped
+            responsive
+            size="sm"
+            className="room-reservation-table"
+          >
+            <thead>
+              <tr>
+                <th className="hours-col"></th>
+                <th className="one-of-seven-cols">
+                  <RoomReservationTimetableHead date={getTodayDate()} />
+                </th>
+                <th className="one-of-seven-cols">
+                  <RoomReservationTimetableHead
+                    date={getDatePlusNumberOfDays(1)}
+                  />
+                </th>
+                <th className="one-of-seven-cols">
+                  <RoomReservationTimetableHead
+                    date={getDatePlusNumberOfDays(2)}
+                  />
+                </th>
+                <th className="one-of-seven-cols">
+                  <RoomReservationTimetableHead
+                    date={getDatePlusNumberOfDays(3)}
+                  />
+                </th>
+                <th className="one-of-seven-cols">
+                  <RoomReservationTimetableHead
+                    date={getDatePlusNumberOfDays(4)}
+                  />
+                </th>
+                <th className="one-of-seven-cols">
+                  <RoomReservationTimetableHead
+                    date={getDatePlusNumberOfDays(5)}
+                  />
+                </th>
+                <th className="one-of-seven-cols">
+                  <RoomReservationTimetableHead
+                    date={getDatePlusNumberOfDays(6)}
+                  />
+                </th>
+                {/* {days.map(day => (
                 <th>{day.dayOfWeek}</th>
               ))} */}
-            </tr>
-          </thead>
-          <tbody>
-            {props.hoursTemplate.map((hour, hourIndex) => (
-              <tr>
-                <th>
-                  <div className="reservation-hour-container">
-                    <span>{hour}</span>
-                  </div>
-                </th>
-                {days.map(day => (
-                  <th>
-                    {day.hours[hourIndex].isReserved === true ? (
-                      <RoomReservationTimetableReservedButton
-                        manageHourFunc={manageHour}
-                        hour={day.hours[hourIndex]}
-                        sessionUserId={props.session.userId}
-                      />
-                    ) : (
-                      <RoomReservationTimetableFreeButton
-                        manageHourFunc={manageHour}
-                        hour={day.hours[hourIndex]}
-                      />
-                    )}
-                  </th>
-                ))}
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      ) : null}
+            </thead>
+            <tbody>
+              {props.hoursTemplate.map((hour, hourIndex) => (
+                <tr>
+                  <th>
+                    <div className="reservation-hour-container">
+                      <span>{hour}</span>
+                    </div>
+                  </th>
+                  {days.map(day => (
+                    <th>
+                      {day.hours[hourIndex].isReserved === true ? (
+                        <RoomReservationTimetableReservedButton
+                          manageHourFunc={manageHour}
+                          hour={day.hours[hourIndex]}
+                          sessionUserId={props.session.userId}
+                        />
+                      ) : (
+                        <RoomReservationTimetableFreeButton
+                          manageHourFunc={manageHour}
+                          hour={day.hours[hourIndex]}
+                        />
+                      )}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        ) : null}
+      </section>
     </>
   );
 };

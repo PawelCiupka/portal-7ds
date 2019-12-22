@@ -1,0 +1,11 @@
+.dashboard-card {
+  background: #fff;
+  padding: 1rem;
+  border: 0;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+  margin: 1rem 0;
+}
+
+.dashboard-card h5 {
+  font-size: 1.5rem;
+}

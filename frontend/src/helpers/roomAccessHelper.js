@@ -55,7 +55,7 @@ export const checkUserRoomReservationPermission = (accessText, roomSymbol) => {
   if (roomSymbol === ROOM_CODE.Billiards) {
     return isBilliardsAvailable(accessText);
   }
-  if (roomSymbol === ROOM_CODE.TV) {
+  if (roomSymbol === ROOM_CODE.Tv) {
     return isTVAvailable(accessText);
   }
   if (roomSymbol === ROOM_CODE.Fitness) {
