@@ -15,7 +15,6 @@
 
 #dashboard-container {
   min-height: calc(100vh - 5.2rem);
-  padding: 0 2.5rem;
 }
 
 .navbar {
@@ -35,6 +34,7 @@
   }
   #dashboard-container {
     min-height: (100vh - 4.7rem);
+    padding: 0 2.5rem;
   }
 }
 
