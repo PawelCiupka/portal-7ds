@@ -17,7 +17,7 @@ const Dashboard = () => (
     <ErrorAlert />
     <Menu />
     <div id="main-content">
-      <Container id="desktop-container">
+      <Container id="dashboard-container">
         <Route exact path="/dashboard" component={Home} />
         <ProtectedRoute path="/dashboard/user/edit" component={UserCenter} />
         <ProtectedExtraRoute

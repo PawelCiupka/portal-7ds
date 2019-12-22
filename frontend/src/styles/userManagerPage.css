@@ -7,3 +7,15 @@
 .flex-separate {
   justify-content: space-between;
 }
+
+.logout-span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.logout-span .icon {
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  margin-right: 0.3rem;
+}

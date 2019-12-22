@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Button } from "react-bootstrap";
+import { Icon } from "semantic-ui-react";
 import { logout } from "../../actions/session";
 import UserManagementDataChangeForm from "../../components/userManagement/dataChangeForm";
 import UserManagementRoomChangeForm from "../../components/userManagement/roomChangeForm";
@@ -19,7 +20,12 @@ const UserCenter = ({ session, logout }) => {
     <>
       <div className="dashboard-page-title flex-separate">
         <h4>Panel Zarządzania użytkownikiem {session.username}</h4>
-        <Button onClick={logout}>Wyloguj</Button>
+        <Button onClick={logout} className="logout-btn">
+          <span className="logout-span">
+            <Icon className="logout-icon" name="log out" />
+            Wyloguj
+          </span>
+        </Button>
       </div>
       <Card className="dashboard-card user-management-card">
         <UserManagementDataChangeForm />

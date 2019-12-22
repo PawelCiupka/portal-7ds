@@ -8,8 +8,14 @@
 }
 
 #main-content {
+  min-height: calc(100vh);
   padding-top: 4rem;
   background: #fafafa;
+}
+
+#dashboard-container {
+  min-height: calc(100vh - 5.2rem);
+  padding: 0 2.5rem;
 }
 
 .navbar {
@@ -27,15 +33,13 @@
   #main-content {
     padding-left: 230px;
   }
-
-  #desktop-container {
-    min-height: calc(100vh - 4rem);
-    padding: 0 2.5rem;
+  #dashboard-container {
+    min-height: (100vh - 4.7rem);
   }
 }
 
 @media (min-width: 1200px) {
-  #desktop-container {
+  #dashboard-container {
     padding: 0 4rem;
     max-width: 100%;
   }

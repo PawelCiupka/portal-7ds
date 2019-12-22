@@ -5,7 +5,6 @@ import "semantic-ui-css/semantic.min.css";
 import { Button } from "react-bootstrap";
 import MobileSidebarItem from "./sidebarItem";
 import MobileMenuUserInformation from "./userInformation";
-import MobileMenuSidebarLogoutItem from "./sidebarLogoutItem";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -51,9 +50,6 @@ const MobileSidebar = props => {
               text="Administracja"
             />
           ) : null}
-        </div>
-        <div className="sidebar-menu-item-logout-container">
-          <MobileMenuSidebarLogoutItem />
         </div>
       </Sidebar>
     </>
