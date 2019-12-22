@@ -4,6 +4,10 @@
 .administration-section td {
   vertical-align: middle;
 }
+
+.administration-section tr td:last-child {
+  width: 7rem;
+}
 .administration-section .flex-center {
   display: flex;
   align-items: center;
