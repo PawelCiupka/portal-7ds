@@ -45,7 +45,7 @@ const AdministrationUnverifiedUsersTable = () => {
         { label: "Imię i nazwisko", field: "userInfo", sort: "asc" },
         { label: "Pokój", field: "room", sort: "asc" },
         { label: "Komentarz", field: "comment", sort: "asc" },
-        { label: "Akcja", field: "action", sort: "asc" }
+        { label: "", field: "action", sort: "asc" }
       ],
       rows: []
     };
@@ -57,13 +57,15 @@ const AdministrationUnverifiedUsersTable = () => {
         room: user.room,
         comment: user.comment === "" ? " " : user.comment,
         action: (
-          <Button
-            variant="success"
-            size="sm"
-            onClick={() => editUser(user._id)}
-          >
-            <Icon name="pencil alternate" />
-          </Button>
+          <div className="flex-center">
+            <Button
+              variant="success"
+              size="sm"
+              onClick={() => editUser(user._id)}
+            >
+              <Icon name="pencil alternate" />
+            </Button>
+          </div>
         )
       };
       result.rows.push(u);
@@ -82,7 +84,7 @@ const AdministrationUnverifiedUsersTable = () => {
 
   return (
     <>
-      <section>
+      <section className="administration-section">
         {showUserDetails ? (
           <AdministrationUserDetailsModal user={detailedUser} />
         ) : null}
@@ -91,7 +93,6 @@ const AdministrationUnverifiedUsersTable = () => {
           bordered
           responsive
           striped
-          small
           hover
           data={data}
           entriesLabel="Pokaż wpisy"
@@ -99,7 +100,6 @@ const AdministrationUnverifiedUsersTable = () => {
           searchLabel="Szukaj"
           infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
           noRecordsFoundLabel="Nie znaleziono wpisów"
-          className="administration-table"
         />
       </section>
     </>

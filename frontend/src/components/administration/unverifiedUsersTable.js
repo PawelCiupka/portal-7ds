@@ -44,7 +44,7 @@ const AdministrationUnverifiedUsersTable = () => {
         { label: "Imię i nazwisko", field: "userInfo", sort: "asc" },
         { label: "Pokój", field: "room", sort: "asc" },
         { label: "Data dodania", field: "createdAt", sort: "asc" },
-        { label: "Akcja", field: "action", sort: "asc" }
+        { label: "", field: "action", sort: "asc" }
       ],
       rows: []
     };
@@ -56,7 +56,7 @@ const AdministrationUnverifiedUsersTable = () => {
         room: user.room,
         createdAt: formatDate(user.createdAt),
         action: (
-          <>
+          <div className="flex-separate">
             <Button
               variant="success"
               size="sm"
@@ -71,7 +71,7 @@ const AdministrationUnverifiedUsersTable = () => {
             >
               <Icon name="times" />
             </Button>
-          </>
+          </div>
         )
       };
       result.rows.push(u);
@@ -94,13 +94,12 @@ const AdministrationUnverifiedUsersTable = () => {
 
   return (
     <>
-      <h5>Użytkownicy oczekujący na potwierdzenie</h5>
-      <section>
+      <section className="administration-section">
+        <h5>Użytkownicy oczekujący na potwierdzenie</h5>
         <MDBDataTable
           bordered
           responsive
           striped
-          small
           hover
           data={data}
           entriesLabel="Pokaż wpisy"
@@ -108,7 +107,6 @@ const AdministrationUnverifiedUsersTable = () => {
           searchLabel="Szukaj"
           infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
           noRecordsFoundLabel="Nie znaleziono wpisów"
-          className="administration-table"
         />
       </section>
     </>

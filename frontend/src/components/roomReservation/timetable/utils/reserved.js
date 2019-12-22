@@ -4,9 +4,7 @@ import { doDisableButtonByHour } from "../../../../helpers/dateHelper";
 
 const RoomReservationTimetableReservedButton = props => {
   const getReservationDetailText = userDetails => {
-    return (
-      userDetails.firstname + " " + userDetails.lastname + " " + props.dayOfWeek
-    );
+    return userDetails.firstname + " " + userDetails.lastname;
   };
 
   return (

@@ -42,7 +42,7 @@ const AdministrationTicketsTable = () => {
         { label: "Użytkownik", field: "user", sort: "asc" },
         { label: "Wiadomość", field: "msg", sort: "asc" },
         { label: "Data", field: "createdAt", sort: "asc" },
-        { label: "Akcja", field: "action", sort: "asc" }
+        { label: "", field: "action", sort: "asc" }
       ],
       rows: []
     };
@@ -53,13 +53,15 @@ const AdministrationTicketsTable = () => {
         msg: ticket.message,
         createdAt: formatDate(ticket.createdAt),
         action: (
-          <Button
-            variant="success"
-            size="sm"
-            onClick={() => markTicket(ticket._id)}
-          >
-            <Icon name="check" />
-          </Button>
+          <div className="flex-center">
+            <Button
+              variant="success"
+              size="sm"
+              onClick={() => markTicket(ticket._id)}
+            >
+              <Icon name="check" />
+            </Button>
+          </div>
         )
       };
       result.rows.push(t);
@@ -76,13 +78,12 @@ const AdministrationTicketsTable = () => {
 
   return (
     <>
-      <section>
+      <section className="administration-section">
         <h5>Zgłoszenia</h5>
         <MDBDataTable
           bordered
           responsive
           striped
-          small
           hover
           data={data}
           entriesLabel="Pokaż wpisy"
@@ -90,7 +91,6 @@ const AdministrationTicketsTable = () => {
           searchLabel="Szukaj"
           infoLabel={["Wyświetlanie", "do", "z", "wpisów"]}
           noRecordsFoundLabel="Nie znaleziono wpisów"
-          className="administration-table"
         />
       </section>
     </>
