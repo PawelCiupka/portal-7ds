@@ -1,9 +1,12 @@
 import React from "react";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { doDisableButtonByHour } from "../../../../helpers/dateHelper";
 
 const RoomReservationTimetableReservedButton = props => {
   const getReservationDetailText = userDetails => {
-    return userDetails.firstname + " " + userDetails.lastname;
+    return (
+      userDetails.firstname + " " + userDetails.lastname + " " + props.dayOfWeek
+    );
   };
 
   return (
@@ -16,14 +19,21 @@ const RoomReservationTimetableReservedButton = props => {
             placement="top"
             overlay={<Tooltip id={"tooltip-top"}>Anuluj rezerwację</Tooltip>}
           >
-            <Button
-              variant="danger"
-              onClick={() => {
-                props.manageHourFunc(props.hour);
-              }}
-            >
-              {props.hour.value}
-            </Button>
+            {doDisableButtonByHour(props.hour.value) &&
+            Number(props.dayOfWeek) === 0 ? (
+              <Button variant="danger" disabled="disabled">
+                {props.hour.value}
+              </Button>
+            ) : (
+              <Button
+                variant="danger"
+                onClick={() => {
+                  props.manageHourFunc(props.hour);
+                }}
+              >
+                {props.hour.value}
+              </Button>
+            )}
           </OverlayTrigger>
         ) : (
           <OverlayTrigger

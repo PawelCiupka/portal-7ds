@@ -39,10 +39,11 @@
   height: 2rem;
 }
 .reservation-btn-container .btn {
-  width: 60%;
+  width: 75%;
   height: 2rem;
   padding-top: 0;
   padding-bottom: 0;
+  font-size: 0.8rem;
 }
 .reservation-hour-container {
   margin-top: auto;

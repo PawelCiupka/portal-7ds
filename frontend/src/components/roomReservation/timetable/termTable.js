@@ -179,6 +179,7 @@ const RoomReservationTimetableTable = props => {
                           manageHourFunc={manageHour}
                           hour={day.hours[hourIndex]}
                           sessionUserId={props.session.userId}
+                          dayOfWeek={day.dayOfWeek}
                         />
                       ) : (
                         <RoomReservationTimetableFreeButton

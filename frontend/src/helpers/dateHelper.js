@@ -34,3 +34,19 @@ export const getDayName = d => {
   const dayNum = myDate.getDay();
   return daysName[dayNum];
 };
+
+export const getHoursAsNumber = hourValue => {
+  const hourArray = String(hourValue).split(":");
+  return Number(hourArray[0]);
+};
+
+export const doDisableButtonByHour = hourValue => {
+  const hour = getHoursAsNumber(hourValue);
+  const d = new Date();
+  const nowHour = Number(d.getHours());
+
+  if (hour <= nowHour) {
+    return true;
+  }
+  return false;
+};
