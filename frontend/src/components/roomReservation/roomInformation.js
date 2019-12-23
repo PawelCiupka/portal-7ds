@@ -1,10 +1,24 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getRoomInformation } from "../../util/roomInformations";
 
 const RoomReservationRoomInformation = props => {
+  const [informations, setInformations] = useState("");
+
+  useEffect(() => {
+    getRoomInformation(props.roomSymbol).then(res => {
+      setInformations(res);
+    });
+  }, []);
+
   return (
     <>
       <section>
-        <h1>Informację o salce {props.roomSymbol}</h1>
+        {informations !== "" ? (
+          <div
+            className="room-information-container"
+            dangerouslySetInnerHTML={{ __html: informations }}
+          />
+        ) : null}
       </section>
     </>
   );

@@ -8,6 +8,7 @@ const RoomReservationPage = props => {
   const goBack = () => {
     window.history.back();
   };
+
   return (
     <>
       <section>

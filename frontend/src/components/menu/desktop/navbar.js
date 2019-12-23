@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Menu, Sidebar } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 import DesktopNavbarItem from "./navbarItem";
+import DesktopNavbarItemBlank from "./navbarItemBlank";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -28,6 +29,13 @@ const DesktopNavbar = props => {
               href="/dashboard/management"
               iconName="cog"
               text="Administracja"
+            />
+          ) : null}
+          {props.session.role === "admin" ? (
+            <DesktopNavbarItemBlank
+              href="https://app.graphcms.com/c5115c472ca94516a364586ef2dd1d7c/master/content/d87a2617be49433daf2acb1ff4a0a978/table"
+              iconName="edit"
+              text="Zarządzanie treścią"
             />
           ) : null}
         </div>

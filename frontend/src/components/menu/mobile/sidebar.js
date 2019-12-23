@@ -5,6 +5,7 @@ import "semantic-ui-css/semantic.min.css";
 import { Button } from "react-bootstrap";
 import MobileSidebarItem from "./sidebarItem";
 import MobileMenuUserInformation from "./userInformation";
+import MobileSidebarItemBlank from "./sidebarItemBlank";
 
 const mapStateToProps = ({ session }) => ({
   session
@@ -48,6 +49,13 @@ const MobileSidebar = props => {
               href="/dashboard/management"
               iconName="cog"
               text="Administracja"
+            />
+          ) : null}
+          {props.session.role === "admin" ? (
+            <MobileSidebarItemBlank
+              href="https://app.graphcms.com/c5115c472ca94516a364586ef2dd1d7c/master/content/d87a2617be49433daf2acb1ff4a0a978/table"
+              iconName="edit"
+              text="Zarządzanie treścią"
             />
           ) : null}
         </div>
