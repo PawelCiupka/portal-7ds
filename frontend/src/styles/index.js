@@ -9,3 +9,4 @@ import "./roomReservationMenu.css";
 import "./administrationPage.css";
 import "./userManagerPage.css";
 import "./dashboardCard.css";
+import "./dashboard.css";

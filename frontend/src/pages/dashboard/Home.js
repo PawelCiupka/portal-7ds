@@ -1,11 +1,16 @@
 import React from "react";
+import { Card } from "react-bootstrap";
+import DashboardInformationPanel from "../../components/dashboard/informationPanel";
 
 const Home = () => {
   return (
     <>
-      <div className="dashboard-page-title">
-        <h4>Strona główna</h4>
-      </div>
+      <section className="dashboard">
+        <Card className="dashboard-card">
+          <DashboardInformationPanel />
+        </Card>
+        <Card className="dashboard-card"></Card>
+      </section>
     </>
   );
 };
