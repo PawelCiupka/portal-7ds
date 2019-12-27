@@ -73,7 +73,7 @@ const UserManagementDataChangeForm = ({
             formik.touched.username,
             formik.errors.username
           )}
-          <Row>
+          <Row className="row-no-row">
             <Col>
               {FormikInputFormGroup(
                 "Imię",

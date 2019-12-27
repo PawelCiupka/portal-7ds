@@ -70,7 +70,7 @@ const UserManagementSecurityChangeForm = ({
             formik.touched.oldPassword,
             formik.errors.oldPassword
           )}
-          <Row>
+          <Row className="row-no-row">
             <Col>
               {FormikInputFormGroup(
                 "Nowe hasło",

@@ -2,6 +2,10 @@
   .user-management-card {
     padding: 3rem 4rem !important;
   }
+
+  .user-management-card .row-no-row {
+    display: flex !important;
+  }
 }
 
 .flex-separate {
@@ -18,4 +22,8 @@
   display: flex;
   align-items: center;
   margin-right: 0.3rem;
+}
+
+.user-management-card .row-no-row {
+  display: block;
 }
