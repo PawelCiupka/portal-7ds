@@ -6,7 +6,7 @@
 }
 
 .room-reservation-table th {
-  transition-duration: 0.1s;
+  vertical-align: center;
 }
 .room-reservation-table th:hover {
   background: #eee;
@@ -24,6 +24,13 @@
 }
 
 .table-head-col-container p:nth-child(1) {
+  font-size: 0.65rem !important;
+  margin: 0.1rem;
+}
+
+.table-head-col-container p:nth-child(2) {
+  font-size: 0.9rem !important;
+  font-weight: initial;
   margin: 0;
 }
 

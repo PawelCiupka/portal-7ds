@@ -32,7 +32,7 @@
   z-index: 102;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   #main-content {
     padding-left: 230px;
   }
@@ -85,6 +85,7 @@ i.icon {
 }
 .dashboard-page-title h4 {
   font-size: 1.3rem !important;
+  font-weight: bold;
   margin: 0;
 }
 .dashboard-page-title .back-button {

@@ -17,7 +17,7 @@ const DashboardInformationPanel = () => {
       {informations !== [] ? (
         <Tabs defaultActiveKey="general" justify>
           {informations.map(info => (
-            <Tab eventKey={info.symbol} title={info.title}>
+            <Tab eventKey={info.symbol} title={info.title} className="cms-content">
               <DashboardInformation content={info.content} />
             </Tab>
           ))}

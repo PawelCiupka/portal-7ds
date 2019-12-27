@@ -7,24 +7,34 @@
 .dashboard .nav {
   display: flex;
   flex-wrap: nowrap;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #dee2e6;
 }
-
 .dashboard .nav a {
-  padding: 0;
-  margin-bottom: 2rem;
+  width: auto;
+  padding: 0.3rem 0.3rem;
+  font-size: 0.85rem !important;
 }
 
 .dashboard .tab-content {
   height: 100%;
   max-height: 100%;
+  overflow-y: auto;
 }
 
 @media (min-width: 992px) {
   .dashboard {
     display: grid;
-    grid-template-columns: 4fr 3fr;
+    grid-template-columns: 4fr 2fr;
     grid-template-rows: 30rem;
     column-gap: 1rem;
     row-gap: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .dashboard .nav a {
+    width: auto;
+    font-size: 0.9rem !important;
   }
 }
