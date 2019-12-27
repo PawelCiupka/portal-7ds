@@ -48,6 +48,7 @@ const Dashboard = () => (
           path="/dashboard/room-reservation/pingpong"
           component={() => <RoomTimetable roomSymbol="P" />}
         />
+        Paweł Ciupka 2020
       </Container>
     </div>
   </>

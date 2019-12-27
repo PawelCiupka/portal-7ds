@@ -1,6 +1,10 @@
 #mobile-navbar {
   justify-content: flex-start;
 }
+#mobile-navbar .btn {
+  text-decoration: none;
+  outline: none;
+}
 
 #slider-hidder {
   display: none;
@@ -38,6 +42,10 @@
   justify-content: space-between;
   align-items: center;
   position: relative !important;
+}
+.sidebar-header .btn {
+  text-decoration: none;
+  outline: none;
 }
 
 .sidebar-menu-user-information {

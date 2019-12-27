@@ -44,6 +44,11 @@ const MobileSidebar = props => {
             iconName="calendar alternate outline"
             text="Rezerwacja salek"
           />
+          <MobileSidebarItemBlank
+            href="https://www.facebook.com/groups/7ds.lodz/"
+            iconName="facebook"
+            text="Grupa"
+          />
           {props.session.role === "admin" ? (
             <MobileSidebarItem
               href="/dashboard/management"
