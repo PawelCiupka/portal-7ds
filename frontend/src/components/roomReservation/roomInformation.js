@@ -15,7 +15,7 @@ const RoomReservationRoomInformation = props => {
       <section>
         {informations !== "" ? (
           <div
-            className="room-information-container"
+            className="cms-content"
             dangerouslySetInnerHTML={{ __html: informations }}
           />
         ) : null}

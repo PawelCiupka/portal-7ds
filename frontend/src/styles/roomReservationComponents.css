@@ -25,11 +25,6 @@
 
 .table-head-col-container p:nth-child(1) {
   margin: 0;
-  font-size: 0.9rem;
-}
-
-.table-head-col-container p:nth-child(2) {
-  font-size: 0.88rem;
 }
 
 .reservation-btn-container {
@@ -43,24 +38,15 @@
   height: 2rem;
   padding-top: 0;
   padding-bottom: 0;
-  font-size: 0.8rem;
+  font-size: 0.8rem !important;
 }
 .reservation-hour-container {
   margin-top: auto;
   margin-bottom: auto;
-  font-size: 0.9rem;
 }
 
 @media (max-width: 960px) {
   .reservation-btn-container .btn {
     width: auto;
   }
-}
-
-
-
-
-/* ROOM INFORMATION - START */
-.room-information-container {
-  
 }

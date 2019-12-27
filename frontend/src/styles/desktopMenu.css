@@ -35,17 +35,19 @@
   height: 2.5rem;
   width: 2.5rem;
   margin-right: 0.5rem;
-  border: 1px solid #aaa;
+  background: #42a9e9;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #aaa;
-  color: #ddd;
+  background: ;
+  color: #fff;
 }
 
 .header-user-icon {
-  font-size: 1.5rem !important;
+  height: 2rem !important;
+  width: 2rem !important;
+  font-size: 1.3rem !important;
   margin: 0 !important;
 }
 
@@ -73,6 +75,7 @@
 }
 
 .navbar-icon {
+  color: #42a9e9;
   margin-right: 0.5rem !important;
   font-size: 1.3rem !important;
 }

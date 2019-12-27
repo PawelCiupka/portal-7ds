@@ -10,7 +10,7 @@ export const TICKET = {
 
 export const USER = {
   success: {
-    update_information: "Dane osobowe zostały zmienione",
+    update_information: "Dane osobowe zostały zmienione - nastąpi przeładowanie strony",
     update_security: "Hasło zostało zmienione"
   },
   error: {

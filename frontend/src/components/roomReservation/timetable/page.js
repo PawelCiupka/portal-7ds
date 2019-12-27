@@ -13,7 +13,7 @@ const RoomReservationPage = props => {
     <>
       <section>
         <div className="dashboard-page-title">
-          <Button variant="secondary" className="back-button" onClick={goBack}>
+          <Button variant="primary" className="back-button" onClick={goBack}>
             <Icon name="arrow left" />
           </Button>
           <h4>{props.title}</h4>

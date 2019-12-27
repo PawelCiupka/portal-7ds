@@ -13,6 +13,10 @@
   background: #fafafa;
 }
 
+#main-content * {
+  font-size: 0.9rem;
+}
+
 #dashboard-container {
   min-height: calc(100vh - 5.2rem);
 }
@@ -80,7 +84,7 @@ i.icon {
   justify-content: flex-start;
 }
 .dashboard-page-title h4 {
-  font-size: 1.5rem;
+  font-size: 1.3rem !important;
   margin: 0;
 }
 .dashboard-page-title .back-button {
@@ -91,8 +95,6 @@ i.icon {
   justify-content: center;
   margin-right: 1rem;
   border-radius: 50%;
-  background: #aaa;
-  border-color: #aaa;
 }
 .dashboard-page-title .back-button .icon {
   width: 2rem;
@@ -103,10 +105,29 @@ i.icon {
 }
 @media (min-width: 768px) {
   .dashboard-page-title h4 {
-    font-size: 1.9rem;
+    font-size: 1.6rem !important;
   }
   .dashboard-page-title .back-button {
     width: 2.5rem;
     height: 2.5rem;
   }
 }
+
+/* Content from CMS - START */
+.cms-content {
+  text-align: justify;
+}
+.cms-content h1,
+.cms-content h2 {
+  font-weight: bold;
+}
+.cms-content h1 {
+  font-size: 1.5rem !important;
+}
+.cms-content h2 {
+  font-size: 1.25rem !important;
+}
+.cms-content p {
+  margin: 0.05rem 0;
+}
+/* Content from CMS - END */

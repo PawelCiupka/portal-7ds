@@ -10,8 +10,10 @@ const MobileMenuUserInformation = props => {
   return (
     <div>
       <Menu.Item className="sidebar-menu-user-information">
-        <div className="sidebar-user-icon-container">
-          <Icon className="sidebar-user-icon" name="user" />
+        <div>
+          <div className="sidebar-user-icon-container">
+            <Icon className="sidebar-user-icon" name="user" />
+          </div>
         </div>
         <div>
           <h3>
