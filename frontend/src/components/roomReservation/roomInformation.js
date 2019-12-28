@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getRoomInformation } from "../../util/roomInformations";
+import { getRoomInformation } from "../../util/room";
 
 const RoomReservationRoomInformation = props => {
   const [informations, setInformations] = useState("");

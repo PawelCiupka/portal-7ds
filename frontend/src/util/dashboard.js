@@ -15,23 +15,32 @@ export const getListOfInformation = () =>
       return data;
     });
 
-// export const getRoomInformation = roomSymbol =>
-//   fetch(GRAPHCMS_API, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({
-//       query: `query { roomInformations { symbol information {html} } }`
-//     })
-//   })
-//     .then(response => response.json())
-//     .then(data => {
-//       let informations = "";
-//       data.data.roomInformations.forEach(room => {
-//         if (room.symbol === roomSymbol) {
-//           informations = room.information.html;
-//         }
-//       });
-//       return informations;
-//     });
+export const getAllUserReservations = async userId =>
+  await fetch("/api/room/get/user-reservations", {
+    method: "POST",
+    body: JSON.stringify({
+      userId: userId
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data;
+    });
+
+export const getAmountOfUserReservations = async userId =>
+  await fetch("/api/room/get/user-reservations", {
+    method: "POST",
+    data: JSON.stringify({
+      userId: userId
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then(response => response.json())
+    .then(data => {
+      return data.length;
+    });

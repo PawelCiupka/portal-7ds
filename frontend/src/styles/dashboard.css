@@ -1,7 +1,7 @@
 .dashboard {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 15rem 25rem minmax(10rem, auto);
+  grid-template-rows: minmax(10rem, auto) 25rem minmax(10rem, auto);
   padding-bottom: 2rem;
   column-gap: 2rem;
   row-gap: 2rem;
@@ -40,11 +40,42 @@
   overflow-y: auto;
 }
 
+.dashboard-user-reservation-container * {
+  font-size: 0.85rem !important;
+}
+.dashboard-user-reservation-container tbody + thead {
+  display: none;
+}
+.dashboard-user-reservation-container .table td {
+  vertical-align: middle;
+}
+.dashboard-user-reservation-container .row .col-md-5 {
+  display: none;
+}
+.dashboard-user-reservation-container .row:nth-child(3),
+.dashboard-user-reservation-container .row .col-md-7 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dashboard-user-reservation-container .btn {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+}
+.dashboard-user-reservation-container .btn .icon {
+  height: auto;
+  vertical-align: center;
+}
+
 @media (min-width: 992px) {
   .dashboard {
     display: grid;
-    grid-template-columns: 4fr 2fr;
-    grid-template-rows: 25rem minmax(20rem, auto);
+    grid-template-columns: 20fr 13fr;
+    grid-template-rows: 26.5rem minmax(20rem, auto);
   }
   .dashboard div:nth-child(1) {
     grid-row: 1;

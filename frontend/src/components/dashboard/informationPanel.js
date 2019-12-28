@@ -8,7 +8,6 @@ const DashboardInformationPanel = () => {
 
   useEffect(() => {
     getListOfInformation().then(res => {
-      console.log(res.data.dashboardInformations);
       setInformations(res.data.dashboardInformations);
     });
   }, []);
@@ -17,7 +16,12 @@ const DashboardInformationPanel = () => {
       {informations !== [] ? (
         <Tabs defaultActiveKey="general" justify>
           {informations.map(info => (
-            <Tab eventKey={info.symbol} title={info.title} className="cms-content">
+            <Tab
+              eventKey={info.symbol}
+              title={info.title}
+              className="cms-content"
+              key={info.symbol}
+            >
               <DashboardInformation content={info.content} />
             </Tab>
           ))}

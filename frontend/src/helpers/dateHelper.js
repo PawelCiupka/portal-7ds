@@ -50,3 +50,18 @@ export const doDisableButtonByHour = hourValue => {
   }
   return false;
 };
+
+export const getReservationDateString = (day, hour) => {
+  const daysName = [
+    "Dzisiaj",
+    "Jutro",
+    getDayName(getDatePlusNumberOfDays(2)),
+    getDayName(getDatePlusNumberOfDays(3)),
+    getDayName(getDatePlusNumberOfDays(4)),
+    getDayName(getDatePlusNumberOfDays(5)),
+    getDayName(getDatePlusNumberOfDays(6))
+  ];
+  const result =
+    "" + daysName[day] + ",\n" + getDatePlusNumberOfDays(day) + ",\n godz. " + hour;
+  return result;
+};

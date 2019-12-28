@@ -11,6 +11,7 @@
   min-height: calc(100vh);
   padding-top: 4rem;
   background: #fafafa;
+  overflow: hidden;
 }
 
 #main-content * {
@@ -67,6 +68,9 @@ i.icon {
   display: inline-block;
   margin-left: 0.5rem;
   width: auto;
+}
+.dataTables_paginate {
+  cursor: pointer;
 }
 @media (max-width: 768px) {
   .dataTables_filter {

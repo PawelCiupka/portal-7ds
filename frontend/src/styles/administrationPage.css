@@ -1,8 +1,11 @@
 .administration-section {
   min-height: 51rem;
 }
-.administration-section td {
+.administration-section .table td {
   vertical-align: middle;
+}
+.administration-section tbody + thead {
+  display: none;
 }
 
 .administration-section tr td:last-child {

@@ -240,7 +240,6 @@ roomRoutes.post("/get/reserved-hours-by-user-day", async (req, res) => {
         hour.reservingUser !== null &&
         String(hour.reservingUser._id) === String(userId)
       ) {
-        console.log(hour.reservingUser._id + " ?= " + userId);
         userReservations.push(hour._id);
       }
     });
@@ -285,6 +284,48 @@ roomRoutes.post("/cancel-reservation", async (req, res) => {
     );
 
     res.status(200).send("ok");
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
+roomRoutes.post("/get/user-reservations", async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const rooms = await Room.find()
+      .populate({
+        path: "timetable",
+        populate: {
+          path: "days",
+          populate: {
+            path: "hours",
+            populate: {
+              path: "reservingUser"
+            }
+          }
+        }
+      })
+      .exec();
+
+    let reservations = [];
+
+    rooms.forEach(room => {
+      room.timetable.days.forEach(day => {
+        day.hours.forEach(hour => {
+          if (hour.reservingUser !== null && hour.reservingUser._id == userId) {
+            const reservation = {
+              room: room.name,
+              dayOfWeek: day.dayOfWeek,
+              hourId: hour._id,
+              hourValue: hour.value
+            };
+            reservations.push(reservation);
+          }
+        });
+      });
+    });
+
+    res.status(200).send(reservations);
   } catch (err) {
     res.status(400).send(parseError(err));
   }
