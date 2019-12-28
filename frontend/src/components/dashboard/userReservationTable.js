@@ -96,7 +96,7 @@ const DashboardUserReservationTable = props => {
 
   return (
     <>
-      <section className="dashboard-user-reservation-container">
+      <section className="dashboard-table-container">
         <MDBDataTable
           bordered
           small

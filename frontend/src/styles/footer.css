@@ -1,0 +1,20 @@
+.footer {
+  width: 100%;
+  padding: 0.5rem 2.5rem;
+  background: #fff;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+}
+.developer-information,
+.project-information {
+  margin: 0;
+}
+.developer-information span:nth-child(1) {
+  margin-right: 0.3rem;
+}
+.footer p {
+  width: auto;
+}

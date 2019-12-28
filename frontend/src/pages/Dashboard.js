@@ -10,6 +10,7 @@ import Management from "./dashboard/Management";
 import RoomReservation from "./dashboard/RoomReservation";
 import RoomTimetable from "./dashboard/rooms/RoomTimetable";
 import Menu from "../components/menu/menu";
+import Footer from "../components/footer/footer";
 
 const Dashboard = () => (
   <>
@@ -48,8 +49,8 @@ const Dashboard = () => (
           path="/dashboard/room-reservation/pingpong"
           component={() => <RoomTimetable roomSymbol="P" />}
         />
-        Paweł Ciupka 2020
       </Container>
+      <Footer />
     </div>
   </>
 );

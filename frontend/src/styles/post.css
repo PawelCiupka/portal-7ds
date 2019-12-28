@@ -1,0 +1,28 @@
+.post {
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #42a9e9;
+}
+.post * {
+  font-size: 0.8rem !important;
+}
+.post .title {
+  font-size: 1.1rem !important;
+  font-weight: bold;
+  color: #42a9e9;
+}
+.post .created-data {
+  width: auto;
+  padding: 0.5rem 1rem 1rem 0;
+  cursor: default;
+}
+.post .created-data span {
+  padding: 0.5rem;
+  background: #42a9e9;
+  border-radius: 3px;
+  font-size: 0.8rem !important;
+  color: #fff;
+}
+.post .content {
+  margin-top: 0.7rem;
+}

@@ -13,6 +13,11 @@ export const formatDate = d => {
   );
 };
 
+export const getFullYear = () => {
+  const today = new Date();
+  return today.getFullYear();
+};
+
 export const getTodayDate = () => {
   const today = new Date();
   return formatDate(today);
@@ -76,5 +81,19 @@ export const getReservationDateString = (day, hour) => {
     ",\n godz. " +
     hour;
 
+  return result;
+};
+
+export const formatCreatedAt = createdAt => {
+  let result = "";
+  const d = new Date(createdAt);
+  const date = formatDate(createdAt);
+  const time =
+    String("0" + d.getHours()).slice(-2) +
+    ":" +
+    String("0" + d.getMinutes()).slice(-2);
+
+  result = date + " " + time;
+  console.log(result);
   return result;
 };

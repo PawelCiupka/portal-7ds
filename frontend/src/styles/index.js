@@ -10,3 +10,5 @@ import "./administrationPage.css";
 import "./userManagerPage.css";
 import "./dashboardCard.css";
 import "./dashboard.css";
+import "./footer.css";
+import "./post.css";
