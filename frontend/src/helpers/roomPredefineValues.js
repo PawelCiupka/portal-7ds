@@ -4,7 +4,7 @@ export const GRAPHCMS_API =
 export const ROOM_TITLE = {
   Gym: "Siłownia",
   Billiards: "Bilard",
-  Tv: "Salka multimedialna",
+  Tv: "Salka TV",
   Fitness: "Fitness",
   PingPong: "Ping Pong"
 };

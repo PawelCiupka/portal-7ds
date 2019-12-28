@@ -4,7 +4,13 @@ export const formatDate = d => {
   const month = date.getMonth() + 1;
   const year = date.getFullYear();
 
-  return day + "/" + month + "/" + year;
+  return (
+    String("0" + day).slice(-2) +
+    "/" +
+    String("0" + month).slice(-2) +
+    "/" +
+    year
+  );
 };
 
 export const getTodayDate = () => {
@@ -61,7 +67,14 @@ export const getReservationDateString = (day, hour) => {
     getDayName(getDatePlusNumberOfDays(5)),
     getDayName(getDatePlusNumberOfDays(6))
   ];
+
   const result =
-    "" + daysName[day] + ",\n" + getDatePlusNumberOfDays(day) + ",\n godz. " + hour;
+    "" +
+    daysName[day] +
+    ",\n " +
+    getDatePlusNumberOfDays(Number(2)) +
+    ",\n godz. " +
+    hour;
+
   return result;
 };
