@@ -122,16 +122,40 @@ i.icon {
 .cms-content {
 }
 .cms-content h1,
-.cms-content h2 {
+.cms-content h2,
+.cms-content h3,
+.cms-content h4,
+.cms-content h5,
+.cms-content h6 {
   font-weight: bold;
+  margin: 0.5rem 0 0.2rem 0;
 }
-.cms-content h1 {
+.cms-content h1,
+.cms-content h1 * {
+  font-size: 2rem !important;
+}
+.cms-content h2,
+.cms-content h2 * {
+  font-size: 1.75rem !important;
+}
+.cms-content h3,
+.cms-content h3 * {
   font-size: 1.5rem !important;
 }
-.cms-content h2 {
-  font-size: 1.25rem !important;
+.cms-content h4,
+.cms-content h4 * {
+  font-size: 1.2rem !important;
+}
+.cms-content h5,
+.cms-content h5 * {
+  font-size: 0.8rem !important;
+}
+.cms-content h6,
+.cms-content h6 * {
+  font-size: 0.6 !important;
 }
 .cms-content p {
+  min-height: 1rem;
   margin: 0.05rem 0;
 }
 /* Content from CMS - END */

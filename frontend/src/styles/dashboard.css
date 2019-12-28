@@ -49,6 +49,9 @@
 .dashboard-user-reservation-container .table td {
   vertical-align: middle;
 }
+.dashboard-user-reservation-container .table tr td:nth-child(3) .btn {
+  margin: 0 auto;
+}
 .dashboard-user-reservation-container .row .col-md-5 {
   display: none;
 }
