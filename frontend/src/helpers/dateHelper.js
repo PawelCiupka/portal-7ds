@@ -94,6 +94,5 @@ export const formatCreatedAt = createdAt => {
     String("0" + d.getMinutes()).slice(-2);
 
   result = date + " " + time;
-  console.log(result);
   return result;
 };

@@ -1,6 +1,6 @@
 .footer {
   width: 100%;
-  padding: 0.5rem 2.5rem;
+  padding: 0.5rem 15px;
   background: #fff;
 
   display: flex;
@@ -17,4 +17,41 @@
 }
 .footer p {
   width: auto;
+}
+.footer .btn {
+  font-size: 0.7rem !important;
+  padding: 0.1rem 0.3rem;
+}
+
+.footer-modal {
+  padding-left: 0px !important;
+}
+.footer-modal .modal-header,
+.footer-modal .modal-body,
+.footer-modal .modal-footer {
+  padding: 0.5rem 1rem;
+}
+.footer-modal .modal-header * {
+  font-size: 1.3rem !important;
+}
+.footer-modal .modal-header .close {
+  display: none;
+}
+.footer-modal .modal-body * {
+  font-size: 0.9rem !important;
+}
+.footer-modal .modal-footer * {
+  font-size: 0.9rem !important;
+}
+.footer-modal .modal-footer .btn {
+  padding: 0.2rem 0.4rem;
+}
+@media (min-width: 768px) {
+  .footer {
+    padding: 0.5rem 2.5rem;
+  }
+  .footer-modal .modal-dialog {
+    width: 60vw;
+    max-width: 60vw;
+  }
 }

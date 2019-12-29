@@ -1,4 +1,4 @@
-import { GRAPHCMS_API } from "../helpers/roomPredefineValues";
+import { GRAPHCMS_API } from "../helpers/appVariable";
 
 export const getRoomTimetable = async roomSymbol =>
   await fetch("/api/room/get/room-timetable", {
@@ -176,16 +176,19 @@ export const getRoomInformation = roomSymbol =>
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      query: `query { roomInformations { symbol information {html} } }`
+      query: `query { roomInformations(where: {symbol: "${roomSymbol}"}) { symbol content {html} } }`
     })
   })
     .then(response => response.json())
     .then(data => {
-      let informations = "";
-      data.data.roomInformations.forEach(room => {
-        if (room.symbol === roomSymbol) {
-          informations = room.information.html;
-        }
-      });
-      return informations;
+      let result = {
+        symbol: "",
+        content: { html: "" }
+      };
+
+      if (typeof data.data !== "undefined") {
+        result = data.data.roomInformations[0];
+      }
+
+      return result;
     });

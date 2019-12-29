@@ -8,7 +8,7 @@ const DashboardInformationPanel = () => {
 
   useEffect(() => {
     getListOfInformation().then(res => {
-      setInformations(res.data.dashboardInformations);
+      setInformations(res);
     });
   }, []);
   return (

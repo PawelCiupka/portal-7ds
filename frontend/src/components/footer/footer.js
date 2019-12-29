@@ -1,5 +1,6 @@
 import React from "react";
 import { getFullYear } from "../../helpers/dateHelper";
+import FooterRegulationModal from "./regulationModal";
 
 const Footer = () => {
   return (
@@ -13,7 +14,7 @@ const Footer = () => {
         </span>
       </p>
       <p className="project-information">
-          <a>Regulamin</a>
+        <FooterRegulationModal regulationsSymbol="regulations" />
       </p>
     </section>
   );

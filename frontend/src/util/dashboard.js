@@ -1,4 +1,4 @@
-import { GRAPHCMS_API } from "../helpers/roomPredefineValues";
+import { GRAPHCMS_API } from "../helpers/appVariable";
 
 export const getListOfInformation = () =>
   fetch(GRAPHCMS_API, {
@@ -12,7 +12,17 @@ export const getListOfInformation = () =>
   })
     .then(response => response.json())
     .then(data => {
-      return data;
+      let result = {
+        symbol: "",
+        title: "",
+        content: { html: "" }
+      };
+
+      if (typeof data.data !== "undefined") {
+        result = data.data.dashboardInformations;
+      }
+
+      return result;
     });
 
 export const getAllUserReservations = async userId =>
@@ -57,7 +67,17 @@ export const getAllRMPosts = () =>
   })
     .then(response => response.json())
     .then(data => {
-      return data.data.rMPosts;
+      let result = {
+        title: "",
+        content: { html: "" },
+        createdAt: ""
+      };
+
+      if (typeof data.data !== "undefined") {
+        result = data.data.rMPosts;
+      }
+
+      return result;
     });
 
 export const getAllAdministrationPosts = () =>
@@ -72,5 +92,15 @@ export const getAllAdministrationPosts = () =>
   })
     .then(response => response.json())
     .then(data => {
-      return data.data.administrationPosts;
+      let result = {
+        title: "",
+        content: { html: "" },
+        createdAt: ""
+      };
+
+      if (typeof data.data !== "undefined") {
+        result = data.data.administrationPosts;
+      }
+
+      return result;
     });

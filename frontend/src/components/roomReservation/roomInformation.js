@@ -2,21 +2,21 @@ import React, { useState, useEffect } from "react";
 import { getRoomInformation } from "../../util/room";
 
 const RoomReservationRoomInformation = props => {
-  const [informations, setInformations] = useState("");
+  const [information, setInformation] = useState("");
 
   useEffect(() => {
     getRoomInformation(props.roomSymbol).then(res => {
-      setInformations(res);
+      setInformation(res);
     });
   }, []);
 
   return (
     <>
       <section>
-        {informations !== "" ? (
+        {information !== "" && information !== null ? (
           <div
             className="cms-content"
-            dangerouslySetInnerHTML={{ __html: informations }}
+            dangerouslySetInnerHTML={{ __html: information.content.html }}
           />
         ) : null}
       </section>
