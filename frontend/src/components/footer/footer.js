@@ -8,7 +8,11 @@ const Footer = () => {
       <p className="developer-information">
         <span>© {getFullYear()}</span>
         <span>
-          <a href="https://github.com/pawelciupka" target="_blank">
+          <a
+            href="https://github.com/pawelciupka"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Paweł Ciupka
           </a>
         </span>

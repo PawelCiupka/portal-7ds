@@ -159,3 +159,11 @@ i.icon {
   margin: 0.05rem 0;
 }
 /* Content from CMS - END */
+
+/* Modal from React Bootstrap - START */
+@media (max-width: 768px) {
+  .modal-dialog {
+    margin-top: 4.5rem !important;
+  }
+}
+/* Modal from React Bootstrap - END */
