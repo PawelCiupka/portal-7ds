@@ -11,6 +11,7 @@ import RoomReservation from "./dashboard/RoomReservation";
 import RoomTimetable from "./dashboard/rooms/RoomTimetable";
 import Menu from "../components/menu/menu";
 import Footer from "../components/footer/footer";
+import Contact from "./dashboard/Contact";
 
 const Dashboard = () => (
   <>
@@ -25,6 +26,7 @@ const Dashboard = () => (
           path="/dashboard/management"
           component={Management}
         />
+        <ProtectedRoute path="/dashboard/contact" component={Contact} />
         <ProtectedRoute
           path="/dashboard/room-reservation/menu"
           component={RoomReservation}

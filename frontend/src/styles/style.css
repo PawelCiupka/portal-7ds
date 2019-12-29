@@ -19,7 +19,7 @@
 }
 
 #dashboard-container {
-  min-height: calc(100vh - 5.2rem);
+  min-height: calc(100vh - 4rem);
 }
 
 .navbar {
@@ -161,6 +161,9 @@ i.icon {
 /* Content from CMS - END */
 
 /* Modal from React Bootstrap - START */
+.modal-header .close {
+  display: none;
+}
 @media (max-width: 768px) {
   .modal-dialog {
     margin-top: 4.5rem !important;

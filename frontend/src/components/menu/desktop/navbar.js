@@ -24,6 +24,11 @@ const DesktopNavbar = props => {
             iconName="calendar alternate outline"
             text="Rezerwacja salek"
           />
+          <DesktopNavbarItem
+            href="/dashboard/contact"
+            iconName="comments"
+            text="Kontakt"
+          />
           <DesktopNavbarItemBlank
             href="https://www.facebook.com/groups/7ds.lodz/"
             iconName="facebook"
