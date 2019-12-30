@@ -44,7 +44,6 @@ mailRoutes.post("/send/to/rm", async (req, res) => {
 
     res.status(200).send("success");
   } catch (err) {
-    console.log(err);
     res.status(400).send(parseError(err));
   }
 });
@@ -71,7 +70,6 @@ mailRoutes.post("/send/to/internet", async (req, res) => {
 
     res.status(200).send("success");
   } catch (err) {
-    console.log(err);
     res.status(400).send(parseError(err));
   }
 });
@@ -98,7 +96,6 @@ mailRoutes.post("/send/to/dorm-administration", async (req, res) => {
 
     res.status(200).send("success");
   } catch (err) {
-    console.log(err);
     res.status(400).send(parseError(err));
   }
 });
