@@ -7,6 +7,10 @@ const Contact = () => {
       <div className="dashboard-page-title">
         <h4>Kontakt</h4>
       </div>
+      <p>
+        W wiadomości wykorzystane są informację o Tobie, które widnieją na
+        portalu, więc nie musisz się przedstawiać :)
+      </p>
       <ContactFormList />
     </>
   );

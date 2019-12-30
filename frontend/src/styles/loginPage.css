@@ -54,6 +54,7 @@
   border-top-right-radius: 2rem !important;
   border-bottom-right-radius: 2rem !important;
   color: #42a9e9;
+  font-size: 0.9rem;
 }
 .login-form .form-control:focus,
 .login-form .form-control:hover,
@@ -61,6 +62,7 @@
 .login-form .form-control:checked,
 .login-form .form-control:visited {
   background: rgba(255, 255, 255, 0.3);
+  color: #42a9e9;
 }
 .login-form .form-control::placeholder {
   color: #42a9e9;

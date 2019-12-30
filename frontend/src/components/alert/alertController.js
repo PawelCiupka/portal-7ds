@@ -3,7 +3,8 @@ import {
   TICKET,
   USER,
   MANAGEMENT,
-  ROOM_RESERVATION
+  ROOM_RESERVATION,
+  MAIL
 } from "../../helpers/alerts/predefinedMessages";
 
 export const mapAlertDispatchToProps = dispatch => ({
@@ -17,3 +18,4 @@ export const TicketAlerts = TICKET;
 export const UserAlerts = USER;
 export const ManagementAlerts = MANAGEMENT;
 export const RoomReservationAlerts = ROOM_RESERVATION;
+export const MailAlerts = MAIL;

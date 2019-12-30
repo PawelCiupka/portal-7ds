@@ -12,3 +12,4 @@ import "./dashboardCard.css";
 import "./dashboard.css";
 import "./footer.css";
 import "./post.css";
+import "./contact.css";

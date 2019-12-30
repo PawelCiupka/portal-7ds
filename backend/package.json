@@ -14,6 +14,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-mongo": "^3.1.2",
+    "cors": "^2.8.5",
     "crypto-js": "^3.1.9-1",
     "dotenv": "^8.2.0",
     "esm": "^3.2.25",
@@ -22,7 +23,8 @@
     "joi": "^14.3.1",
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.7",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "nodemailer": "^6.4.2"
   },
   "devDependencies": {
     "nodemon": "^1.19.4"

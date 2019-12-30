@@ -10,7 +10,8 @@ export const TICKET = {
 
 export const USER = {
   success: {
-    update_information: "Dane osobowe zostały zmienione - nastąpi przeładowanie strony",
+    update_information:
+      "Dane osobowe zostały zmienione - nastąpi przeładowanie strony",
     update_security: "Hasło zostało zmienione"
   },
   error: {
@@ -39,5 +40,14 @@ export const ROOM_RESERVATION = {
     permission: "Nie masz uprawnień do rezerwacji tej salki",
     limit_reservation_day: "Osiągnięto limit rezerwacji salki w wybranym dniu",
     limit_reservation_week: "Osiągnięto limit rezerwacji salki"
+  }
+};
+
+export const MAIL = {
+  success: {
+    mail_send: "Wiadomość została wysłana"
+  },
+  error: {
+    mail_send: "Nie udało się wysłać wiadomości. Spróbuj później."
   }
 };

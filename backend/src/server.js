@@ -60,6 +60,7 @@ dotenv.config();
     apiRouter.use("/management", routes.managementRoutes);
     apiRouter.use("/helper", routes.helperRoutes);
     apiRouter.use("/room", routes.roomRoutes);
+    apiRouter.use("/mail", routes.mailRoutes);
 
     app.get("*", function(request, response) {
       response.sendFile(

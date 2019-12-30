@@ -4,6 +4,7 @@ import ticketRoutes from "./ticket";
 import managementRoutes from "./management";
 import helperRoutes from "./helper";
 import roomRoutes from "./room";
+import mailRoutes from "./mail";
 
 export {
   userRoutes,
@@ -11,5 +12,6 @@ export {
   ticketRoutes,
   managementRoutes,
   helperRoutes,
-  roomRoutes
+  roomRoutes,
+  mailRoutes
 };

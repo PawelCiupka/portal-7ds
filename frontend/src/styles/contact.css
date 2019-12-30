@@ -1,0 +1,33 @@
+.contact-list .card-header {
+  display: flex;
+  align-items: center;
+}
+.contact-list .card-header div:nth-child(1) {
+  height: 100%;
+  width: auto;
+}
+.contact-list .card-header div:nth-child(2) {
+  height: 100%;
+  width: auto;
+}
+.contact-list .card-header .btn {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  margin-right: 1rem;
+  text-align: center;
+  vertical-align: center;
+}
+.contact-list .card-header .btn .icon {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+
+.contact-list .form-group {
+  margin-bottom: 0.5rem;
+}
+.letters-counter {
+  font-size: 0.8rem !important;
+  text-align: right;
+}

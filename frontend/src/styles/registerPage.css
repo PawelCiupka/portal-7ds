@@ -40,6 +40,7 @@
   border-top-left-radius: 2rem !important;
   border-bottom-left-radius: 2rem !important;
   color: #42a9e9;
+  font-size: 0.9rem;
 }
 .register-form .form-control:focus,
 .register-form .form-control:hover,
@@ -47,6 +48,7 @@
 .register-form .form-control:checked,
 .register-form .form-control:visited {
   background: rgba(255, 255, 255, 0.3);
+  color: #42a9e9;
 }
 .register-form .form-control::placeholder {
   color: #42a9e9;
