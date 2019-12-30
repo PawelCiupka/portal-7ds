@@ -48,6 +48,19 @@ export const rejectUnverifiedUser = userId =>
     return response;
   });
 
+export const removeUser = async userId =>
+  fetch("/api/management/remove-user", {
+    method: "POST",
+    body: JSON.stringify({
+      id: userId
+    }),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  }).then(response => {
+    return response;
+  });
+
 export const getAllUsers = () =>
   fetch("/api/management/get-all-users", {
     method: "POST",

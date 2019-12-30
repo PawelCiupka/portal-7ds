@@ -59,7 +59,7 @@ const AdministrationUnverifiedUsersTable = () => {
         action: (
           <div className="flex-center">
             <Button
-              variant="success"
+              variant="primary"
               size="sm"
               onClick={() => editUser(user._id)}
             >
@@ -88,7 +88,7 @@ const AdministrationUnverifiedUsersTable = () => {
         {showUserDetails ? (
           <AdministrationUserDetailsModal user={detailedUser} />
         ) : null}
-        <h5>Zarządanie użytkownikami</h5>
+        <h5>Zarządzanie użytkownikami</h5>
         <MDBDataTable
           bordered
           responsive

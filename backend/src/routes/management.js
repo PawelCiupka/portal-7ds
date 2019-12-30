@@ -69,6 +69,18 @@ managementRoutes.post("/reject-unverified-user", async (req, res) => {
   }
 });
 
+managementRoutes.post("/remove-user", async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    await User.deleteOne({ _id: id });
+
+    res.status(200).send("success");
+  } catch (err) {
+    res.status(400).send(parseError(err));
+  }
+});
+
 managementRoutes.post("/get-all-users", async (req, res) => {
   try {
     const users = await User.find({ room: { $ne: "000" } }).sort({ room: 1 });

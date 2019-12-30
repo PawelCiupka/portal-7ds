@@ -77,7 +77,7 @@ export const getReservationDateString = (day, hour) => {
     "" +
     daysName[day] +
     ",\n " +
-    getDatePlusNumberOfDays(Number(2)) +
+    getDatePlusNumberOfDays(Number(day)) +
     ",\n godz. " +
     hour;
 

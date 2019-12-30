@@ -13,7 +13,7 @@ import FormikInputFormGroup from "../formik/inputFormGroup";
 import FormikSelectFormGroup from "../formik/selectFormGroup";
 import FormikCheckboxFormGroup from "../formik/checkboxFormGroup";
 import { formatDate } from "../../helpers/dateHelper";
-import { updateUser } from "../../util/management";
+import { updateUser, removeUser } from "../../util/management";
 import {
   mapAlertDispatchToProps,
   ManagementAlerts
@@ -54,6 +54,22 @@ const AdministrationUserDetailsModal = props => {
 
   const handleClose = () => setShow(false);
 
+  const removeUserAccount = async () => {
+    handleClose();
+
+    await removeUser(props.user._id).then(resp => {
+      if (resp.status === 200) {
+        props.showSuccessAlert({
+          message: ManagementAlerts.success.remove_user
+        });
+      } else {
+        props.showErrorAlert({
+          message: ManagementAlerts.error.remove_user
+        });
+      }
+    });
+  };
+
   const handleSubmit = async values => {
     const user = {
       id: props.user._id,
@@ -92,7 +108,7 @@ const AdministrationUserDetailsModal = props => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className="administration-modal">
         <Modal.Header closeButton>
           <Modal.Title>
             Zarządzaj użytkownikiem: {props.user.username}
@@ -252,12 +268,23 @@ const AdministrationUserDetailsModal = props => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" type="submit" onClick={formik.handleSubmit}>
-            Zmień
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
-            Zamknij
-          </Button>
+          <div>
+            <Button variant="danger" onClick={removeUserAccount}>
+              Usuń
+            </Button>
+          </div>
+          <div>
+            <Button
+              variant="success"
+              type="submit"
+              onClick={formik.handleSubmit}
+            >
+              Zmień
+            </Button>
+            <Button variant="secondary" onClick={handleClose}>
+              Zamknij
+            </Button>
+          </div>
         </Modal.Footer>
       </Modal>
     </>

@@ -22,10 +22,12 @@ export const USER = {
 
 export const MANAGEMENT = {
   success: {
-    update_user: "Dane użytkownika zostały zmienione"
+    update_user: "Dane użytkownika zostały zmienione",
+    remove_user: "Użytkownik został usunięty"
   },
   error: {
-    update_user: "Nie udało zmienić się danych użytkownika"
+    update_user: "Nie udało zmienić się danych użytkownika",
+    remove_user: "Nie udało się usunąć użytkownika"
   }
 };
 
